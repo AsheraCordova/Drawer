@@ -1,0 +1,9 @@
+repositories {
+    mavenLocal();
+    google();
+    jcenter();
+}
+
+dependencies {
+	implementation group: 'androidx.drawerlayout', name: 'drawerlayout', version: '1.0.0'
+}

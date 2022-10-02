@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.ashera.drawerlayout.ios"
+        version="1.0">
+
+  <name>CordovaNavigationDrawerPlugin Plugin</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+  
+  <platform name="ios">
+    <config-file target="config.xml" parent="/widget">
+      <feature name="CordovaNavigationDrawerPlugin">
+        	<param name="ios-package" value="CordovaNavigationDrawerPlugin" />
+         	<param name="onload" value="true" />
+      </feature>
+    </config-file>
+
+   	 <!-- start ios -->
+     <header-file src="ios/src/CordovaNavigationDrawerPlugin.h" target-dir="NavigationDrawerPlugin/ios/src"/>
+     <source-file src="ios/src/CordovaNavigationDrawerPlugin.m" target-dir="NavigationDrawerPlugin/ios/src" compiler-flags="-fobjc-arc-exceptions"/>
+     <header-file src="ios/src/DrawerLayoutImpl.h" target-dir="NavigationDrawerPlugin/ios/src"/>
+     <source-file src="ios/src/DrawerLayoutImpl.m" target-dir="NavigationDrawerPlugin/ios/src" compiler-flags="-fobjc-arc-exceptions"/>
+     <header-file src="ios/src/NavigationDrawerPlugin.h" target-dir="NavigationDrawerPlugin/ios/src"/>
+     <source-file src="ios/src/NavigationDrawerPlugin.m" target-dir="NavigationDrawerPlugin/ios/src" compiler-flags="-fobjc-arc-exceptions"/>
+     <!-- ios end -->
+     <!-- start tsc -->
+     <source-file src="tsc/src/ios/widget/DrawerLayoutImpl.ts" target-dir="tsc/src/ios/widget"/>
+     <!-- tsc end -->
+     <!-- start AndroidXDrawerLayout -->
+     <header-file src="library/AndroidXDrawerLayout/src/DrawerLayout.h" target-dir="AndroidXDrawerLayout/AndroidXDrawerLayout/src"/>
+     <source-file src="library/AndroidXDrawerLayout/src/DrawerLayout.m" target-dir="AndroidXDrawerLayout/AndroidXDrawerLayout/src" compiler-flags="-fno-objc-arc"/>
+     <!-- AndroidXDrawerLayout end -->
+  </platform>
+  
+
+
+</plugin>
