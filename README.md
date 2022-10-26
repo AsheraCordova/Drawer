@@ -23,7 +23,7 @@ Name                	| Description
 animationDurationInMs | Controls the animation duration in milli seconds of opening and closing of the drawer. e.g 3000 (3 seconds).
 
 
-The following shows an example of Drawer layout:
+The following shows an example of DrawerLayout:
 
 ```
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
