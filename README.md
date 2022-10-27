@@ -13,6 +13,11 @@ https://asheracordova.github.io/doc/help-doc.html
 
 https://asheracordova.github.io/doc/androidx/drawerlayout/widget/DrawerLayout.html
 
+To install the plugin use:
+
+```
+cordova plugin add https://github.com/AsheraCordova/Drawer.git
+```
 
 ## Custom Attributes
 
