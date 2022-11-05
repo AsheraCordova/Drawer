@@ -920,6 +920,10 @@ public java.util.Map<String, Object> getOnDrawerSlideEventObj(View drawerView,fl
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
     
+    if (w.getComponentId() != null) {
+    	obj.put("componentId", w.getComponentId());
+    }
+    
     PluginInvoker.putJSONSafeObjectIntoMap(obj, "id", w.getId());
      
         PluginInvoker.putJSONSafeObjectIntoMap(obj, "slideOffset", slideOffset);
@@ -977,6 +981,10 @@ public java.util.Map<String, Object> getOnDrawerOpenedEventObj(View drawerView) 
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
     
+    if (w.getComponentId() != null) {
+    	obj.put("componentId", w.getComponentId());
+    }
+    
     PluginInvoker.putJSONSafeObjectIntoMap(obj, "id", w.getId());
      
     
@@ -1033,6 +1041,10 @@ public java.util.Map<String, Object> getOnDrawerClosedEventObj(View drawerView) 
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
     
+    if (w.getComponentId() != null) {
+    	obj.put("componentId", w.getComponentId());
+    }
+    
     PluginInvoker.putJSONSafeObjectIntoMap(obj, "id", w.getId());
      
     
@@ -1088,6 +1100,10 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
     obj.put("eventType", "drawerstatechanged");
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
+    
+    if (w.getComponentId() != null) {
+    	obj.put("componentId", w.getComponentId());
+    }
     
     PluginInvoker.putJSONSafeObjectIntoMap(obj, "id", w.getId());
      

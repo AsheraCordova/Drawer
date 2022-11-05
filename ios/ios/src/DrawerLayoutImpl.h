@@ -343,6 +343,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setBackgroundWithNSString:(NSString *)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setChildXmlWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setClickableWithBoolean:(jboolean)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setClipChildrenWithBoolean:(jboolean)arg0;
