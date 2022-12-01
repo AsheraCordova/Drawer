@@ -8,7 +8,7 @@ dependencies {
 	def project_version = '1.0.0';
 	
 	//drawer layout
-	implementation "com.ashera:SWTAndroidXDrawerLayout:${project_version}"
+	implementation "com.ashera:AndroidXJDrawerLayout:${project_version}"
 	implementation "com.ashera:SWTNavigationDrawerPlugin:${project_version}"
     
 }
