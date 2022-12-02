@@ -28,7 +28,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.ashera</groupId>
-			<artifactId>SWTAndroidXDrawerLayout</artifactId>
+			<artifactId>AndroidXJDrawerLayout</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
