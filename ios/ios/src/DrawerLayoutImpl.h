@@ -25,6 +25,7 @@
 @class ASDrawerLayoutImpl_DrawerLayoutCommandParamsBuilder;
 @class ASDrawerLayoutImpl_DrawerLayoutParamsBean;
 @class ASWidgetAttribute;
+@class IOSClass;
 @protocol ASIFragment;
 @protocol ASILifeCycleDecorator;
 @protocol ASIWidget;
@@ -70,6 +71,8 @@
 
 - (id)getPluginWithNSString:(NSString *)plugin;
 
+- (IOSClass *)getViewClass;
+
 - (void)initialized OBJC_METHOD_FAMILY_NONE;
 
 - (void)invalidate;
@@ -103,8 +106,7 @@
 
 - (void)setIdWithNSString:(NSString *)id_;
 
-- (void)updateMeasuredDimensionWithInt:(jint)width
-                               withInt:(jint)height;
+- (void)setVisibleWithBoolean:(jboolean)b;
 
 #pragma mark Package-Private
 
@@ -197,9 +199,11 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 #define INCLUDE_ASIMaxDimension 1
 #include "IMaxDimension.h"
 
+@class ADRect;
 @class ADView;
 @class ASDrawerLayoutImpl;
 @class ASWidgetAttribute;
+@class IOSIntArray;
 @class IOSObjectArray;
 @protocol ASIWidget;
 @protocol JavaUtilList;
@@ -217,11 +221,17 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 
 - (id)getAttributeWithASWidgetAttribute:(ASWidgetAttribute *)widgetAttribute;
 
+- (void)getLocationOnScreenWithIntArray:(IOSIntArray *)appScreenLocation;
+
 - (jint)getMaxHeight;
 
 - (jint)getMaxWidth;
 
 - (id<JavaUtilList>)getMethods;
+
+- (void)getWindowVisibleDisplayFrameWithADRect:(ADRect *)displayFrame;
+
+- (ADView *)inflateViewWithNSString:(NSString *)layout;
 
 - (void)initialized OBJC_METHOD_FAMILY_NONE;
 
@@ -234,6 +244,10 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 - (void)onMeasureWithInt:(jint)widthMeasureSpec
                  withInt:(jint)heightMeasureSpec;
 
+- (void)remeasure;
+
+- (void)removeFromParent;
+
 - (void)setAttributeWithASWidgetAttribute:(ASWidgetAttribute *)widgetAttribute
                              withNSString:(NSString *)strValue
                                    withId:(id)objValue;
@@ -241,6 +255,9 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 - (void)setMaxHeightWithInt:(jint)height;
 
 - (void)setMaxWidthWithInt:(jint)width;
+
+- (void)setMyAttributeWithNSString:(NSString *)name
+                            withId:(id)value;
 
 - (void)setVisibilityWithInt:(jint)visibility;
 
@@ -463,6 +480,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setMinWidthWithNSString:(NSString *)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setModelDescPathWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setModelForWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setModelIdPathWithNSString:(NSString *)arg0;
@@ -499,7 +518,11 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnLongClickWithNSString:(NSString *)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnSwipedWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnTouchWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOutsideTouchableWithBoolean:(jboolean)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setPaddingBottomWithNSString:(NSString *)arg0;
 
@@ -680,6 +703,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetMinHeight;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetMinWidth;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetModelDescPath;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetModelIdPath;
 

@@ -13,6 +13,7 @@
 #include "EventExpressionParser.h"
 #include "Gravity.h"
 #include "GravityCompat.h"
+#include "HasWidgets.h"
 #include "IActivity.h"
 #include "IAttributable.h"
 #include "IFragment.h"
@@ -20,6 +21,7 @@
 #include "IListener.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
+#include "IOSPrimitiveArray.h"
 #include "IWidget.h"
 #include "IWidgetLifeCycleListener.h"
 #include "IdGenerator.h"
@@ -27,6 +29,7 @@
 #include "MeasureEvent.h"
 #include "OnLayoutEvent.h"
 #include "PluginInvoker.h"
+#include "Rect.h"
 #include "View.h"
 #include "ViewGroup.h"
 #include "ViewGroupImpl.h"
@@ -51,6 +54,7 @@
 @protocol JavaUtilMap;
 
 
+#pragma clang diagnostic ignored "-Wprotocol"
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 
 @interface ASDrawerLayoutImpl () {
@@ -135,8 +139,6 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams;
 
 - (void)hideDrawerViewWithADView:(ADView *)drawerView;
 
-- (void)updateDrawerViewStateWithASIWidget:(id<ASIWidget>)widget;
-
 - (void)updateDrawerViewStateWithASIWidget:(id<ASIWidget>)widget
                                    withInt:(jint)currentX;
 
@@ -156,18 +158,8 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams;
 
 - (void)updateStateWithInt:(jint)currentX;
 
-- (void)animateViewWithASIWidget:(id<ASIWidget>)child
-                         withInt:(jint)x
-                         withInt:(jint)y;
-
-- (void)nativeAnimateWithId:(id)objview
-                    withInt:(jint)x
-                    withInt:(jint)y;
-
 - (void)updateXWithId:(id)objview
               withInt:(jint)x;
-
-- (jint)getCurrentXWithId:(id)objview;
 
 - (void)handleDragOfDrawerWithInt:(jint)eventX
                            withId:(id)uiview;
@@ -245,8 +237,6 @@ __attribute__((unused)) static jint ASDrawerLayoutImpl_getGravityWithADView_(ASD
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_hideDrawerViewWithADView_(ASDrawerLayoutImpl *self, ADView *drawerView);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget);
-
 __attribute__((unused)) static void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, jint currentX);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_setEdgeSizeWithId_(ASDrawerLayoutImpl *self, id objValue);
@@ -265,13 +255,7 @@ __attribute__((unused)) static void ASDrawerLayoutImpl_addUIPanGestureRecognizer
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_updateStateWithInt_(ASDrawerLayoutImpl *self, jint currentX);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_animateViewWithASIWidget_withInt_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> child, jint x, jint y);
-
-__attribute__((unused)) static void ASDrawerLayoutImpl_nativeAnimateWithId_withInt_withInt_(ASDrawerLayoutImpl *self, id objview, jint x, jint y);
-
 __attribute__((unused)) static void ASDrawerLayoutImpl_updateXWithId_withInt_(ASDrawerLayoutImpl *self, id objview, jint x);
-
-__attribute__((unused)) static jint ASDrawerLayoutImpl_getCurrentXWithId_(ASDrawerLayoutImpl *self, id objview);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *self, jint eventX, id uiview);
 
@@ -297,12 +281,14 @@ J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLockMode, mapping_, id<JavaUtilMap>
   ASOnLayoutEvent *onLayoutEvent_;
   jint mMaxWidth_;
   jint mMaxHeight_;
+  id<JavaUtilMap> templates_;
 }
 
 @end
 
 J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLayoutExt, measureFinished_, ASMeasureEvent *)
 J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLayoutExt, onLayoutEvent_, ASOnLayoutEvent *)
+J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLayoutExt, templates_, id<JavaUtilMap>)
 
 @interface ASDrawerLayoutImpl_DrawerListener : NSObject < ADXDrawerLayout_DrawerListener, ASIListener > {
  @public
@@ -401,6 +387,25 @@ __attribute__((unused)) static ASDrawerLayoutImpl_BlurredPanelClickListener *cre
 
 J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_BlurredPanelClickListener)
 
+@interface ASDrawerLayoutImpl_$Lambda$1 : NSObject < ASViewImpl_AnimationCallBack > {
+ @public
+  ASDrawerLayoutImpl *this$0_;
+  id<ASIWidget> val$child_;
+}
+
+- (void)animatingWithInt:(jint)currentX
+                 withInt:(jint)currentY;
+
+@end
+
+J2OBJC_EMPTY_STATIC_INIT(ASDrawerLayoutImpl_$Lambda$1)
+
+__attribute__((unused)) static void ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl_$Lambda$1 *self, ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0);
+
+__attribute__((unused)) static ASDrawerLayoutImpl_$Lambda$1 *new_ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0) NS_RETURNS_RETAINED;
+
+__attribute__((unused)) static ASDrawerLayoutImpl_$Lambda$1 *create_ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0);
+
 NSString *ASDrawerLayoutImpl_LOCAL_NAME = @"androidx.drawerlayout.widget.DrawerLayout";
 NSString *ASDrawerLayoutImpl_GROUP_NAME = @"androidx.drawerlayout.widget.DrawerLayout";
 
@@ -410,10 +415,6 @@ NSString *ASDrawerLayoutImpl_GROUP_NAME = @"androidx.drawerlayout.widget.DrawerL
 
 - (void)loadAttributesWithNSString:(NSString *)localName {
   ASViewGroupImpl_register__WithNSString_(localName);
-  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"openDrawer"])) withTypeWithNSString:@"gravity"]);
-  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"closeDrawer"])) withTypeWithNSString:@"gravity"]);
-  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"scrimColor"])) withTypeWithNSString:@"color"]);
-  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"animationDurationInMs"])) withTypeWithNSString:@"int"]);
   ASConverterFactory_register__WithNSString_withASIConverter_(@"androidx.drawerlayout.widget.DrawerLayout.drawerLockMode", new_ASDrawerLayoutImpl_DrawerLockMode_init());
   ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"drawerLockMode"])) withTypeWithNSString:@"androidx.drawerlayout.widget.DrawerLayout.drawerLockMode"]);
   ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"onDrawerSlide"])) withTypeWithNSString:@"string"]);
@@ -424,6 +425,10 @@ NSString *ASDrawerLayoutImpl_GROUP_NAME = @"androidx.drawerlayout.widget.DrawerL
   ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"isOpenStart"])) withTypeWithNSString:@"boolean"]);
   ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"isOpenEnd"])) withTypeWithNSString:@"boolean"]);
   ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"edgeSize"])) withTypeWithNSString:@"dimension"]);
+  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"openDrawer"])) withTypeWithNSString:@"gravity"]);
+  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"closeDrawer"])) withTypeWithNSString:@"gravity"]);
+  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"scrimColor"])) withTypeWithNSString:@"color"]);
+  ASWidgetFactory_registerAttributeWithNSString_withASWidgetAttribute_Builder_(localName, [((ASWidgetAttribute_Builder *) nil_chk([new_ASWidgetAttribute_Builder_init() withNameWithNSString:@"animationDurationInMs"])) withTypeWithNSString:@"int"]);
 }
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
@@ -445,7 +450,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (id<ASIWidget>)newInstance {
-  return new_ASDrawerLayoutImpl_init();
+  return new_ASDrawerLayoutImpl_initWithNSString_withNSString_(groupName_, localName_);
 }
 
 - (void)createWithASIFragment:(id<ASIFragment>)fragment
@@ -538,9 +543,8 @@ J2OBJC_IGNORE_DESIGNATED_END
   return nil;
 }
 
-- (void)updateMeasuredDimensionWithInt:(jint)width
-                               withInt:(jint)height {
-  [((ASDrawerLayoutImpl_DrawerLayoutExt *) nil_chk(((ASDrawerLayoutImpl_DrawerLayoutExt *) cast_chk(drawerLayout_, [ASDrawerLayoutImpl_DrawerLayoutExt class])))) updateMeasuredDimensionWithInt:width withInt:height];
+- (IOSClass *)getViewClass {
+  return ASDrawerLayoutImpl_DrawerLayoutExt_class_();
 }
 
 - (void)setAttributeWithASWidgetAttribute:(ASWidgetAttribute *)key
@@ -549,33 +553,13 @@ J2OBJC_IGNORE_DESIGNATED_END
                 withASILifeCycleDecorator:(id<ASILifeCycleDecorator>)decorator {
   ASViewGroupImpl_setAttributeWithASIWidget_withASWidgetAttribute_withNSString_withId_withASILifeCycleDecorator_(self, key, strValue, objValue, decorator);
   id nativeWidget = [self asNativeWidget];
-  switch (JreIndexOfStr([((ASWidgetAttribute *) nil_chk(key)) getAttributeName], (id[]){ @"openDrawer", @"closeDrawer", @"scrimColor", @"animationDurationInMs", @"drawerLockMode", @"onDrawerSlide", @"onDrawerOpened", @"onDrawerClosed", @"onDrawerStateChange", @"drawerGravity", @"edgeSize" }, 11)) {
+  switch (JreIndexOfStr([((ASWidgetAttribute *) nil_chk(key)) getAttributeName], (id[]){ @"drawerLockMode", @"onDrawerSlide", @"onDrawerOpened", @"onDrawerClosed", @"onDrawerStateChange", @"drawerGravity", @"edgeSize", @"openDrawer", @"closeDrawer", @"scrimColor", @"animationDurationInMs" }, 11)) {
     case 0:
-    {
-      ASDrawerLayoutImpl_openDrawerWithId_(self, objValue);
-    }
-    break;
-    case 1:
-    {
-      ASDrawerLayoutImpl_closeDrawerWithId_(self, objValue);
-    }
-    break;
-    case 2:
-    {
-      ASDrawerLayoutImpl_setScrimColorWithId_(self, objValue);
-    }
-    break;
-    case 3:
-    {
-      ASDrawerLayoutImpl_setAnimationDurationWithId_(self, objValue);
-    }
-    break;
-    case 4:
     {
       [((ADXDrawerLayout *) nil_chk(drawerLayout_)) setDrawerLockModeWithInt:[((JavaLangInteger *) nil_chk((JavaLangInteger *) cast_chk(objValue, [JavaLangInteger class]))) intValue]];
     }
     break;
-    case 5:
+    case 1:
     {
       if ([objValue isKindOfClass:[NSString class]]) {
         ASDrawerLayoutImpl_setDrawerListenerWithADXDrawerLayout_DrawerListener_(self, new_ASDrawerLayoutImpl_DrawerListener_initWithASIWidget_withNSString_withNSString_(self, strValue, @"onDrawerSlide"));
@@ -585,7 +569,7 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
     break;
-    case 6:
+    case 2:
     {
       if ([objValue isKindOfClass:[NSString class]]) {
         ASDrawerLayoutImpl_setDrawerListenerWithADXDrawerLayout_DrawerListener_(self, new_ASDrawerLayoutImpl_DrawerListener_initWithASIWidget_withNSString_withNSString_(self, strValue, @"onDrawerOpened"));
@@ -595,7 +579,7 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
     break;
-    case 7:
+    case 3:
     {
       if ([objValue isKindOfClass:[NSString class]]) {
         ASDrawerLayoutImpl_setDrawerListenerWithADXDrawerLayout_DrawerListener_(self, new_ASDrawerLayoutImpl_DrawerListener_initWithASIWidget_withNSString_withNSString_(self, strValue, @"onDrawerClosed"));
@@ -605,7 +589,7 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
     break;
-    case 8:
+    case 4:
     {
       if ([objValue isKindOfClass:[NSString class]]) {
         ASDrawerLayoutImpl_setDrawerListenerWithADXDrawerLayout_DrawerListener_(self, new_ASDrawerLayoutImpl_DrawerListener_initWithASIWidget_withNSString_withNSString_(self, strValue, @"onDrawerStateChange"));
@@ -615,14 +599,34 @@ J2OBJC_IGNORE_DESIGNATED_END
       }
     }
     break;
-    case 9:
+    case 5:
     {
       ASDrawerLayoutImpl_setDrawerGravityWithId_(self, objValue);
     }
     break;
-    case 10:
+    case 6:
     {
       ASDrawerLayoutImpl_setEdgeSizeWithId_(self, objValue);
+    }
+    break;
+    case 7:
+    {
+      ASDrawerLayoutImpl_openDrawerWithId_(self, objValue);
+    }
+    break;
+    case 8:
+    {
+      ASDrawerLayoutImpl_closeDrawerWithId_(self, objValue);
+    }
+    break;
+    case 9:
+    {
+      ASDrawerLayoutImpl_setScrimColorWithId_(self, objValue);
+    }
+    break;
+    case 10:
+    {
+      ASDrawerLayoutImpl_setAnimationDurationWithId_(self, objValue);
     }
     break;
     default:
@@ -785,10 +789,6 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   ASDrawerLayoutImpl_hideDrawerViewWithADView_(self, drawerView);
 }
 
-- (void)updateDrawerViewStateWithASIWidget:(id<ASIWidget>)widget {
-  ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_(self, widget);
-}
-
 - (void)updateDrawerViewStateWithASIWidget:(id<ASIWidget>)widget
                                    withInt:(jint)currentX {
   ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(self, widget, currentX);
@@ -807,6 +807,10 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
     [super setIdWithNSString:id_];
     [((ADXDrawerLayout *) nil_chk(drawerLayout_)) setIdWithInt:ASIdGenerator_getIdWithNSString_(id_)];
   }
+}
+
+- (void)setVisibleWithBoolean:(jboolean)b {
+  [((ADView *) nil_chk(((ADView *) cast_chk([self asWidget], [ADView class])))) setVisibilityWithInt:b ? ADView_VISIBLE : ADView_GONE];
 }
 
 - (id)getPluginWithNSString:(NSString *)plugin {
@@ -896,35 +900,13 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   }
 }
 
--(void)animationDidUpdate {
-  UIView* uiview = (UIView*)[self->animatingWidget_ asNativeWidget];
-  CALayer* calayer =  ((CALayer*)uiview.layer.presentationLayer);
-  [self updateStateWithInt: calayer.frame.origin.x];
-}
-
 - (void)updateStateWithInt:(jint)currentX {
   ASDrawerLayoutImpl_updateStateWithInt_(self, currentX);
-}
-
-- (void)animateViewWithASIWidget:(id<ASIWidget>)child
-                         withInt:(jint)x
-                         withInt:(jint)y {
-  ASDrawerLayoutImpl_animateViewWithASIWidget_withInt_withInt_(self, child, x, y);
-}
-
-- (void)nativeAnimateWithId:(id)objview
-                    withInt:(jint)x
-                    withInt:(jint)y {
-  ASDrawerLayoutImpl_nativeAnimateWithId_withInt_withInt_(self, objview, x, y);
 }
 
 - (void)updateXWithId:(id)objview
               withInt:(jint)x {
   ASDrawerLayoutImpl_updateXWithId_withInt_(self, objview, x);
-}
-
-- (jint)getCurrentXWithId:(id)objview {
-  return ASDrawerLayoutImpl_getCurrentXWithId_(self, objview);
 }
 
 - (void)handleDragOfDrawerWithInt:(jint)eventX
@@ -972,65 +954,62 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
     { NULL, "LADXDrawerLayout_LayoutParams;", 0x2, 13, 12, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 14, 15, -1, -1, -1, -1 },
     { NULL, "LNSObject;", 0x1, 16, 17, -1, -1, -1, -1 },
+    { NULL, "LIOSClass;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 18, 19, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 20, 21, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 22, 23, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 20, 21, -1, -1, -1, -1 },
     { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x101, 24, 1, -1, -1, -1, -1 },
-    { NULL, "V", 0x101, 25, 26, -1, 27, -1, -1 },
+    { NULL, "Z", 0x101, 22, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x101, 23, 24, -1, 25, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 26, 27, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 28, 29, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 30, 31, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x2, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 32, 33, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 34, 35, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 36, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 37, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 38, 39, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 40, 12, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 41, 12, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 42, 7, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 43, 8, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 44, 7, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 45, 46, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 47, 46, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 48, 49, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 50, 8, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 34, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 35, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 36, 37, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 38, 12, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 39, 12, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 40, 7, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 41, 8, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 42, 7, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 43, 44, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 45, 44, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 46, 47, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 48, 8, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 51, 8, -1, -1, -1, -1 },
-    { NULL, "Z", 0x2, 52, 8, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 49, 8, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, 50, 8, -1, -1, -1, -1 },
     { NULL, "I", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "I", 0x2, 53, 12, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 54, 12, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 55, 7, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 55, 10, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 56, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 57, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 58, 1, -1, -1, -1, -1 },
+    { NULL, "I", 0x2, 51, 12, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 52, 12, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 53, 10, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 54, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 55, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 56, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 57, 58, -1, -1, -1, -1 },
     { NULL, "LNSObject;", 0x1, 59, 1, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutBean;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutParamsBean;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandParamsBuilder;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 60, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x102, 61, 29, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 60, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x102, 61, 27, -1, -1, -1, -1 },
     { NULL, "V", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x102, 62, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x102, 63, 29, -1, -1, -1, -1 },
+    { NULL, "V", 0x102, 62, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x102, 63, 27, -1, -1, -1, -1 },
     { NULL, "V", 0x2, 64, 8, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 65, 66, -1, -1, -1, -1 },
-    { NULL, "V", 0x102, 67, 68, -1, -1, -1, -1 },
-    { NULL, "V", 0x102, 69, 70, -1, -1, -1, -1 },
-    { NULL, "I", 0x102, 71, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 72, 73, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 74, 29, -1, -1, -1, -1 },
-    { NULL, "V", 0x2, 75, 29, -1, -1, -1, -1 },
+    { NULL, "V", 0x102, 65, 66, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 67, 68, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 69, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x2, 70, 27, -1, -1, -1, -1 },
     { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 76, 77, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 71, 72, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -1050,7 +1029,7 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   methods[12].selector = @selector(getLayoutParamsWithADView:);
   methods[13].selector = @selector(setChildAttributeWithASIWidget:withASWidgetAttribute:withNSString:withId:);
   methods[14].selector = @selector(getChildAttributeWithASIWidget:withASWidgetAttribute:);
-  methods[15].selector = @selector(updateMeasuredDimensionWithInt:withInt:);
+  methods[15].selector = @selector(getViewClass);
   methods[16].selector = @selector(setAttributeWithASWidgetAttribute:withNSString:withId:withASILifeCycleDecorator:);
   methods[17].selector = @selector(getAttributeWithASWidgetAttribute:withASILifeCycleDecorator:);
   methods[18].selector = @selector(asNativeWidget);
@@ -1083,11 +1062,11 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   methods[45].selector = @selector(resetPanVars);
   methods[46].selector = @selector(getGravityWithADView:);
   methods[47].selector = @selector(hideDrawerViewWithADView:);
-  methods[48].selector = @selector(updateDrawerViewStateWithASIWidget:);
-  methods[49].selector = @selector(updateDrawerViewStateWithASIWidget:withInt:);
-  methods[50].selector = @selector(setEdgeSizeWithId:);
-  methods[51].selector = @selector(setAnimationDurationWithId:);
-  methods[52].selector = @selector(setIdWithNSString:);
+  methods[48].selector = @selector(updateDrawerViewStateWithASIWidget:withInt:);
+  methods[49].selector = @selector(setEdgeSizeWithId:);
+  methods[50].selector = @selector(setAnimationDurationWithId:);
+  methods[51].selector = @selector(setIdWithNSString:);
+  methods[52].selector = @selector(setVisibleWithBoolean:);
   methods[53].selector = @selector(getPluginWithNSString:);
   methods[54].selector = @selector(getBean);
   methods[55].selector = @selector(getBuilder);
@@ -1100,23 +1079,20 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   methods[62].selector = @selector(addUIPanGestureRecognizerForDrawerWithId:);
   methods[63].selector = @selector(addUIPanGestureRecognizerWithId:);
   methods[64].selector = @selector(updateStateWithInt:);
-  methods[65].selector = @selector(animateViewWithASIWidget:withInt:withInt:);
-  methods[66].selector = @selector(nativeAnimateWithId:withInt:withInt:);
-  methods[67].selector = @selector(updateXWithId:withInt:);
-  methods[68].selector = @selector(getCurrentXWithId:);
-  methods[69].selector = @selector(handleDragOfDrawerWithInt:withId:);
-  methods[70].selector = @selector(handleDragEndOfDrawerWithId:);
-  methods[71].selector = @selector(setScrimColorWithId:);
-  methods[72].selector = @selector(requiresCurrentXCorrection);
-  methods[73].selector = @selector(nativeMakeFrameForChildWidgetWithInt:withInt:withInt:withInt:);
+  methods[65].selector = @selector(updateXWithId:withInt:);
+  methods[66].selector = @selector(handleDragOfDrawerWithInt:withId:);
+  methods[67].selector = @selector(handleDragEndOfDrawerWithId:);
+  methods[68].selector = @selector(setScrimColorWithId:);
+  methods[69].selector = @selector(requiresCurrentXCorrection);
+  methods[70].selector = @selector(nativeMakeFrameForChildWidgetWithInt:withInt:withInt:withInt:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "uiView_", "LNSObject;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "LOCAL_NAME", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 78, -1, -1 },
-    { "GROUP_NAME", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 79, -1, -1 },
+    { "LOCAL_NAME", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 73, -1, -1 },
+    { "GROUP_NAME", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 74, -1, -1 },
     { "drawerLayout_", "LADXDrawerLayout;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "drawerGravity_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "listeners_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x2, -1, -1, 80, -1 },
+    { "listeners_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x2, -1, -1, 75, -1 },
     { "startX_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mouseMoved_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "edgeSize_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
@@ -1127,8 +1103,8 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
     { "paramsBean_", "LASDrawerLayoutImpl_DrawerLayoutParamsBean;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "animatingWidget_", "LASIWidget;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "loadAttributes", "LNSString;", "LNSString;LNSString;", "create", "LASIFragment;LJavaUtilMap;", "(Lcom/ashera/core/IFragment;Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;)V", "remove", "LASIWidget;", "I", "add", "LASIWidget;I", "createLayoutParams", "LADView;", "getLayoutParams", "setChildAttribute", "LASIWidget;LASWidgetAttribute;LNSString;LNSObject;", "getChildAttribute", "LASIWidget;LASWidgetAttribute;", "updateMeasuredDimension", "II", "setAttribute", "LASWidgetAttribute;LNSString;LNSObject;LASILifeCycleDecorator;", "getAttribute", "LASWidgetAttribute;LASILifeCycleDecorator;", "checkIosVersion", "nativeCreate", "LJavaUtilMap;", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;)V", "setDrawerGravity", "LNSObject;", "handleChildAddition", "LASIWidget;ILADView;", "addView", "LADView;ILADViewGroup_LayoutParams;", "setDrawerListener", "LADXDrawerLayout_DrawerListener;", "openDrawer", "closeDrawer", "smoothSlideViewTo", "LADView;II", "isLeftDrawer", "isRightDrawer", "isContentView", "handlePanStart", "handlePanEndOfDrawer", "handleRightDrawerPanEnd", "LASIWidget;LADView;", "handleLeftDrawerPanEnd", "handlePanDragOfDrawer", "ILASIWidget;", "handlePanDrag", "isLeftDrawerDragged", "isRightDrawerDragged", "getGravity", "hideDrawerView", "updateDrawerViewState", "setEdgeSize", "setAnimationDuration", "setId", "getPlugin", "createBlurredPanel", "nativeUpdateBlurredPanelBounds", "addUIPanGestureRecognizerForDrawer", "addUIPanGestureRecognizer", "updateState", "animateView", "LASIWidget;II", "nativeAnimate", "LNSObject;II", "updateX", "LNSObject;I", "getCurrentX", "handleDragOfDrawer", "ILNSObject;", "handleDragEndOfDrawer", "setScrimColor", "nativeMakeFrameForChildWidget", "IIII", &ASDrawerLayoutImpl_LOCAL_NAME, &ASDrawerLayoutImpl_GROUP_NAME, "Ljava/util/Map<Ljava/lang/String;Landroidx/drawerlayout/widget/DrawerLayout$DrawerListener;>;", "LASDrawerLayoutImpl_DrawerLockMode;LASDrawerLayoutImpl_DrawerLayoutExt;LASDrawerLayoutImpl_DrawerListener;LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;LASDrawerLayoutImpl_DrawerLayoutBean;LASDrawerLayoutImpl_DrawerLayoutParamsBean;LASDrawerLayoutImpl_DrawerLayoutCommandParamsBuilder;LASDrawerLayoutImpl_BlurredPanelClickListener;" };
-  static const J2ObjcClassInfo _ASDrawerLayoutImpl = { "DrawerLayoutImpl", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 74, 15, -1, 81, -1, -1, -1 };
+  static const void *ptrTable[] = { "loadAttributes", "LNSString;", "LNSString;LNSString;", "create", "LASIFragment;LJavaUtilMap;", "(Lcom/ashera/core/IFragment;Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;)V", "remove", "LASIWidget;", "I", "add", "LASIWidget;I", "createLayoutParams", "LADView;", "getLayoutParams", "setChildAttribute", "LASIWidget;LASWidgetAttribute;LNSString;LNSObject;", "getChildAttribute", "LASIWidget;LASWidgetAttribute;", "setAttribute", "LASWidgetAttribute;LNSString;LNSObject;LASILifeCycleDecorator;", "getAttribute", "LASWidgetAttribute;LASILifeCycleDecorator;", "checkIosVersion", "nativeCreate", "LJavaUtilMap;", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;)V", "setDrawerGravity", "LNSObject;", "handleChildAddition", "LASIWidget;ILADView;", "addView", "LADView;ILADViewGroup_LayoutParams;", "setDrawerListener", "LADXDrawerLayout_DrawerListener;", "openDrawer", "closeDrawer", "smoothSlideViewTo", "LADView;II", "isLeftDrawer", "isRightDrawer", "isContentView", "handlePanStart", "handlePanEndOfDrawer", "handleRightDrawerPanEnd", "LASIWidget;LADView;", "handleLeftDrawerPanEnd", "handlePanDragOfDrawer", "ILASIWidget;", "handlePanDrag", "isLeftDrawerDragged", "isRightDrawerDragged", "getGravity", "hideDrawerView", "updateDrawerViewState", "setEdgeSize", "setAnimationDuration", "setId", "setVisible", "Z", "getPlugin", "createBlurredPanel", "nativeUpdateBlurredPanelBounds", "addUIPanGestureRecognizerForDrawer", "addUIPanGestureRecognizer", "updateState", "updateX", "LNSObject;I", "handleDragOfDrawer", "ILNSObject;", "handleDragEndOfDrawer", "setScrimColor", "nativeMakeFrameForChildWidget", "IIII", &ASDrawerLayoutImpl_LOCAL_NAME, &ASDrawerLayoutImpl_GROUP_NAME, "Ljava/util/Map<Ljava/lang/String;Landroidx/drawerlayout/widget/DrawerLayout$DrawerListener;>;", "LASDrawerLayoutImpl_DrawerLockMode;LASDrawerLayoutImpl_DrawerLayoutExt;LASDrawerLayoutImpl_DrawerListener;LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;LASDrawerLayoutImpl_DrawerLayoutBean;LASDrawerLayoutImpl_DrawerLayoutParamsBean;LASDrawerLayoutImpl_DrawerLayoutCommandParamsBuilder;LASDrawerLayoutImpl_BlurredPanelClickListener;" };
+  static const J2ObjcClassInfo _ASDrawerLayoutImpl = { "DrawerLayoutImpl", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 71, 15, -1, 76, -1, -1, -1 };
   return &_ASDrawerLayoutImpl;
 }
 
@@ -1275,7 +1251,7 @@ void ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(ASDrawerLay
     id<ASIWidget> child = [iterator next];
     id childView = [((id<ASIWidget>) nil_chk(child)) asWidget];
     if (childView == drawerView) {
-      ASDrawerLayoutImpl_animateViewWithASIWidget_withInt_withInt_(self, child, x, y);
+      ASViewImpl_translateWithAnimationWithId_withInt_withInt_withInt_withASViewImpl_AnimationCallBack_([child asNativeWidget], x, y, self->animationDurationInMs_, new_ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(self, child));
       break;
     }
   }
@@ -1319,7 +1295,7 @@ void ASDrawerLayoutImpl_handleRightDrawerPanEndWithASIWidget_withADView_(ASDrawe
   id nativeWidget = [((id<ASIWidget>) nil_chk(widget)) asNativeWidget];
   jint gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
   jint contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
-  if (JavaLangMath_absWithInt_(contentViewWidth - ASDrawerLayoutImpl_getCurrentXWithId_(self, nativeWidget)) >= JreIntDiv([((ADView *) nil_chk(view)) getMeasuredWidth], 2)) {
+  if (JavaLangMath_absWithInt_(contentViewWidth - ASViewImpl_getXWithId_(nativeWidget)) >= JreIntDiv([((ADView *) nil_chk(view)) getMeasuredWidth], 2)) {
     ASDrawerLayoutImpl_openDrawerWithId_(self, JavaLangInteger_valueOfWithInt_(gravity));
   }
   else {
@@ -1330,7 +1306,7 @@ void ASDrawerLayoutImpl_handleRightDrawerPanEndWithASIWidget_withADView_(ASDrawe
 void ASDrawerLayoutImpl_handleLeftDrawerPanEndWithASIWidget_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, ADView *view) {
   id nativeWidget = [((id<ASIWidget>) nil_chk(widget)) asNativeWidget];
   jint gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
-  if (JavaLangMath_absWithInt_(ASDrawerLayoutImpl_getCurrentXWithId_(self, nativeWidget)) <= JreIntDiv([((ADView *) nil_chk(view)) getMeasuredWidth], 2)) {
+  if (JavaLangMath_absWithInt_(ASViewImpl_getXWithId_(nativeWidget)) <= JreIntDiv([((ADView *) nil_chk(view)) getMeasuredWidth], 2)) {
     ASDrawerLayoutImpl_openDrawerWithId_(self, JavaLangInteger_valueOfWithInt_(gravity));
   }
   else {
@@ -1345,7 +1321,7 @@ void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayo
       if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) getDrawerLockModeWithADView:view] != ADXDrawerLayout_LOCK_MODE_LOCKED_CLOSED) {
         jint correction = 0;
         if (ASDrawerLayoutImpl_requiresCurrentXCorrection(self)) {
-          correction = ASDrawerLayoutImpl_getCurrentXWithId_(self, [widget asNativeWidget]);
+          correction = ASViewImpl_getXWithId_([widget asNativeWidget]);
         }
         jint x = correction + (eventX - self->startX_);
         if (x <= 0) {
@@ -1357,7 +1333,7 @@ void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayo
     if (ASDrawerLayoutImpl_isRightDrawerWithADView_(self, view)) {
       if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) getDrawerLockModeWithADView:view] != ADXDrawerLayout_LOCK_MODE_LOCKED_CLOSED) {
         jint initX = [((ADView *) nil_chk(((ADView *) cast_chk([((ADView *) nil_chk(view)) getParent], [ADView class])))) getMeasuredWidth] - [view getMeasuredWidth];
-        jint correction = ASDrawerLayoutImpl_requiresCurrentXCorrection(self) ? ASDrawerLayoutImpl_getCurrentXWithId_(self, [widget asNativeWidget]) : initX;
+        jint correction = ASDrawerLayoutImpl_requiresCurrentXCorrection(self) ? ASViewImpl_getXWithId_([widget asNativeWidget]) : initX;
         jint x = correction + (eventX - self->startX_);
         if (x >= initX) {
           self->mouseMoved_ = true;
@@ -1476,11 +1452,6 @@ void ASDrawerLayoutImpl_hideDrawerViewWithADView_(ASDrawerLayoutImpl *self, ADVi
   ASDrawerLayoutImpl_hideBlurredPanel(self);
 }
 
-void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget) {
-  jint currentX = ASDrawerLayoutImpl_getCurrentXWithId_(self, [((id<ASIWidget>) nil_chk(widget)) asNativeWidget]);
-  ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(self, widget, currentX);
-}
-
 void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, jint currentX) {
   ADView *drawerView = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
   jint state = ADXDrawerLayout_STATE_IDLE;
@@ -1575,37 +1546,11 @@ void ASDrawerLayoutImpl_updateStateWithInt_(ASDrawerLayoutImpl *self, jint curre
   ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(self, self->animatingWidget_, currentX);
 }
 
-void ASDrawerLayoutImpl_animateViewWithASIWidget_withInt_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> child, jint x, jint y) {
-  self->animatingWidget_ = child;
-  ASDrawerLayoutImpl_nativeAnimateWithId_withInt_withInt_(self, [((id<ASIWidget>) nil_chk(child)) asNativeWidget], x, y);
-}
-
-void ASDrawerLayoutImpl_nativeAnimateWithId_withInt_withInt_(ASDrawerLayoutImpl *self, id objview, jint x, jint y) {
-  UIView* uiview = ((UIView*) objview);
-  CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(animationDidUpdate)];
-  displayLink.frameInterval = 1;
-  [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-  
-  [UIView animateWithDuration:(self->animationDurationInMs_/(float)1000) animations:^{
-    CGRect frame = uiview.frame;
-    frame.origin.x = x;
-    frame.origin.y = y;
-    uiview.frame = frame;
-  }completion:^(BOOL finished) {
-    [displayLink invalidate];
-  }];
-}
-
 void ASDrawerLayoutImpl_updateXWithId_withInt_(ASDrawerLayoutImpl *self, id objview, jint x) {
   UIView* uiview = ((UIView*) objview);
   CGRect frame = uiview.frame;
   frame.origin.x = x;
   uiview.frame = frame;
-}
-
-jint ASDrawerLayoutImpl_getCurrentXWithId_(ASDrawerLayoutImpl *self, id objview) {
-  UIView* uiview = ((UIView*) objview);
-  return uiview.frame.origin.x;
 }
 
 void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *self, jint eventX, id uiview) {
@@ -1810,6 +1755,39 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   ASViewImpl_drawableStateChangedWithASIWidget_(this$0_);
 }
 
+- (ADView *)inflateViewWithNSString:(NSString *)layout {
+  if (templates_ == nil) {
+    templates_ = new_JavaUtilHashMap_init();
+  }
+  id<ASIWidget> template_ = [templates_ getWithId:layout];
+  if (template_ == nil) {
+    template_ = (id<ASIWidget>) cast_check([this$0_ quickConvertWithId:layout withNSString:@"template"], ASIWidget_class_());
+    (void) [((id<JavaUtilMap>) nil_chk(templates_)) putWithId:layout withId:template_];
+  }
+  id<ASIWidget> widget = [((id<ASIWidget>) nil_chk(template_)) loadLazyWidgetsWithASHasWidgets:[this$0_ getParent]];
+  return (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
+}
+
+- (void)remeasure {
+  [((id<ASIFragment>) nil_chk([this$0_ getFragment])) remeasure];
+}
+
+- (void)removeFromParent {
+  [((id<ASHasWidgets>) nil_chk([this$0_ getParent])) removeWithASIWidget:this$0_];
+}
+
+- (void)getLocationOnScreenWithIntArray:(IOSIntArray *)appScreenLocation {
+  *IOSIntArray_GetRef(nil_chk(appScreenLocation), 0) = ASViewImpl_getLocationXOnScreenWithId_([this$0_ asNativeWidget]);
+  *IOSIntArray_GetRef(appScreenLocation, 1) = ASViewImpl_getLocationYOnScreenWithId_([this$0_ asNativeWidget]);
+}
+
+- (void)getWindowVisibleDisplayFrameWithADRect:(ADRect *)displayFrame {
+  ((ADRect *) nil_chk(displayFrame))->left_ = ASViewImpl_getLocationXOnScreenWithId_([this$0_ asNativeWidget]);
+  displayFrame->top_ = ASViewImpl_getLocationYOnScreenWithId_([this$0_ asNativeWidget]);
+  displayFrame->right_ = displayFrame->left_ + [self getWidth];
+  displayFrame->bottom_ = displayFrame->top_ + [self getHeight];
+}
+
 - (void)offsetTopAndBottomWithInt:(jint)offset {
   [super offsetTopAndBottomWithInt:offset];
   ASViewImpl_nativeMakeFrameWithId_withInt_withInt_withInt_withInt_([this$0_ asNativeWidget], [self getLeft], [self getTop], [self getRight], [self getBottom]);
@@ -1818,6 +1796,11 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
 - (void)offsetLeftAndRightWithInt:(jint)offset {
   [super offsetLeftAndRightWithInt:offset];
   ASViewImpl_nativeMakeFrameWithId_withInt_withInt_withInt_withInt_([this$0_ asNativeWidget], [self getLeft], [self getTop], [self getRight], [self getBottom]);
+}
+
+- (void)setMyAttributeWithNSString:(NSString *)name
+                            withId:(id)value {
+  [this$0_ setAttributeWithNSString:name withId:value withBoolean:true];
 }
 
 - (void)setVisibilityWithInt:(jint)visibility {
@@ -1853,10 +1836,16 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSObject;", 0x1, 16, 17, -1, -1, -1, -1 },
     { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 18, 1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 19, 1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 20, 1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 21, 22, -1, -1, -1, -1 },
+    { NULL, "LADView;", 0x1, 18, 19, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 20, 21, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 22, 23, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 24, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 25, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 26, 27, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 28, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 29, 30, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -1876,10 +1865,16 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   methods[12].selector = @selector(initialized);
   methods[13].selector = @selector(getAttributeWithASWidgetAttribute:);
   methods[14].selector = @selector(drawableStateChanged);
-  methods[15].selector = @selector(offsetTopAndBottomWithInt:);
-  methods[16].selector = @selector(offsetLeftAndRightWithInt:);
-  methods[17].selector = @selector(setVisibilityWithInt:);
-  methods[18].selector = @selector(smoothSlideViewToWithADView:withInt:withInt:);
+  methods[15].selector = @selector(inflateViewWithNSString:);
+  methods[16].selector = @selector(remeasure);
+  methods[17].selector = @selector(removeFromParent);
+  methods[18].selector = @selector(getLocationOnScreenWithIntArray:);
+  methods[19].selector = @selector(getWindowVisibleDisplayFrameWithADRect:);
+  methods[20].selector = @selector(offsetTopAndBottomWithInt:);
+  methods[21].selector = @selector(offsetLeftAndRightWithInt:);
+  methods[22].selector = @selector(setMyAttributeWithNSString:withId:);
+  methods[23].selector = @selector(setVisibilityWithInt:);
+  methods[24].selector = @selector(smoothSlideViewToWithADView:withInt:withInt:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "this$0_", "LASDrawerLayoutImpl;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
@@ -1887,9 +1882,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
     { "onLayoutEvent_", "LASOnLayoutEvent;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mMaxWidth_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "mMaxHeight_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "templates_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x2, -1, -1, 31, -1 },
   };
-  static const void *ptrTable[] = { "setMaxWidth", "I", "setMaxHeight", "LASDrawerLayoutImpl;", "onMeasure", "II", "onLayout", "ZIIII", "execute", "LNSString;[LNSObject;", "updateMeasuredDimension", "newInstance", "LASIWidget;", "setAttribute", "LASWidgetAttribute;LNSString;LNSObject;", "()Ljava/util/List<Ljava/lang/String;>;", "getAttribute", "LASWidgetAttribute;", "offsetTopAndBottom", "offsetLeftAndRight", "setVisibility", "smoothSlideViewTo", "LADView;II" };
-  static const J2ObjcClassInfo _ASDrawerLayoutImpl_DrawerLayoutExt = { "DrawerLayoutExt", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 19, 5, 3, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "setMaxWidth", "I", "setMaxHeight", "LASDrawerLayoutImpl;", "onMeasure", "II", "onLayout", "ZIIII", "execute", "LNSString;[LNSObject;", "updateMeasuredDimension", "newInstance", "LASIWidget;", "setAttribute", "LASWidgetAttribute;LNSString;LNSObject;", "()Ljava/util/List<Ljava/lang/String;>;", "getAttribute", "LASWidgetAttribute;", "inflateView", "LNSString;", "getLocationOnScreen", "[I", "getWindowVisibleDisplayFrame", "LADRect;", "offsetTopAndBottom", "offsetLeftAndRight", "setMyAttribute", "LNSString;LNSObject;", "setVisibility", "smoothSlideViewTo", "LADView;II", "Ljava/util/Map<Ljava/lang/String;Lcom/ashera/widget/IWidget;>;" };
+  static const J2ObjcClassInfo _ASDrawerLayoutImpl_DrawerLayoutExt = { "DrawerLayoutExt", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 25, 6, 3, -1, -1, -1, -1 };
   return &_ASDrawerLayoutImpl_DrawerLayoutExt;
 }
 
@@ -2222,42 +2218,6 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerListener)
   return self;
 }
 
-- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)openDrawerWithNSString:(NSString *)value {
-  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"openDrawer"];
-  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
-  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
-  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
-  (void) [attrs putWithId:@"value" withId:value];
-  return self;
-}
-
-- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)closeDrawerWithNSString:(NSString *)value {
-  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"closeDrawer"];
-  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
-  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
-  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
-  (void) [attrs putWithId:@"value" withId:value];
-  return self;
-}
-
-- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setScrimColorWithNSString:(NSString *)value {
-  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"scrimColor"];
-  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
-  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
-  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
-  (void) [attrs putWithId:@"value" withId:value];
-  return self;
-}
-
-- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAnimationDurationInMsWithInt:(jint)value {
-  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"animationDurationInMs"];
-  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
-  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
-  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
-  (void) [attrs putWithId:@"value" withId:JavaLangInteger_valueOfWithInt_(value)];
-  return self;
-}
-
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setDrawerLockModeWithNSString:(NSString *)value {
   id<JavaUtilMap> attrs = [self initCommandWithNSString:@"drawerLockMode"];
   (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
@@ -2347,6 +2307,42 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerListener)
   return self;
 }
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)openDrawerWithNSString:(NSString *)value {
+  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"openDrawer"];
+  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
+  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
+  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
+  (void) [attrs putWithId:@"value" withId:value];
+  return self;
+}
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)closeDrawerWithNSString:(NSString *)value {
+  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"closeDrawer"];
+  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
+  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
+  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
+  (void) [attrs putWithId:@"value" withId:value];
+  return self;
+}
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setScrimColorWithNSString:(NSString *)value {
+  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"scrimColor"];
+  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
+  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
+  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
+  (void) [attrs putWithId:@"value" withId:value];
+  return self;
+}
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAnimationDurationInMsWithInt:(jint)value {
+  id<JavaUtilMap> attrs = [self initCommandWithNSString:@"animationDurationInMs"];
+  (void) [((id<JavaUtilMap>) nil_chk(attrs)) putWithId:@"type" withId:@"attribute"];
+  (void) [attrs putWithId:@"setter" withId:JavaLangBoolean_valueOfWithBoolean_(true)];
+  (void) [attrs putWithId:@"orderSet" withId:JavaLangInteger_valueOfWithInt_(++orderSet_)];
+  (void) [attrs putWithId:@"value" withId:JavaLangInteger_valueOfWithInt_(value)];
+  return self;
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -2354,44 +2350,44 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerListener)
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 3, 4, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 5, 4, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 6, 4, -1, -1, -1, -1 },
-    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 7, 8, -1, -1, -1, -1 },
+    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 7, 4, -1, -1, -1, -1 },
+    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 8, 4, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 9, 4, -1, -1, -1, -1 },
+    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 10, 4, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 11, 4, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 12, 4, -1, -1, -1, -1 },
     { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 13, 4, -1, -1, -1, -1 },
-    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 14, 4, -1, -1, -1, -1 },
-    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 15, 4, -1, -1, -1, -1 },
+    { NULL, "LASDrawerLayoutImpl_DrawerLayoutCommandBuilder;", 0x1, 14, 15, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithASDrawerLayoutImpl:);
   methods[1].selector = @selector(executeWithBoolean:);
-  methods[2].selector = @selector(openDrawerWithNSString:);
-  methods[3].selector = @selector(closeDrawerWithNSString:);
-  methods[4].selector = @selector(setScrimColorWithNSString:);
-  methods[5].selector = @selector(setAnimationDurationInMsWithInt:);
-  methods[6].selector = @selector(setDrawerLockModeWithNSString:);
-  methods[7].selector = @selector(setOnDrawerSlideWithNSString:);
-  methods[8].selector = @selector(setOnDrawerOpenedWithNSString:);
-  methods[9].selector = @selector(setOnDrawerClosedWithNSString:);
-  methods[10].selector = @selector(setOnDrawerStateChangeWithNSString:);
-  methods[11].selector = @selector(setDrawerGravityWithNSString:);
-  methods[12].selector = @selector(tryGetIsOpenStart);
-  methods[13].selector = @selector(isIsOpenStart);
-  methods[14].selector = @selector(tryGetIsOpenEnd);
-  methods[15].selector = @selector(isIsOpenEnd);
-  methods[16].selector = @selector(edgeSizeWithNSString:);
+  methods[2].selector = @selector(setDrawerLockModeWithNSString:);
+  methods[3].selector = @selector(setOnDrawerSlideWithNSString:);
+  methods[4].selector = @selector(setOnDrawerOpenedWithNSString:);
+  methods[5].selector = @selector(setOnDrawerClosedWithNSString:);
+  methods[6].selector = @selector(setOnDrawerStateChangeWithNSString:);
+  methods[7].selector = @selector(setDrawerGravityWithNSString:);
+  methods[8].selector = @selector(tryGetIsOpenStart);
+  methods[9].selector = @selector(isIsOpenStart);
+  methods[10].selector = @selector(tryGetIsOpenEnd);
+  methods[11].selector = @selector(isIsOpenEnd);
+  methods[12].selector = @selector(edgeSizeWithNSString:);
+  methods[13].selector = @selector(openDrawerWithNSString:);
+  methods[14].selector = @selector(closeDrawerWithNSString:);
+  methods[15].selector = @selector(setScrimColorWithNSString:);
+  methods[16].selector = @selector(setAnimationDurationInMsWithInt:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "this$0_", "LASDrawerLayoutImpl;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LASDrawerLayoutImpl;", "execute", "Z", "openDrawer", "LNSString;", "closeDrawer", "setScrimColor", "setAnimationDurationInMs", "I", "setDrawerLockMode", "setOnDrawerSlide", "setOnDrawerOpened", "setOnDrawerClosed", "setOnDrawerStateChange", "setDrawerGravity", "edgeSize", "Lcom/ashera/layout/ViewGroupImpl$ViewGroupCommandBuilder<Lcom/ashera/drawerlayout/DrawerLayoutImpl$DrawerLayoutCommandBuilder;>;" };
+  static const void *ptrTable[] = { "LASDrawerLayoutImpl;", "execute", "Z", "setDrawerLockMode", "LNSString;", "setOnDrawerSlide", "setOnDrawerOpened", "setOnDrawerClosed", "setOnDrawerStateChange", "setDrawerGravity", "edgeSize", "openDrawer", "closeDrawer", "setScrimColor", "setAnimationDurationInMs", "I", "Lcom/ashera/layout/ViewGroupImpl$ViewGroupCommandBuilder<Lcom/ashera/drawerlayout/DrawerLayoutImpl$DrawerLayoutCommandBuilder;>;" };
   static const J2ObjcClassInfo _ASDrawerLayoutImpl_DrawerLayoutCommandBuilder = { "DrawerLayoutCommandBuilder", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 17, 1, 0, -1, -1, 16, -1 };
   return &_ASDrawerLayoutImpl_DrawerLayoutCommandBuilder;
 }
@@ -2418,22 +2414,6 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutCommandBuilder)
 - (instancetype)initWithASDrawerLayoutImpl:(ASDrawerLayoutImpl *)outer$ {
   ASDrawerLayoutImpl_DrawerLayoutBean_initWithASDrawerLayoutImpl_(self, outer$);
   return self;
-}
-
-- (void)openDrawerWithNSString:(NSString *)value {
-  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) openDrawerWithNSString:value])) executeWithBoolean:true];
-}
-
-- (void)closeDrawerWithNSString:(NSString *)value {
-  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) closeDrawerWithNSString:value])) executeWithBoolean:true];
-}
-
-- (void)setScrimColorWithNSString:(NSString *)value {
-  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) setScrimColorWithNSString:value])) executeWithBoolean:true];
-}
-
-- (void)setAnimationDurationInMsWithInt:(jint)value {
-  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) setAnimationDurationInMsWithInt:value])) executeWithBoolean:true];
 }
 
 - (void)setDrawerLockModeWithNSString:(NSString *)value {
@@ -2472,45 +2452,61 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutCommandBuilder)
   (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) edgeSizeWithNSString:value])) executeWithBoolean:true];
 }
 
+- (void)openDrawerWithNSString:(NSString *)value {
+  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) openDrawerWithNSString:value])) executeWithBoolean:true];
+}
+
+- (void)closeDrawerWithNSString:(NSString *)value {
+  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) closeDrawerWithNSString:value])) executeWithBoolean:true];
+}
+
+- (void)setScrimColorWithNSString:(NSString *)value {
+  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) setScrimColorWithNSString:value])) executeWithBoolean:true];
+}
+
+- (void)setAnimationDurationInMsWithInt:(jint)value {
+  (void) [((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([((ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *) nil_chk([this$0_ getBuilder])) reset])) setAnimationDurationInMsWithInt:value])) executeWithBoolean:true];
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 1, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 3, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 4, 2, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 5, 6, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 5, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 6, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 7, 2, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 8, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 9, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 10, 2, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 11, 2, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 12, 2, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "V", 0x1, 13, 2, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 12, 13, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithASDrawerLayoutImpl:);
-  methods[1].selector = @selector(openDrawerWithNSString:);
-  methods[2].selector = @selector(closeDrawerWithNSString:);
-  methods[3].selector = @selector(setScrimColorWithNSString:);
-  methods[4].selector = @selector(setAnimationDurationInMsWithInt:);
-  methods[5].selector = @selector(setDrawerLockModeWithNSString:);
-  methods[6].selector = @selector(setOnDrawerSlideWithNSString:);
-  methods[7].selector = @selector(setOnDrawerOpenedWithNSString:);
-  methods[8].selector = @selector(setOnDrawerClosedWithNSString:);
-  methods[9].selector = @selector(setOnDrawerStateChangeWithNSString:);
-  methods[10].selector = @selector(setDrawerGravityWithNSString:);
-  methods[11].selector = @selector(isIsOpenStart);
-  methods[12].selector = @selector(isIsOpenEnd);
-  methods[13].selector = @selector(edgeSizeWithNSString:);
+  methods[1].selector = @selector(setDrawerLockModeWithNSString:);
+  methods[2].selector = @selector(setOnDrawerSlideWithNSString:);
+  methods[3].selector = @selector(setOnDrawerOpenedWithNSString:);
+  methods[4].selector = @selector(setOnDrawerClosedWithNSString:);
+  methods[5].selector = @selector(setOnDrawerStateChangeWithNSString:);
+  methods[6].selector = @selector(setDrawerGravityWithNSString:);
+  methods[7].selector = @selector(isIsOpenStart);
+  methods[8].selector = @selector(isIsOpenEnd);
+  methods[9].selector = @selector(edgeSizeWithNSString:);
+  methods[10].selector = @selector(openDrawerWithNSString:);
+  methods[11].selector = @selector(closeDrawerWithNSString:);
+  methods[12].selector = @selector(setScrimColorWithNSString:);
+  methods[13].selector = @selector(setAnimationDurationInMsWithInt:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "this$0_", "LASDrawerLayoutImpl;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LASDrawerLayoutImpl;", "openDrawer", "LNSString;", "closeDrawer", "setScrimColor", "setAnimationDurationInMs", "I", "setDrawerLockMode", "setOnDrawerSlide", "setOnDrawerOpened", "setOnDrawerClosed", "setOnDrawerStateChange", "setDrawerGravity", "edgeSize" };
+  static const void *ptrTable[] = { "LASDrawerLayoutImpl;", "setDrawerLockMode", "LNSString;", "setOnDrawerSlide", "setOnDrawerOpened", "setOnDrawerClosed", "setOnDrawerStateChange", "setDrawerGravity", "edgeSize", "openDrawer", "closeDrawer", "setScrimColor", "setAnimationDurationInMs", "I" };
   static const J2ObjcClassInfo _ASDrawerLayoutImpl_DrawerLayoutBean = { "DrawerLayoutBean", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 14, 1, 0, -1, -1, -1, -1 };
   return &_ASDrawerLayoutImpl_DrawerLayoutBean;
 }
@@ -2660,3 +2656,26 @@ ASDrawerLayoutImpl_BlurredPanelClickListener *create_ASDrawerLayoutImpl_BlurredP
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_BlurredPanelClickListener)
+
+@implementation ASDrawerLayoutImpl_$Lambda$1
+
+- (void)animatingWithInt:(jint)currentX
+                 withInt:(jint)currentY {
+  ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(this$0_, val$child_, currentX);
+}
+
+@end
+
+void ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl_$Lambda$1 *self, ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0) {
+  self->this$0_ = outer$;
+  self->val$child_ = capture$0;
+  NSObject_init(self);
+}
+
+ASDrawerLayoutImpl_$Lambda$1 *new_ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0) {
+  J2OBJC_NEW_IMPL(ASDrawerLayoutImpl_$Lambda$1, initWithASDrawerLayoutImpl_withASIWidget_, outer$, capture$0)
+}
+
+ASDrawerLayoutImpl_$Lambda$1 *create_ASDrawerLayoutImpl_$Lambda$1_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0) {
+  J2OBJC_CREATE_IMPL(ASDrawerLayoutImpl_$Lambda$1, initWithASDrawerLayoutImpl_withASIWidget_, outer$, capture$0)
+}

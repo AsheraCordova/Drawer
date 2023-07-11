@@ -40,15 +40,6 @@ export abstract class DrawerLayoutImpl<T> extends ViewGroupImpl<T>{
 	static initialize() {
     }	
 	@Type(() => CommandAttr)
-	@Expose({ name: "openDrawer" })
-	openDrawer_!:CommandAttr<Gravity[]>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "closeDrawer" })
-	closeDrawer_!:CommandAttr<Gravity[]>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "animationDurationInMs" })
-	animationDurationInMs!:CommandAttr<number>| undefined;
-	@Type(() => CommandAttr)
 	@Expose({ name: "drawerLockMode" })
 	drawerLockMode!:CommandAttr<DrawerLockMode>| undefined;
 	@Type(() => CommandAttr)
@@ -75,15 +66,21 @@ export abstract class DrawerLayoutImpl<T> extends ViewGroupImpl<T>{
 	@Type(() => CommandAttr)
 	@Expose({ name: "edgeSize" })
 	edgeSize_!:CommandAttr<string>| undefined;
+	@Type(() => CommandAttr)
+	@Expose({ name: "openDrawer" })
+	openDrawer_!:CommandAttr<Gravity[]>| undefined;
+	@Type(() => CommandAttr)
+	@Expose({ name: "closeDrawer" })
+	closeDrawer_!:CommandAttr<Gravity[]>| undefined;
+	@Type(() => CommandAttr)
+	@Expose({ name: "animationDurationInMs" })
+	animationDurationInMs!:CommandAttr<number>| undefined;
 
 	@Exclude()
 	protected thisPointer: T;	
 	protected abstract getThisPointer(): T;
 	reset() : T {	
 		super.reset();
-		this.openDrawer_ = undefined;
-		this.closeDrawer_ = undefined;
-		this.animationDurationInMs = undefined;
 		this.drawerLockMode = undefined;
 		this.onDrawerSlide = undefined;
 		this.onDrawerOpened = undefined;
@@ -93,6 +90,9 @@ export abstract class DrawerLayoutImpl<T> extends ViewGroupImpl<T>{
 		this.isOpenStart_ = undefined;
 		this.isOpenEnd_ = undefined;
 		this.edgeSize_ = undefined;
+		this.openDrawer_ = undefined;
+		this.closeDrawer_ = undefined;
+		this.animationDurationInMs = undefined;
 		return this.thisPointer;
 	}
 	constructor(id: string, path: string[], event:  string) {
@@ -100,48 +100,6 @@ export abstract class DrawerLayoutImpl<T> extends ViewGroupImpl<T>{
 		this.thisPointer = this.getThisPointer();
 	}
 	
-
-	public openDrawer(...value : Gravity[]) : T {
-		this.resetIfRequired();
-		if (this.openDrawer_ == null || this.openDrawer_ == undefined) {
-			this.openDrawer_ = new CommandAttr<Gravity[]>();
-		}
-		
-		this.openDrawer_.setSetter(true);
-		this.openDrawer_.setValue(value);
-		this.orderSet++;
-		this.openDrawer_.setOrderSet(this.orderSet);
-this.openDrawer_.setTransformer('gravity');		return this.thisPointer;
-	}
-		
-
-	public closeDrawer(...value : Gravity[]) : T {
-		this.resetIfRequired();
-		if (this.closeDrawer_ == null || this.closeDrawer_ == undefined) {
-			this.closeDrawer_ = new CommandAttr<Gravity[]>();
-		}
-		
-		this.closeDrawer_.setSetter(true);
-		this.closeDrawer_.setValue(value);
-		this.orderSet++;
-		this.closeDrawer_.setOrderSet(this.orderSet);
-this.closeDrawer_.setTransformer('gravity');		return this.thisPointer;
-	}
-		
-
-	public setAnimationDurationInMs(value : number) : T {
-		this.resetIfRequired();
-		if (this.animationDurationInMs == null || this.animationDurationInMs == undefined) {
-			this.animationDurationInMs = new CommandAttr<number>();
-		}
-		
-		this.animationDurationInMs.setSetter(true);
-		this.animationDurationInMs.setValue(value);
-		this.orderSet++;
-		this.animationDurationInMs.setOrderSet(this.orderSet);
-		return this.thisPointer;
-	}
-		
 
 	public setDrawerLockMode(value : DrawerLockMode) : T {
 		this.resetIfRequired();
@@ -279,6 +237,48 @@ this.drawerGravity.setTransformer('gravity');		return this.thisPointer;
 		this.edgeSize_.setValue(value);
 		this.orderSet++;
 		this.edgeSize_.setOrderSet(this.orderSet);
+		return this.thisPointer;
+	}
+		
+
+	public openDrawer(...value : Gravity[]) : T {
+		this.resetIfRequired();
+		if (this.openDrawer_ == null || this.openDrawer_ == undefined) {
+			this.openDrawer_ = new CommandAttr<Gravity[]>();
+		}
+		
+		this.openDrawer_.setSetter(true);
+		this.openDrawer_.setValue(value);
+		this.orderSet++;
+		this.openDrawer_.setOrderSet(this.orderSet);
+this.openDrawer_.setTransformer('gravity');		return this.thisPointer;
+	}
+		
+
+	public closeDrawer(...value : Gravity[]) : T {
+		this.resetIfRequired();
+		if (this.closeDrawer_ == null || this.closeDrawer_ == undefined) {
+			this.closeDrawer_ = new CommandAttr<Gravity[]>();
+		}
+		
+		this.closeDrawer_.setSetter(true);
+		this.closeDrawer_.setValue(value);
+		this.orderSet++;
+		this.closeDrawer_.setOrderSet(this.orderSet);
+this.closeDrawer_.setTransformer('gravity');		return this.thisPointer;
+	}
+		
+
+	public setAnimationDurationInMs(value : number) : T {
+		this.resetIfRequired();
+		if (this.animationDurationInMs == null || this.animationDurationInMs == undefined) {
+			this.animationDurationInMs = new CommandAttr<number>();
+		}
+		
+		this.animationDurationInMs.setSetter(true);
+		this.animationDurationInMs.setValue(value);
+		this.orderSet++;
+		this.animationDurationInMs.setOrderSet(this.orderSet);
 		return this.thisPointer;
 	}
 		

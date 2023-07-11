@@ -66,10 +66,6 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 	public void loadAttributes(String localName) {
 		ViewGroupImpl.register(localName);
 
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("openDrawer").withType("gravity"));
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("closeDrawer").withType("gravity"));
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("scrimColor").withType("color"));
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("animationDurationInMs").withType("int"));
 		ConverterFactory.register("androidx.drawerlayout.widget.DrawerLayout.drawerLockMode", new DrawerLockMode());
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("drawerLockMode").withType("androidx.drawerlayout.widget.DrawerLayout.drawerLockMode"));
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("onDrawerSlide").withType("string"));
@@ -80,6 +76,10 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("isOpenStart").withType("boolean"));
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("isOpenEnd").withType("boolean"));
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("edgeSize").withType("dimension"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("openDrawer").withType("gravity"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("closeDrawer").withType("gravity"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("scrimColor").withType("color"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("animationDurationInMs").withType("int"));
 	
 	}
 	
@@ -95,7 +95,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 
 	@Override
 	public IWidget newInstance() {
-		return new DrawerLayoutImpl();
+		return new DrawerLayoutImpl(groupName, localName);
 	}
 	
 	@SuppressLint("NewApi")
@@ -120,7 +120,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 	}
 
 	@Override
-	public boolean remove(IWidget w) {
+	public boolean remove(IWidget w) {		
 		boolean remove = super.remove(w);
 		drawerLayout.removeView((View) w.asWidget());
          ViewGroupImpl.nativeRemoveView(w);            
@@ -235,12 +235,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 		}
 
 		public DrawerLayoutExt() {
-			
 			super();
-			
-			
-			
-			
 			
 		}
 		
@@ -329,7 +324,44 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
         	super.drawableStateChanged();
         	ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
         }
-		@Override
+        private Map<String, IWidget> templates;
+    	@Override
+    	public r.android.view.View inflateView(java.lang.String layout) {
+    		if (templates == null) {
+    			templates = new java.util.HashMap<String, IWidget>();
+    		}
+    		IWidget template = templates.get(layout);
+    		if (template == null) {
+    			template = (IWidget) quickConvert(layout, "template");
+    			templates.put(layout, template);
+    		}
+    		IWidget widget = template.loadLazyWidgets(DrawerLayoutImpl.this.getParent());
+    		return (View) widget.asWidget();
+    	}        
+        
+    	@Override
+		public void remeasure() {
+			getFragment().remeasure();
+		}
+    	
+        @Override
+		public void removeFromParent() {
+        	DrawerLayoutImpl.this.getParent().remove(DrawerLayoutImpl.this);
+		}
+        @Override
+        public void getLocationOnScreen(int[] appScreenLocation) {
+        	appScreenLocation[0] = ViewImpl.getLocationXOnScreen(asNativeWidget());
+        	appScreenLocation[1] = ViewImpl.getLocationYOnScreen(asNativeWidget());
+        }
+        @Override
+        public void getWindowVisibleDisplayFrame(r.android.graphics.Rect displayFrame){
+        	
+        	displayFrame.left = ViewImpl.getLocationXOnScreen(asNativeWidget());
+        	displayFrame.top = ViewImpl.getLocationYOnScreen(asNativeWidget());
+        	displayFrame.right = displayFrame.left + getWidth();
+        	displayFrame.bottom = displayFrame.top + getHeight();
+        }
+        @Override
 		public void offsetTopAndBottom(int offset) {
 			super.offsetTopAndBottom(offset);
 			ViewImpl.nativeMakeFrame(asNativeWidget(), getLeft(), getTop(), getRight(), getBottom());
@@ -338,6 +370,10 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 		public void offsetLeftAndRight(int offset) {
 			super.offsetLeftAndRight(offset);
 			ViewImpl.nativeMakeFrame(asNativeWidget(), getLeft(), getTop(), getRight(), getBottom());
+		}
+		@Override
+		public void setMyAttribute(String name, Object value) {
+			DrawerLayoutImpl.this.setAttribute(name, value, true);
 		}
         @Override
         public void setVisibility(int visibility) {
@@ -350,54 +386,17 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 			 DrawerLayoutImpl.this.smoothSlideViewTo(drawerView, x, y);
 	        }
 	}
-	
-	public void updateMeasuredDimension(int width, int height) {
-		((DrawerLayoutExt) drawerLayout).updateMeasuredDimension(width, height);
+	@Override
+	public Class getViewClass() {
+		return DrawerLayoutExt.class;
 	}
 	
-
 	@SuppressLint("NewApi")
 	@Override
 	public void setAttribute(WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
 		ViewGroupImpl.setAttribute(this, key, strValue, objValue, decorator);
 		Object nativeWidget = asNativeWidget();
 		switch (key.getAttributeName()) {
-			case "openDrawer": {
-
-
-		openDrawer(objValue);
-
-
-
-			}
-			break;
-			case "closeDrawer": {
-
-
-		closeDrawer(objValue);
-
-
-
-			}
-			break;
-			case "scrimColor": {
-
-
-		setScrimColor(objValue);
-
-
-
-			}
-			break;
-			case "animationDurationInMs": {
-
-
-		setAnimationDuration(objValue);
-
-
-
-			}
-			break;
 			case "drawerLockMode": {
 
 
@@ -456,6 +455,42 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 
 
 		setEdgeSize(objValue);
+
+
+
+			}
+			break;
+			case "openDrawer": {
+
+
+		openDrawer(objValue);
+
+
+
+			}
+			break;
+			case "closeDrawer": {
+
+
+		closeDrawer(objValue);
+
+
+
+			}
+			break;
+			case "scrimColor": {
+
+
+		setScrimColor(objValue);
+
+
+
+			}
+			break;
+			case "animationDurationInMs": {
+
+
+		setAnimationDuration(objValue);
 
 
 
@@ -588,7 +623,9 @@ return isOpenEnd();			}
 			IWidget child = iterator.next();
 			Object childView = child.asWidget();
 			if (childView == drawerView) {
-				animateView(child, x, y);
+				ViewImpl.translateWithAnimation(child.asNativeWidget(), x, y, animationDurationInMs, (currentX, currentY) -> {
+					updateDrawerViewState(child, currentX);
+				});
 				break;
 			}
 		}
@@ -635,7 +672,7 @@ return isOpenEnd();			}
 		Object nativeWidget = widget.asNativeWidget();
 		int gravity = getGravity(view);
 		int contentViewWidth = getContentViewWidth();
-		if (Math.abs(contentViewWidth - getCurrentX(nativeWidget)) >= view.getMeasuredWidth()/2) {
+		if (Math.abs(contentViewWidth - ViewImpl.getX(nativeWidget)) >= view.getMeasuredWidth()/2) {
 			openDrawer(gravity);
 		} else {
 			closeDrawer(gravity);
@@ -646,7 +683,7 @@ return isOpenEnd();			}
 		Object nativeWidget = widget.asNativeWidget();
 		int gravity = getGravity(view);
 
-		if (Math.abs(getCurrentX(nativeWidget)) <= view.getMeasuredWidth() / 2) {
+		if (Math.abs(ViewImpl.getX(nativeWidget)) <= view.getMeasuredWidth() / 2) {
 			openDrawer(gravity);
 		} else {
 			closeDrawer(gravity);
@@ -661,7 +698,7 @@ return isOpenEnd();			}
 				if (drawerLayout.getDrawerLockMode(view) != DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
 					int correction = 0;
 					if (requiresCurrentXCorrection()) {
-						correction = getCurrentX(widget.asNativeWidget());
+						correction = ViewImpl.getX(widget.asNativeWidget());
 					}
 					int x = correction + (eventX - startX);
 					if (x <= 0) {
@@ -675,7 +712,7 @@ return isOpenEnd();			}
 				if (drawerLayout.getDrawerLockMode(view) != DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
 
 					int initX = ((View) view.getParent()).getMeasuredWidth() - view.getMeasuredWidth();
-					int correction = requiresCurrentXCorrection() ? getCurrentX(widget.asNativeWidget()) : initX;
+					int correction = requiresCurrentXCorrection() ? ViewImpl.getX(widget.asNativeWidget()) : initX;
 					int x = correction + (eventX - startX);
 					
 					if (x >= initX ) {
@@ -803,11 +840,6 @@ return isOpenEnd();			}
 	private void hideDrawerView(View drawerView) {
 		drawerView.setVisibility(View.INVISIBLE);
 		hideBlurredPanel();
-	}
-
-	private void updateDrawerViewState(IWidget widget) {
-		int currentX = getCurrentX(widget.asNativeWidget());
-		updateDrawerViewState(widget, currentX);
 	}
 
 	private void updateDrawerViewState(IWidget widget, int currentX) {
@@ -1128,6 +1160,10 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 	}
 	
     
+    @Override
+    public void setVisible(boolean b) {
+        ((View)asWidget()).setVisibility(b ? View.VISIBLE : View.GONE);
+    }
 
 	
 private DrawerLayoutCommandBuilder builder;
@@ -1161,38 +1197,6 @@ public  class DrawerLayoutCommandBuilder extends com.ashera.layout.ViewGroupImpl
 		executeCommand(command, null, IWidget.COMMAND_EXEC_GETTER_METHOD);
 return this;	}
 
-public DrawerLayoutCommandBuilder openDrawer(String value) {
-	Map<String, Object> attrs = initCommand("openDrawer");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
-public DrawerLayoutCommandBuilder closeDrawer(String value) {
-	Map<String, Object> attrs = initCommand("closeDrawer");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
-public DrawerLayoutCommandBuilder setScrimColor(String value) {
-	Map<String, Object> attrs = initCommand("scrimColor");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
-public DrawerLayoutCommandBuilder setAnimationDurationInMs(int value) {
-	Map<String, Object> attrs = initCommand("animationDurationInMs");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
 public DrawerLayoutCommandBuilder setDrawerLockMode(String value) {
 	Map<String, Object> attrs = initCommand("drawerLockMode");
 	attrs.put("type", "attribute");
@@ -1273,27 +1277,43 @@ public DrawerLayoutCommandBuilder edgeSize(String value) {
 
 	attrs.put("value", value);
 return this;}
+public DrawerLayoutCommandBuilder openDrawer(String value) {
+	Map<String, Object> attrs = initCommand("openDrawer");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
+public DrawerLayoutCommandBuilder closeDrawer(String value) {
+	Map<String, Object> attrs = initCommand("closeDrawer");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
+public DrawerLayoutCommandBuilder setScrimColor(String value) {
+	Map<String, Object> attrs = initCommand("scrimColor");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
+public DrawerLayoutCommandBuilder setAnimationDurationInMs(int value) {
+	Map<String, Object> attrs = initCommand("animationDurationInMs");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
 }
 public class DrawerLayoutBean extends com.ashera.layout.ViewGroupImpl.ViewGroupBean{
 		public DrawerLayoutBean() {
 			super(DrawerLayoutImpl.this);
 		}
-public void openDrawer(String value) {
-	getBuilder().reset().openDrawer(value).execute(true);
-}
-
-public void closeDrawer(String value) {
-	getBuilder().reset().closeDrawer(value).execute(true);
-}
-
-public void setScrimColor(String value) {
-	getBuilder().reset().setScrimColor(value).execute(true);
-}
-
-public void setAnimationDurationInMs(int value) {
-	getBuilder().reset().setAnimationDurationInMs(value).execute(true);
-}
-
 public void setDrawerLockMode(String value) {
 	getBuilder().reset().setDrawerLockMode(value).execute(true);
 }
@@ -1326,6 +1346,22 @@ public Object isIsOpenEnd() {
 }
 public void edgeSize(String value) {
 	getBuilder().reset().edgeSize(value).execute(true);
+}
+
+public void openDrawer(String value) {
+	getBuilder().reset().openDrawer(value).execute(true);
+}
+
+public void closeDrawer(String value) {
+	getBuilder().reset().closeDrawer(value).execute(true);
+}
+
+public void setScrimColor(String value) {
+	getBuilder().reset().setScrimColor(value).execute(true);
+}
+
+public void setAnimationDurationInMs(int value) {
+	getBuilder().reset().setAnimationDurationInMs(value).execute(true);
 }
 
 }
@@ -1451,49 +1487,18 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
   			[self handleDragOfDrawerWithInt:x withId:tapRecognizer.view];
   		}
 	}
-	
-	-(void)animationDidUpdate {
-		UIView* uiview = (UIView*)[self->animatingWidget_ asNativeWidget];
-		CALayer* calayer =  ((CALayer*)uiview.layer.presentationLayer);
-	    [self updateStateWithInt: calayer.frame.origin.x];
-	}
 	]-*/
 	private IWidget animatingWidget;
 	private void updateState(int currentX) {
 		updateDrawerViewState(animatingWidget, currentX);
 	}
 
-	private void animateView(IWidget child, int x, int y) {
-		animatingWidget = child;
-		nativeAnimate(child.asNativeWidget(), x, y);
-	}
-	
-	private native void nativeAnimate(Object objview, int x, int y) /*-[
-		UIView* uiview = ((UIView*) objview);
-		CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(animationDidUpdate)];
-		displayLink.frameInterval = 1;
-		[displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-
-		[UIView animateWithDuration:(self->animationDurationInMs_/(float)1000) animations:^{
-			CGRect frame = uiview.frame;
-			frame.origin.x = x;
-			frame.origin.y = y;
-			uiview.frame = frame;
-		}completion:^(BOOL finished) {
-        	[displayLink invalidate];
-    	}];
-	]-*/;
-
+//
 	private native void updateX(Object objview, int x) /*-[
 		UIView* uiview = ((UIView*) objview);
 	    CGRect frame = uiview.frame;
 	    frame.origin.x = x;
 	    uiview.frame = frame;
-	]-*/;
-	
-	private native int getCurrentX(Object objview) /*-[
-		UIView* uiview = ((UIView*) objview);
-		return uiview.frame.origin.x;
 	]-*/;
 	
 	private void handleDragOfDrawer(int eventX, Object uiview) {

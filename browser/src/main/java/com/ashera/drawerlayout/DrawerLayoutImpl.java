@@ -60,10 +60,6 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 	public void loadAttributes(String localName) {
 		ViewGroupImpl.register(localName);
 
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("openDrawer").withType("gravity"));
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("closeDrawer").withType("gravity"));
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("scrimColor").withType("color"));
-		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("animationDurationInMs").withType("int"));
 		ConverterFactory.register("androidx.drawerlayout.widget.DrawerLayout.drawerLockMode", new DrawerLockMode());
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("drawerLockMode").withType("androidx.drawerlayout.widget.DrawerLayout.drawerLockMode"));
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("onDrawerSlide").withType("string"));
@@ -74,6 +70,10 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("isOpenStart").withType("boolean"));
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("isOpenEnd").withType("boolean"));
 		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("edgeSize").withType("dimension"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("openDrawer").withType("gravity"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("closeDrawer").withType("gravity"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("scrimColor").withType("color"));
+		WidgetFactory.registerAttribute(localName, new WidgetAttribute.Builder().withName("animationDurationInMs").withType("int"));
 	
 	}
 	
@@ -89,7 +89,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 
 	@Override
 	public IWidget newInstance() {
-		return new DrawerLayoutImpl();
+		return new DrawerLayoutImpl(groupName, localName);
 	}
 	
 	@SuppressLint("NewApi")
@@ -110,7 +110,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 	}
 
 	@Override
-	public boolean remove(IWidget w) {
+	public boolean remove(IWidget w) {		
 		boolean remove = super.remove(w);
 		drawerLayout.removeView((View) w.asWidget());
          ViewGroupImpl.nativeRemoveView(w);            
@@ -225,12 +225,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 		}
 
 		public DrawerLayoutExt() {
-			
-			
-			
-			
 			super();
-			
 			
 		}
 		
@@ -318,7 +313,45 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
         	super.drawableStateChanged();
         	ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
         }
-		@Override
+        private Map<String, IWidget> templates;
+    	@Override
+    	public r.android.view.View inflateView(java.lang.String layout) {
+    		if (templates == null) {
+    			templates = new java.util.HashMap<String, IWidget>();
+    		}
+    		IWidget template = templates.get(layout);
+    		if (template == null) {
+    			template = (IWidget) quickConvert(layout, "template");
+    			templates.put(layout, template);
+    		}
+    		IWidget widget = template.loadLazyWidgets(DrawerLayoutImpl.this.getParent());
+    		return (View) widget.asWidget();
+    	}        
+        
+    	@Override
+		public void remeasure() {
+			getFragment().remeasure();
+		}
+    	
+        @Override
+		public void removeFromParent() {
+        	DrawerLayoutImpl.this.getParent().remove(DrawerLayoutImpl.this);
+		}
+        @Override
+        public void getLocationOnScreen(int[] appScreenLocation) {
+        	appScreenLocation[0] = htmlElement.getBoundingClientRect().getLeft();
+        	appScreenLocation[1] = htmlElement.getBoundingClientRect().getTop();
+        }
+        @Override
+        public void getWindowVisibleDisplayFrame(r.android.graphics.Rect displayFrame){
+        	
+        	org.teavm.jso.dom.html.TextRectangle boundingClientRect = htmlElement.getBoundingClientRect();
+			displayFrame.top = boundingClientRect.getTop();
+        	displayFrame.left = boundingClientRect.getLeft();
+        	displayFrame.bottom = boundingClientRect.getBottom();
+        	displayFrame.right = boundingClientRect.getRight();
+        }
+        @Override
 		public void offsetTopAndBottom(int offset) {
 			super.offsetTopAndBottom(offset);
 			ViewImpl.nativeMakeFrame(asNativeWidget(), getLeft(), getTop(), getRight(), getBottom());
@@ -327,6 +360,10 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 		public void offsetLeftAndRight(int offset) {
 			super.offsetLeftAndRight(offset);
 			ViewImpl.nativeMakeFrame(asNativeWidget(), getLeft(), getTop(), getRight(), getBottom());
+		}
+		@Override
+		public void setMyAttribute(String name, Object value) {
+			DrawerLayoutImpl.this.setAttribute(name, value, true);
 		}
         @Override
         public void setVisibility(int visibility) {
@@ -339,54 +376,17 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 			 DrawerLayoutImpl.this.smoothSlideViewTo(drawerView, x, y);
 	        }
 	}
-	
-	public void updateMeasuredDimension(int width, int height) {
-		((DrawerLayoutExt) drawerLayout).updateMeasuredDimension(width, height);
+	@Override
+	public Class getViewClass() {
+		return DrawerLayoutExt.class;
 	}
 	
-
 	@SuppressLint("NewApi")
 	@Override
 	public void setAttribute(WidgetAttribute key, String strValue, Object objValue, ILifeCycleDecorator decorator) {
 		ViewGroupImpl.setAttribute(this, key, strValue, objValue, decorator);
 		Object nativeWidget = asNativeWidget();
 		switch (key.getAttributeName()) {
-			case "openDrawer": {
-
-
-		openDrawer(objValue);
-
-
-
-			}
-			break;
-			case "closeDrawer": {
-
-
-		closeDrawer(objValue);
-
-
-
-			}
-			break;
-			case "scrimColor": {
-
-
-		setScrimColor(objValue);
-
-
-
-			}
-			break;
-			case "animationDurationInMs": {
-
-
-		setAnimationDuration(objValue);
-
-
-
-			}
-			break;
 			case "drawerLockMode": {
 
 
@@ -445,6 +445,42 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 
 
 		setEdgeSize(objValue);
+
+
+
+			}
+			break;
+			case "openDrawer": {
+
+
+		openDrawer(objValue);
+
+
+
+			}
+			break;
+			case "closeDrawer": {
+
+
+		closeDrawer(objValue);
+
+
+
+			}
+			break;
+			case "scrimColor": {
+
+
+		setScrimColor(objValue);
+
+
+
+			}
+			break;
+			case "animationDurationInMs": {
+
+
+		setAnimationDuration(objValue);
 
 
 
@@ -573,7 +609,9 @@ return isOpenEnd();			}
 			IWidget child = iterator.next();
 			Object childView = child.asWidget();
 			if (childView == drawerView) {
-				animateView(child, x, y);
+				ViewImpl.translateWithAnimation(child.asNativeWidget(), x, y, animationDurationInMs, (currentX, currentY) -> {
+					updateDrawerViewState(child, currentX);
+				});
 				break;
 			}
 		}
@@ -620,7 +658,7 @@ return isOpenEnd();			}
 		Object nativeWidget = widget.asNativeWidget();
 		int gravity = getGravity(view);
 		int contentViewWidth = getContentViewWidth();
-		if (Math.abs(contentViewWidth - getCurrentX(nativeWidget)) >= view.getMeasuredWidth()/2) {
+		if (Math.abs(contentViewWidth - ViewImpl.getX(nativeWidget)) >= view.getMeasuredWidth()/2) {
 			openDrawer(gravity);
 		} else {
 			closeDrawer(gravity);
@@ -631,7 +669,7 @@ return isOpenEnd();			}
 		Object nativeWidget = widget.asNativeWidget();
 		int gravity = getGravity(view);
 
-		if (Math.abs(getCurrentX(nativeWidget)) <= view.getMeasuredWidth() / 2) {
+		if (Math.abs(ViewImpl.getX(nativeWidget)) <= view.getMeasuredWidth() / 2) {
 			openDrawer(gravity);
 		} else {
 			closeDrawer(gravity);
@@ -646,7 +684,7 @@ return isOpenEnd();			}
 				if (drawerLayout.getDrawerLockMode(view) != DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
 					int correction = 0;
 					if (requiresCurrentXCorrection()) {
-						correction = getCurrentX(widget.asNativeWidget());
+						correction = ViewImpl.getX(widget.asNativeWidget());
 					}
 					int x = correction + (eventX - startX);
 					if (x <= 0) {
@@ -660,7 +698,7 @@ return isOpenEnd();			}
 				if (drawerLayout.getDrawerLockMode(view) != DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
 
 					int initX = ((View) view.getParent()).getMeasuredWidth() - view.getMeasuredWidth();
-					int correction = requiresCurrentXCorrection() ? getCurrentX(widget.asNativeWidget()) : initX;
+					int correction = requiresCurrentXCorrection() ? ViewImpl.getX(widget.asNativeWidget()) : initX;
 					int x = correction + (eventX - startX);
 					
 					if (x >= initX ) {
@@ -788,11 +826,6 @@ return isOpenEnd();			}
 	private void hideDrawerView(View drawerView) {
 		drawerView.setVisibility(View.INVISIBLE);
 		hideBlurredPanel();
-	}
-
-	private void updateDrawerViewState(IWidget widget) {
-		int currentX = getCurrentX(widget.asNativeWidget());
-		updateDrawerViewState(widget, currentX);
 	}
 
 	private void updateDrawerViewState(IWidget widget, int currentX) {
@@ -1113,6 +1146,10 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 	}
 	
     
+    @Override
+    public void setVisible(boolean b) {
+        ((View)asWidget()).setVisibility(b ? View.VISIBLE : View.GONE);
+    }
 
 	
 private DrawerLayoutCommandBuilder builder;
@@ -1146,38 +1183,6 @@ public  class DrawerLayoutCommandBuilder extends com.ashera.layout.ViewGroupImpl
 		executeCommand(command, null, IWidget.COMMAND_EXEC_GETTER_METHOD);
 return this;	}
 
-public DrawerLayoutCommandBuilder openDrawer(String value) {
-	Map<String, Object> attrs = initCommand("openDrawer");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
-public DrawerLayoutCommandBuilder closeDrawer(String value) {
-	Map<String, Object> attrs = initCommand("closeDrawer");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
-public DrawerLayoutCommandBuilder setScrimColor(String value) {
-	Map<String, Object> attrs = initCommand("scrimColor");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
-public DrawerLayoutCommandBuilder setAnimationDurationInMs(int value) {
-	Map<String, Object> attrs = initCommand("animationDurationInMs");
-	attrs.put("type", "attribute");
-	attrs.put("setter", true);
-	attrs.put("orderSet", ++orderSet);
-
-	attrs.put("value", value);
-return this;}
 public DrawerLayoutCommandBuilder setDrawerLockMode(String value) {
 	Map<String, Object> attrs = initCommand("drawerLockMode");
 	attrs.put("type", "attribute");
@@ -1258,27 +1263,43 @@ public DrawerLayoutCommandBuilder edgeSize(String value) {
 
 	attrs.put("value", value);
 return this;}
+public DrawerLayoutCommandBuilder openDrawer(String value) {
+	Map<String, Object> attrs = initCommand("openDrawer");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
+public DrawerLayoutCommandBuilder closeDrawer(String value) {
+	Map<String, Object> attrs = initCommand("closeDrawer");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
+public DrawerLayoutCommandBuilder setScrimColor(String value) {
+	Map<String, Object> attrs = initCommand("scrimColor");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
+public DrawerLayoutCommandBuilder setAnimationDurationInMs(int value) {
+	Map<String, Object> attrs = initCommand("animationDurationInMs");
+	attrs.put("type", "attribute");
+	attrs.put("setter", true);
+	attrs.put("orderSet", ++orderSet);
+
+	attrs.put("value", value);
+return this;}
 }
 public class DrawerLayoutBean extends com.ashera.layout.ViewGroupImpl.ViewGroupBean{
 		public DrawerLayoutBean() {
 			super(DrawerLayoutImpl.this);
 		}
-public void openDrawer(String value) {
-	getBuilder().reset().openDrawer(value).execute(true);
-}
-
-public void closeDrawer(String value) {
-	getBuilder().reset().closeDrawer(value).execute(true);
-}
-
-public void setScrimColor(String value) {
-	getBuilder().reset().setScrimColor(value).execute(true);
-}
-
-public void setAnimationDurationInMs(int value) {
-	getBuilder().reset().setAnimationDurationInMs(value).execute(true);
-}
-
 public void setDrawerLockMode(String value) {
 	getBuilder().reset().setDrawerLockMode(value).execute(true);
 }
@@ -1311,6 +1332,22 @@ public Object isIsOpenEnd() {
 }
 public void edgeSize(String value) {
 	getBuilder().reset().edgeSize(value).execute(true);
+}
+
+public void openDrawer(String value) {
+	getBuilder().reset().openDrawer(value).execute(true);
+}
+
+public void closeDrawer(String value) {
+	getBuilder().reset().closeDrawer(value).execute(true);
+}
+
+public void setScrimColor(String value) {
+	getBuilder().reset().setScrimColor(value).execute(true);
+}
+
+public void setAnimationDurationInMs(int value) {
+	getBuilder().reset().setAnimationDurationInMs(value).execute(true);
 }
 
 }
@@ -1376,57 +1413,11 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
 			ViewImpl.setVisibility(blurredWidget, blurredWidget.asNativeWidget(), View.INVISIBLE);
 		}
 	}
-	
-	private int y;
-	private int x;
-	private int xAtStartOfAnim;
-	private IWidget animatingWidget;
-	private double start = -1;
-	private double speed;
-	private int direction = -1;
-	private void animateView(IWidget child, int x, int y) {
-		this.animatingWidget = child;
-		int currentX = getCurrentX(child.asNativeWidget());
-		xAtStartOfAnim = currentX;
-		this.speed = Math.abs(Math.abs(currentX) - Math.abs(x)) / (animationDurationInMs * 1f);
-		this.y = y;
-		this.x = x;
-		start = -1;
-		direction = x > xAtStartOfAnim ? 1 : -1;
-		((View) child.asWidget()).setVisibility(View.VISIBLE);
-		org.teavm.jso.browser.Window.requestAnimationFrame(this::onAnimationFrame);
-	}
-	
-	private void onAnimationFrame(double timestamp) {
-		if (start == -1) {
-			start = timestamp;
-		}
-		double progress = timestamp - start;
-		
-		HTMLElement drawer = (HTMLElement) animatingWidget.asNativeWidget();
-		int newX = (int)Math.floor(xAtStartOfAnim + (progress * speed * direction));
-		
-		 if (progress <= animationDurationInMs) {
-			 org.teavm.jso.browser.Window.requestAnimationFrame(this::onAnimationFrame);
-		 } else {
-			 newX = x;
-		 }
-		 drawer.getStyle().setProperty("left", newX + "px");
-		 drawer.getStyle().setProperty("top", y + "px");
-		 updateDrawerViewState(animatingWidget, newX);
-	}
-	
 
 	private void updateX(Object nativeWidget, int x) {
 		((HTMLElement) nativeWidget).getStyle().setProperty("left", x + "px");
 	}
 	
-	
-
-	private int getCurrentX(Object nativeWidget) {
-		return ViewImpl.getPropertyValueAsInt(((HTMLElement) nativeWidget), "left");
-	}
-
 	public interface HtmlMouseEvent extends org.teavm.jso.dom.events.Event {
 	    @org.teavm.jso.JSProperty
 	    int getClientX();
