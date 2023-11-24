@@ -366,6 +366,31 @@ Context context = (Context) fragment.getRootActivity();
         	super.drawableStateChanged();
         	ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
         }
+        
+        	public void state0() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 0);
+        	}
+        	public void state1() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 1);
+        	}
+        	public void state2() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 2);
+        	}
+        	public void state3() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 3);
+        	}
+        	public void state4() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 4);
+        	}
+                        
+        public void stateYes() {
+        	ViewImpl.stateYes(DrawerLayoutImpl.this);
+        	
+        }
+        
+        public void stateNo() {
+        	ViewImpl.stateNo(DrawerLayoutImpl.this);
+        }
 	}
 	@Override
 	public Class getViewClass() {
@@ -556,14 +581,10 @@ public void onDrawerSlide(View drawerView, float slideOffset){
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, drawerView,slideOffset);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -576,7 +597,7 @@ public void onDrawerSlide(View drawerView, float slideOffset){
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -617,14 +638,10 @@ public java.util.Map<String, Object> getOnDrawerSlideEventObj(View drawerView,fl
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, drawerView);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -637,7 +654,7 @@ public java.util.Map<String, Object> getOnDrawerSlideEventObj(View drawerView,fl
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -677,14 +694,10 @@ public java.util.Map<String, Object> getOnDrawerOpenedEventObj(View drawerView) 
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, drawerView);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -697,7 +710,7 @@ public java.util.Map<String, Object> getOnDrawerOpenedEventObj(View drawerView) 
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -737,14 +750,10 @@ public java.util.Map<String, Object> getOnDrawerClosedEventObj(View drawerView) 
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, newState);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -757,7 +766,7 @@ public java.util.Map<String, Object> getOnDrawerClosedEventObj(View drawerView) 
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -794,7 +803,7 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 	public void setId(String id){
 		if (id != null && !id.equals("")){
 			super.setId(id);
-			drawerLayout.setId(IdGenerator.getId(id));
+			drawerLayout.setId((int) quickConvert(id, "id"));
 		}
 	}
 	

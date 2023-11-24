@@ -24,7 +24,6 @@
 #include "IOSPrimitiveArray.h"
 #include "IWidget.h"
 #include "IWidgetLifeCycleListener.h"
-#include "IdGenerator.h"
 #include "J2ObjC_source.h"
 #include "MeasureEvent.h"
 #include "OnLayoutEvent.h"
@@ -805,7 +804,7 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
 - (void)setIdWithNSString:(NSString *)id_ {
   if (id_ != nil && ![id_ isEqual:@""]) {
     [super setIdWithNSString:id_];
-    [((ADXDrawerLayout *) nil_chk(drawerLayout_)) setIdWithInt:ASIdGenerator_getIdWithNSString_(id_)];
+    [((ADXDrawerLayout *) nil_chk(drawerLayout_)) setIdWithInt:[((JavaLangInteger *) nil_chk((JavaLangInteger *) cast_chk([self quickConvertWithId:id_ withNSString:@"id"], [JavaLangInteger class]))) intValue]];
   }
 }
 
@@ -1327,6 +1326,7 @@ void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayo
         if (x <= 0) {
           self->mouseMoved_ = true;
           ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
+          [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) onViewPositionChangedWithADView:view withInt:x withInt:0 withInt:0 withInt:0];
         }
       }
     }
@@ -1338,6 +1338,7 @@ void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayo
         if (x >= initX) {
           self->mouseMoved_ = true;
           ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
+          [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) onViewPositionChangedWithADView:view withInt:x withInt:0 withInt:0 withInt:0];
         }
       }
     }
@@ -1358,6 +1359,7 @@ void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, jint eve
             if (x <= 0) {
               self->mouseMoved_ = true;
               ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
+              [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) onViewPositionChangedWithADView:view withInt:x withInt:0 withInt:0 withInt:0];
             }
           }
           break;
@@ -1377,6 +1379,7 @@ void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, jint eve
             if (x >= (contentViewWidth - [view getMeasuredWidth])) {
               self->mouseMoved_ = true;
               ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
+              [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) onViewPositionChangedWithADView:view withInt:x withInt:0 withInt:0 withInt:0];
             }
           }
           break;
@@ -1814,6 +1817,34 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(this$0_, drawerView, x, y);
 }
 
+- (void)state0 {
+  ASViewImpl_stateWithASIWidget_withInt_(this$0_, 0);
+}
+
+- (void)state1 {
+  ASViewImpl_stateWithASIWidget_withInt_(this$0_, 1);
+}
+
+- (void)state2 {
+  ASViewImpl_stateWithASIWidget_withInt_(this$0_, 2);
+}
+
+- (void)state3 {
+  ASViewImpl_stateWithASIWidget_withInt_(this$0_, 3);
+}
+
+- (void)state4 {
+  ASViewImpl_stateWithASIWidget_withInt_(this$0_, 4);
+}
+
+- (void)stateYes {
+  ASViewImpl_stateYesWithASIWidget_(this$0_);
+}
+
+- (void)stateNo {
+  ASViewImpl_stateNoWithASIWidget_(this$0_);
+}
+
 - (void)__javaClone:(ASDrawerLayoutImpl_DrawerLayoutExt *)original {
   [super __javaClone:original];
   JreRelease(this$0_);
@@ -1846,6 +1877,13 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
     { NULL, "V", 0x1, 26, 27, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 28, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 29, 30, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, -1, -1, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -1875,6 +1913,13 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   methods[22].selector = @selector(setMyAttributeWithNSString:withId:);
   methods[23].selector = @selector(setVisibilityWithInt:);
   methods[24].selector = @selector(smoothSlideViewToWithADView:withInt:withInt:);
+  methods[25].selector = @selector(state0);
+  methods[26].selector = @selector(state1);
+  methods[27].selector = @selector(state2);
+  methods[28].selector = @selector(state3);
+  methods[29].selector = @selector(state4);
+  methods[30].selector = @selector(stateYes);
+  methods[31].selector = @selector(stateNo);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "this$0_", "LASDrawerLayoutImpl;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
@@ -1885,7 +1930,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
     { "templates_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x2, -1, -1, 31, -1 },
   };
   static const void *ptrTable[] = { "setMaxWidth", "I", "setMaxHeight", "LASDrawerLayoutImpl;", "onMeasure", "II", "onLayout", "ZIIII", "execute", "LNSString;[LNSObject;", "updateMeasuredDimension", "newInstance", "LASIWidget;", "setAttribute", "LASWidgetAttribute;LNSString;LNSObject;", "()Ljava/util/List<Ljava/lang/String;>;", "getAttribute", "LASWidgetAttribute;", "inflateView", "LNSString;", "getLocationOnScreen", "[I", "getWindowVisibleDisplayFrame", "LADRect;", "offsetTopAndBottom", "offsetLeftAndRight", "setMyAttribute", "LNSString;LNSObject;", "setVisibility", "smoothSlideViewTo", "LADView;II", "Ljava/util/Map<Ljava/lang/String;Lcom/ashera/widget/IWidget;>;" };
-  static const J2ObjcClassInfo _ASDrawerLayoutImpl_DrawerLayoutExt = { "DrawerLayoutExt", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 25, 6, 3, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _ASDrawerLayoutImpl_DrawerLayoutExt = { "DrawerLayoutExt", "com.ashera.drawerlayout", ptrTable, methods, fields, 7, 0x1, 32, 6, 3, -1, -1, -1, -1 };
   return &_ASDrawerLayoutImpl_DrawerLayoutExt;
 }
 
@@ -1936,14 +1981,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     id<JavaUtilMap> obj = [self getOnDrawerSlideEventObjWithADView:drawerView withFloat:slideOffset];
     NSString *commandName = (NSString *) cast_chk([((id<JavaUtilMap>) nil_chk(obj)) getWithId:ASEventExpressionParser_KEY_COMMAND_NAME], [NSString class]);
     NSString *commandType = (NSString *) cast_chk([obj getWithId:ASEventExpressionParser_KEY_COMMAND_TYPE], [NSString class]);
-    switch (JreIndexOfStr(commandType, (id[]){ @"+", @":" }, 2)) {
+    switch (JreIndexOfStr(commandType, (id[]){ @"+" }, 1)) {
       case 0:
-      case 1:
       if (ASEventCommandFactory_hasCommandWithNSString_(commandName)) {
         (void) [((id<ASEventCommand>) nil_chk(ASEventCommandFactory_getCommandWithNSString_(commandName))) executeCommandWithASIWidget:w_ withJavaUtilMap:obj withNSObjectArray:[IOSObjectArray newArrayWithObjects:(id[]){ drawerView, JavaLangFloat_valueOfWithFloat_(slideOffset) } count:2 type:NSObject_class_()]];
-      }
-      if ([((NSString *) nil_chk(commandType)) isEqual:@":"]) {
-        return;
       }
       break;
       default:
@@ -1956,7 +1997,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty]) {
+    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       [((id<ASIActivity>) nil_chk(activity)) sendEventMessageWithJavaUtilMap:obj];
     }
@@ -1987,14 +2028,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     id<JavaUtilMap> obj = [self getOnDrawerOpenedEventObjWithADView:drawerView];
     NSString *commandName = (NSString *) cast_chk([((id<JavaUtilMap>) nil_chk(obj)) getWithId:ASEventExpressionParser_KEY_COMMAND_NAME], [NSString class]);
     NSString *commandType = (NSString *) cast_chk([obj getWithId:ASEventExpressionParser_KEY_COMMAND_TYPE], [NSString class]);
-    switch (JreIndexOfStr(commandType, (id[]){ @"+", @":" }, 2)) {
+    switch (JreIndexOfStr(commandType, (id[]){ @"+" }, 1)) {
       case 0:
-      case 1:
       if (ASEventCommandFactory_hasCommandWithNSString_(commandName)) {
         (void) [((id<ASEventCommand>) nil_chk(ASEventCommandFactory_getCommandWithNSString_(commandName))) executeCommandWithASIWidget:w_ withJavaUtilMap:obj withNSObjectArray:[IOSObjectArray newArrayWithObjects:(id[]){ drawerView } count:1 type:NSObject_class_()]];
-      }
-      if ([((NSString *) nil_chk(commandType)) isEqual:@":"]) {
-        return;
       }
       break;
       default:
@@ -2007,7 +2044,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty]) {
+    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       [((id<ASIActivity>) nil_chk(activity)) sendEventMessageWithJavaUtilMap:obj];
     }
@@ -2036,14 +2073,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     id<JavaUtilMap> obj = [self getOnDrawerClosedEventObjWithADView:drawerView];
     NSString *commandName = (NSString *) cast_chk([((id<JavaUtilMap>) nil_chk(obj)) getWithId:ASEventExpressionParser_KEY_COMMAND_NAME], [NSString class]);
     NSString *commandType = (NSString *) cast_chk([obj getWithId:ASEventExpressionParser_KEY_COMMAND_TYPE], [NSString class]);
-    switch (JreIndexOfStr(commandType, (id[]){ @"+", @":" }, 2)) {
+    switch (JreIndexOfStr(commandType, (id[]){ @"+" }, 1)) {
       case 0:
-      case 1:
       if (ASEventCommandFactory_hasCommandWithNSString_(commandName)) {
         (void) [((id<ASEventCommand>) nil_chk(ASEventCommandFactory_getCommandWithNSString_(commandName))) executeCommandWithASIWidget:w_ withJavaUtilMap:obj withNSObjectArray:[IOSObjectArray newArrayWithObjects:(id[]){ drawerView } count:1 type:NSObject_class_()]];
-      }
-      if ([((NSString *) nil_chk(commandType)) isEqual:@":"]) {
-        return;
       }
       break;
       default:
@@ -2056,7 +2089,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty]) {
+    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       [((id<ASIActivity>) nil_chk(activity)) sendEventMessageWithJavaUtilMap:obj];
     }
@@ -2085,14 +2118,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     id<JavaUtilMap> obj = [self getOnDrawerStateChangedEventObjWithInt:newState];
     NSString *commandName = (NSString *) cast_chk([((id<JavaUtilMap>) nil_chk(obj)) getWithId:ASEventExpressionParser_KEY_COMMAND_NAME], [NSString class]);
     NSString *commandType = (NSString *) cast_chk([obj getWithId:ASEventExpressionParser_KEY_COMMAND_TYPE], [NSString class]);
-    switch (JreIndexOfStr(commandType, (id[]){ @"+", @":" }, 2)) {
+    switch (JreIndexOfStr(commandType, (id[]){ @"+" }, 1)) {
       case 0:
-      case 1:
       if (ASEventCommandFactory_hasCommandWithNSString_(commandName)) {
         (void) [((id<ASEventCommand>) nil_chk(ASEventCommandFactory_getCommandWithNSString_(commandName))) executeCommandWithASIWidget:w_ withJavaUtilMap:obj withNSObjectArray:[IOSObjectArray newArrayWithObjects:(id[]){ JavaLangInteger_valueOfWithInt_(newState) } count:1 type:NSObject_class_()]];
-      }
-      if ([((NSString *) nil_chk(commandType)) isEqual:@":"]) {
-        return;
       }
       break;
       default:
@@ -2105,7 +2134,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty]) {
+    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       [((id<ASIActivity>) nil_chk(activity)) sendEventMessageWithJavaUtilMap:obj];
     }

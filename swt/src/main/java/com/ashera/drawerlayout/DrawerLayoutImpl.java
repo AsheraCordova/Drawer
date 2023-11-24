@@ -375,6 +375,31 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 	        public void smoothSlideViewTo(r.android.view.View drawerView, int x, int y) {
 			 DrawerLayoutImpl.this.smoothSlideViewTo(drawerView, x, y);
 	        }
+        
+        	public void state0() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 0);
+        	}
+        	public void state1() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 1);
+        	}
+        	public void state2() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 2);
+        	}
+        	public void state3() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 3);
+        	}
+        	public void state4() {
+        		ViewImpl.state(DrawerLayoutImpl.this, 4);
+        	}
+                        
+        public void stateYes() {
+        	ViewImpl.stateYes(DrawerLayoutImpl.this);
+        	
+        }
+        
+        public void stateNo() {
+        	ViewImpl.stateNo(DrawerLayoutImpl.this);
+        }
 	}
 	@Override
 	public Class getViewClass() {
@@ -603,14 +628,10 @@ public void onDrawerSlide(View drawerView, float slideOffset){
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, drawerView,slideOffset);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -623,7 +644,7 @@ public void onDrawerSlide(View drawerView, float slideOffset){
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -664,14 +685,10 @@ public java.util.Map<String, Object> getOnDrawerSlideEventObj(View drawerView,fl
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, drawerView);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -684,7 +701,7 @@ public java.util.Map<String, Object> getOnDrawerSlideEventObj(View drawerView,fl
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -724,14 +741,10 @@ public java.util.Map<String, Object> getOnDrawerOpenedEventObj(View drawerView) 
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, drawerView);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -744,7 +757,7 @@ public java.util.Map<String, Object> getOnDrawerOpenedEventObj(View drawerView) 
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -784,14 +797,10 @@ public java.util.Map<String, Object> getOnDrawerClosedEventObj(View drawerView) 
 	    String commandType = (String)obj.get(EventExpressionParser.KEY_COMMAND_TYPE);
 		switch (commandType) {
 		case "+":
-		case ":":
 		    if (EventCommandFactory.hasCommand(commandName)) {
 		    	 EventCommandFactory.getCommand(commandName).executeCommand(w, obj, newState);
 		    }
-		    if (commandType.equals(":")) {
-		    	return;
-		    }
-			
+
 			break;
 		default:
 			break;
@@ -804,7 +813,7 @@ public java.util.Map<String, Object> getOnDrawerClosedEventObj(View drawerView) 
 		if (w.getModelUiToPojoEventIds() != null) {
 			com.ashera.layout.ViewImpl.refreshUiFromModel(w, w.getModelUiToPojoEventIds(), true);
 		}
-		if (strValue != null && !strValue.isEmpty()) {
+		if (strValue != null && !strValue.isEmpty() && !strValue.trim().startsWith("+")) {
 		    com.ashera.core.IActivity activity = (com.ashera.core.IActivity)w.getFragment().getRootActivity();
 		    activity.sendEventMessage(obj);
 		}
@@ -841,7 +850,7 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 	public void setId(String id){
 		if (id != null && !id.equals("")){
 			super.setId(id);
-			drawerLayout.setId(IdGenerator.getId(id));
+			drawerLayout.setId((int) quickConvert(id, "id"));
 		}
 	}
 	
@@ -1189,6 +1198,7 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
 					if (x <= 0) {
 						mouseMoved = true;
 						updateX(widget.asNativeWidget(), x);
+						drawerLayout.onViewPositionChanged(view, x, 0, 0, 0);
 					}
 				}
 			}
@@ -1203,6 +1213,7 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
 					if (x >= initX ) {
 						mouseMoved = true;
 						updateX(widget.asNativeWidget(), x);
+						drawerLayout.onViewPositionChanged(view, x, 0, 0, 0);
 					}
 				}
 			}
@@ -1226,6 +1237,7 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
 							if (x <= 0) {
 								mouseMoved = true;
 								updateX(widget.asNativeWidget(), x);
+								drawerLayout.onViewPositionChanged(view, x, 0, 0, 0);
 							}
 						}
 						break;
@@ -1249,6 +1261,7 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
 							if (x >= (contentViewWidth - view.getMeasuredWidth())) {
 								mouseMoved = true;
 								updateX(widget.asNativeWidget(), x);
+								drawerLayout.onViewPositionChanged(view, x, 0, 0, 0);
 							}
 						}
 						break;
@@ -1373,16 +1386,42 @@ public class DrawerLayoutCommandParamsBuilder extends com.ashera.layout.ViewGrou
 	//end - drawer
 	//swt-specific code
 	private class MouseListener implements org.eclipse.swt.widgets.Listener {
+		int absPointStart;
 		@Override
 		public void handleEvent(org.eclipse.swt.widgets.Event event) {
-			int eventX = event.x;
-			
+			org.eclipse.swt.widgets.Control control = (org.eclipse.swt.widgets.Control) event.widget;
+			int cursorX = control.getShell().getDisplay().getCursorLocation().x;
+
 			if (event.type == org.eclipse.swt.SWT.MouseDown) {
-				handlePanStart(eventX);
+				absPointStart = cursorX;
+				handlePanStart(event.x);
 			}
 			
 			if (event.type == org.eclipse.swt.SWT.MouseMove) {
-				handlePanDrag(eventX);
+				if (startX != -1) {
+					// we cannot use event.x as content layout can move
+					// if content layout oves then event.x changes
+					// to overcome this capture absolute position of start 
+					// and substact the current absolute postion and subtract both of them to find the delta
+					int eventX = startX + cursorX - absPointStart;
+					if ((boolean) isOpenStart()) {
+						for (IWidget widget : widgets) {
+							View view = (View) widget.asWidget();
+							if (isLeftDrawer(view)) {
+								eventX += view.getWidth();
+							}
+						}
+					}
+					if ((boolean) isOpenEnd()) {
+						for (IWidget widget : widgets) {
+							View view = (View) widget.asWidget();
+							if (isRightDrawer(view)) {
+								eventX -= view.getWidth();
+							}
+						}
+					}
+					handlePanDrag(eventX);
+				}
 			}
 			if (event.type == org.eclipse.swt.SWT.MouseUp) {
 				handlePanEnd();
