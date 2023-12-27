@@ -261,6 +261,16 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 - (void)setMyAttributeWithNSString:(NSString *)name
                             withId:(id)value;
 
+- (void)setState0WithId:(id)value;
+
+- (void)setState1WithId:(id)value;
+
+- (void)setState2WithId:(id)value;
+
+- (void)setState3WithId:(id)value;
+
+- (void)setState4WithId:(id)value;
+
 - (void)setVisibilityWithInt:(jint)visibility;
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
@@ -332,9 +342,13 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)addModelWithId:(id)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)animatorXmlWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)closeDrawerWithNSString:(NSString *)value;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)edgeSizeWithNSString:(NSString *)value;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)endAnimator;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)executeWithBoolean:(jboolean)setter;
 
@@ -395,6 +409,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setDrawerLockModeWithNSString:(NSString *)value;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setDuplicateParentStateWithBoolean:(jboolean)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setElevationWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setEnabledWithBoolean:(jboolean)arg0;
 
@@ -514,6 +530,14 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setModelUiToPojoWithNSString:(NSString *)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnAnimationCancelWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnAnimationEndWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnAnimationRepeatWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnAnimationStartWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnChildViewAddedWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setOnChildViewRemovedWithNSString:(NSString *)arg0;
@@ -609,6 +633,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setVisibilityWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setZIndexWithInt:(jint)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)startAnimator;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetAddStatesFromChildren;
 
