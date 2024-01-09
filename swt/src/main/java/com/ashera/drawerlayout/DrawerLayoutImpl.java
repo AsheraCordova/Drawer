@@ -127,7 +127,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
         }    
         return remove;
     }
-	
+
 	private void nativeRemoveView(IWidget widget) {
 		r.android.animation.LayoutTransition layoutTransition = drawerLayout.getLayoutTransition();
 		if (layoutTransition != null && (
