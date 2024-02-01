@@ -62,6 +62,9 @@
       </feature>
     </config-file>
    	<framework src="browser/core.gradle" custom="true" type="gradleReference" />
+   	<!-- start tsc -->
+     <source-file src="browser/tsc/src/web/widget/DrawerLayoutImpl.ts" target-dir="tsc/src/web/widget"/>
+     <!-- tsc end -->
   </platform>
   <platform name="swt">
     <config-file target="res/xml/config.xml" parent="/*">
@@ -71,6 +74,10 @@
       </feature>
     </config-file>  
    	<framework src="swt/core.gradle" custom="true" type="gradleReference" />
+   	
+   	 <!-- start tsc -->
+     <source-file src="swt/tsc/src/swt/widget/DrawerLayoutImpl.ts" target-dir="tsc/src/swt/widget"/>
+     <!-- tsc end -->
   </platform>
 
 

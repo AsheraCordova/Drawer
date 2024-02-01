@@ -378,6 +378,10 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAlphaWithFloat:(jfloat)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAnimateLayoutChangesWithBoolean:(jboolean)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAnimateParentHierarchyWithBoolean:(jboolean)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAnimationDurationInMsWithInt:(jint)value;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setAsDragSourceWithNSString:(NSString *)arg0;
@@ -391,6 +395,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setBackgroundTintWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setBackgroundWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setBottomWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setChildXmlWithNSString:(NSString *)arg0;
 
@@ -502,6 +508,12 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setLayoutModeWithNSString:(NSString *)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setLayoutTransitionDurationWithInt:(jint)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setLayoutTransitionWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setLeftWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setListitemWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setLongClickableWithBoolean:(jboolean)arg0;
@@ -584,6 +596,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setPaddingWithNSString:(NSString *)arg0;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setRightWithNSString:(NSString *)arg0;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setRotationWithFloat:(jfloat)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setRotationXWithFloat:(jfloat)arg0;
@@ -603,6 +617,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setTextAlignmentWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setTextDirectionWithNSString:(NSString *)arg0;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setTopWithNSString:(NSString *)arg0;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)setTransformPivotXWithNSString:(NSString *)arg0;
 
@@ -647,6 +663,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetBackgroundTint;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetBackgroundTintMode;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetBottom;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetClickable;
 
@@ -738,6 +756,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetLayoutMode;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetLeft;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetLongClickable;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetMaxHeight;
@@ -772,6 +792,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetPaddingTop;
 
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetRight;
+
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetRotation;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetRotationX;
@@ -787,6 +809,8 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetTextAlignment;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetTextDirection;
+
+- (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetTop;
 
 - (ASDrawerLayoutImpl_DrawerLayoutCommandBuilder *)tryGetTransformPivotX;
 

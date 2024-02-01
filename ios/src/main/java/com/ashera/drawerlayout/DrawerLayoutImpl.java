@@ -356,7 +356,9 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
         
     	@Override
 		public void remeasure() {
-			getFragment().remeasure();
+    		if (getFragment() != null) {
+    			getFragment().remeasure();
+    		}
 		}
     	
         @Override

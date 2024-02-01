@@ -13,5 +13,9 @@
       </feature>
     </config-file>  
    	<framework src="core.gradle" custom="true" type="gradleReference" />
+   	
+   	 <!-- start tsc -->
+     <source-file src="tsc/src/swt/widget/DrawerLayoutImpl.ts" target-dir="tsc/src/swt/widget"/>
+     <!-- tsc end -->
   </platform>
 </plugin>
