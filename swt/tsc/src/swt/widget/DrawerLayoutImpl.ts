@@ -18,6 +18,7 @@ import {MotionEvent} from '../../app/MotionEvent';
 import {DragEvent} from '../../app/DragEvent';
 import {KeyEvent} from '../../app/KeyEvent';
 import { ScopedObject } from '../../app/ScopedObject';
+import { Mixin, decorate } from 'ts-mixer';
 
 
 
@@ -39,44 +40,44 @@ export abstract class DrawerLayoutImpl<T> extends ViewGroupImpl<T>{
 	//start - body
 	static initialize() {
     }	
-	@Type(() => CommandAttr)
-	@Expose({ name: "drawerLockMode" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "drawerLockMode" }))
 	drawerLockMode!:CommandAttr<DrawerLockMode>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "onDrawerSlide" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "onDrawerSlide" }))
 	onDrawerSlide!:CommandAttr<string>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "onDrawerOpened" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "onDrawerOpened" }))
 	onDrawerOpened!:CommandAttr<string>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "onDrawerClosed" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "onDrawerClosed" }))
 	onDrawerClosed!:CommandAttr<string>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "onDrawerStateChange" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "onDrawerStateChange" }))
 	onDrawerStateChange!:CommandAttr<string>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "drawerGravity" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "drawerGravity" }))
 	drawerGravity!:CommandAttr<Gravity[]>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "isOpenStart" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "isOpenStart" }))
 	isOpenStart_!:CommandAttr<boolean>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "isOpenEnd" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "isOpenEnd" }))
 	isOpenEnd_!:CommandAttr<boolean>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "edgeSize" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "edgeSize" }))
 	edgeSize_!:CommandAttr<string>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "openDrawer" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "openDrawer" }))
 	openDrawer_!:CommandAttr<Gravity[]>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "closeDrawer" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "closeDrawer" }))
 	closeDrawer_!:CommandAttr<Gravity[]>| undefined;
-	@Type(() => CommandAttr)
-	@Expose({ name: "animationDurationInMs" })
+	@decorate(Type(() => CommandAttr))
+	@decorate(Expose({ name: "animationDurationInMs" }))
 	animationDurationInMs!:CommandAttr<number>| undefined;
 
-	@Exclude()
+	@decorate(Exclude())
 	protected thisPointer: T;	
 	protected abstract getThisPointer(): T;
 	reset() : T {	
