@@ -120,7 +120,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 	}
 
 	@Override
-	public boolean remove(IWidget w) {		
+	public boolean remove(IWidget w) {
 		boolean remove = super.remove(w);
 		drawerLayout.removeView((View) w.asWidget());
 		 nativeRemoveView(w);            
@@ -341,7 +341,9 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
         @Override
         public void drawableStateChanged() {
         	super.drawableStateChanged();
-        	ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
+        	if (!isWidgetDisposed()) {
+        		ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
+        	}
         }
         private Map<String, IWidget> templates;
     	@Override
@@ -354,9 +356,10 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
     			template = (IWidget) quickConvert(layout, "template");
     			templates.put(layout, template);
     		}
-    		IWidget widget = template.loadLazyWidgets(DrawerLayoutImpl.this.getParent());
-    		return (View) widget.asWidget();
-    	}        
+    		
+    		IWidget widget = template.loadLazyWidgets(DrawerLayoutImpl.this);
+			return (View) widget.asWidget();
+    	}   
         
     	@Override
 		public void remeasure() {
@@ -472,6 +475,7 @@ public class DrawerLayoutImpl extends BaseHasWidgets {
 			super.endViewTransition(view);
 			runBufferedRunnables();
 		}
+	
 	}
 	@Override
 	public Class getViewClass() {

@@ -137,7 +137,7 @@ Context context = (Context) fragment.getRootActivity();
 	}
 
 	@Override
-	public boolean remove(IWidget w) {		
+	public boolean remove(IWidget w) {
 		boolean remove = super.remove(w);
 		drawerLayout.removeView((View) w.asWidget());
 		return remove;
@@ -371,7 +371,9 @@ Context context = (Context) fragment.getRootActivity();
         @Override
         public void drawableStateChanged() {
         	super.drawableStateChanged();
-        	ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
+        	if (!isWidgetDisposed()) {
+        		ViewImpl.drawableStateChanged(DrawerLayoutImpl.this);
+        	}
         }
         
     	public void setState0(float value) {
@@ -509,6 +511,7 @@ Context context = (Context) fragment.getRootActivity();
         	ViewImpl.stateNo(DrawerLayoutImpl.this);
         }
      
+	
 	}
 	@Override
 	public Class getViewClass() {
