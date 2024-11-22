@@ -85,6 +85,6 @@ The following shows an example of DrawerLayout:
 
 The following are some important points to be noted:
 * blurredView - This is required for swt implementation where in a blurred view is put in background as SWT does not support transparency.
-* swtAttachEventBubbler - As swt deos not support event bubbling, manual event bubbling has to be configured.
-* drawerlayoutstart and drawerlayoutend - the ids are harded in the implementation and should not be changed. This is the view which contains the navigation drawer view.
+* swtAttachEventBubbler - As swt does not support event bubbling, manual event bubbling has to be configured.
+* drawerlayoutstart and drawerlayoutend - the ids are hard coded in the implementation and should not be changed. This is the view which contains the navigation drawer view.
 * zIndex - this should be configured so that it works properly across all platforms.
