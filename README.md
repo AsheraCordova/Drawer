@@ -2,22 +2,22 @@
 
 Drawer project which adds support for android drawer layout.
 
-## Widgets
-* androidx.drawerlayout.widget.DrawerLayout
+## Installation
+To install the plugin use:
 
-Important Links:
+```
+cordova plugin add https://github.com/AsheraCordova/Drawer.git
+```
 
+## Important Links
 https://asheracordova.github.io/
 
 https://asheracordova.github.io/doc/help-doc.html
 
 https://asheracordova.github.io/doc/androidx/drawerlayout/widget/DrawerLayout.html
 
-To install the plugin use:
-
-```
-cordova plugin add https://github.com/AsheraCordova/Drawer.git
-```
+## Widgets
+* androidx.drawerlayout.widget.DrawerLayout
 
 ## Custom Attributes
 
