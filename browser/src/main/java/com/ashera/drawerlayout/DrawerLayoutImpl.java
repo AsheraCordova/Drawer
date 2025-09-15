@@ -1031,6 +1031,7 @@ public java.util.Map<String, Object> getOnDrawerSlideEventObj(View drawerView,fl
     obj.put("eventType", "drawerslide");
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
+    obj.put("namespace", w.getFragment().getNamespace());
     
     if (w.getComponentId() != null) {
     	obj.put("componentId", w.getComponentId());
@@ -1090,6 +1091,7 @@ public java.util.Map<String, Object> getOnDrawerOpenedEventObj(View drawerView) 
     obj.put("eventType", "draweropened");
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
+    obj.put("namespace", w.getFragment().getNamespace());
     
     if (w.getComponentId() != null) {
     	obj.put("componentId", w.getComponentId());
@@ -1148,6 +1150,7 @@ public java.util.Map<String, Object> getOnDrawerClosedEventObj(View drawerView) 
     obj.put("eventType", "drawerclosed");
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
+    obj.put("namespace", w.getFragment().getNamespace());
     
     if (w.getComponentId() != null) {
     	obj.put("componentId", w.getComponentId());
@@ -1206,6 +1209,7 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
     obj.put("eventType", "drawerstatechanged");
     obj.put("fragmentId", w.getFragment().getFragmentId());
     obj.put("actionUrl", w.getFragment().getActionUrl());
+    obj.put("namespace", w.getFragment().getNamespace());
     
     if (w.getComponentId() != null) {
     	obj.put("componentId", w.getComponentId());

@@ -2057,6 +2057,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
   (void) [obj putWithId:@"eventType" withId:@"drawerslide"];
   (void) [obj putWithId:@"fragmentId" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getFragmentId]];
   (void) [obj putWithId:@"actionUrl" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getActionUrl]];
+  (void) [obj putWithId:@"namespace" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getNamespace]];
   if ([((id<ASIWidget>) nil_chk(w_)) getComponentId] != nil) {
     (void) [obj putWithId:@"componentId" withId:[((id<ASIWidget>) nil_chk(w_)) getComponentId]];
   }
@@ -2105,6 +2106,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
   (void) [obj putWithId:@"eventType" withId:@"draweropened"];
   (void) [obj putWithId:@"fragmentId" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getFragmentId]];
   (void) [obj putWithId:@"actionUrl" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getActionUrl]];
+  (void) [obj putWithId:@"namespace" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getNamespace]];
   if ([((id<ASIWidget>) nil_chk(w_)) getComponentId] != nil) {
     (void) [obj putWithId:@"componentId" withId:[((id<ASIWidget>) nil_chk(w_)) getComponentId]];
   }
@@ -2152,6 +2154,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
   (void) [obj putWithId:@"eventType" withId:@"drawerclosed"];
   (void) [obj putWithId:@"fragmentId" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getFragmentId]];
   (void) [obj putWithId:@"actionUrl" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getActionUrl]];
+  (void) [obj putWithId:@"namespace" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getNamespace]];
   if ([((id<ASIWidget>) nil_chk(w_)) getComponentId] != nil) {
     (void) [obj putWithId:@"componentId" withId:[((id<ASIWidget>) nil_chk(w_)) getComponentId]];
   }
@@ -2199,6 +2202,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
   (void) [obj putWithId:@"eventType" withId:@"drawerstatechanged"];
   (void) [obj putWithId:@"fragmentId" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getFragmentId]];
   (void) [obj putWithId:@"actionUrl" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getActionUrl]];
+  (void) [obj putWithId:@"namespace" withId:[((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getNamespace]];
   if ([((id<ASIWidget>) nil_chk(w_)) getComponentId] != nil) {
     (void) [obj putWithId:@"componentId" withId:[((id<ASIWidget>) nil_chk(w_)) getComponentId]];
   }
