@@ -3,10 +3,21 @@
 //  source: D:\Java\git\core-ios-widgets\IOSNavigationDrawerPlugin\src\main\java\com\ashera\drawerlayout\NavigationDrawerPlugin.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "DrawerLayoutImpl.h"
 #include "J2ObjC_source.h"
 #include "NavigationDrawerPlugin.h"
 #include "WidgetFactory.h"
+
+
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @implementation ASNavigationDrawerPlugin
@@ -57,3 +68,5 @@ void ASNavigationDrawerPlugin_initPlugin() {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASNavigationDrawerPlugin)
+
+J2OBJC_NAME_MAPPING(ASNavigationDrawerPlugin, "com.ashera.drawerlayout", "AS")

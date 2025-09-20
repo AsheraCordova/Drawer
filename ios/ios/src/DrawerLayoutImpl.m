@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-ios-widgets\IOSNavigationDrawerPlugin\src\main\java\com\ashera\drawerlayout\DrawerLayoutImpl.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "AbstractEnumToIntConverter.h"
 #include "BaseHasWidgets.h"
 #include "ConverterFactory.h"
@@ -51,8 +56,12 @@
 #include "ASUIView.h"
 #include "HasLifeCycleDecorators.h"
 
-@protocol JavaUtilList;
-@protocol JavaUtilMap;
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 #pragma clang diagnostic ignored "-Wprotocol"
@@ -61,12 +70,12 @@
  @public
   id uiView_;
   ADXDrawerLayout *drawerLayout_;
-  jint drawerGravity_;
+  int32_t drawerGravity_;
   id<JavaUtilMap> listeners_;
-  jint startX_;
-  jboolean mouseMoved_;
-  jint edgeSize_;
-  jint animationDurationInMs_;
+  int32_t startX_;
+  bool mouseMoved_;
+  int32_t edgeSize_;
+  int32_t animationDurationInMs_;
   id<ASIWidget> animatingWidget_;
 }
 
@@ -81,11 +90,11 @@
 - (void)setDrawerGravityWithId:(id)objValue;
 
 - (void)handleChildAdditionWithASIWidget:(id<ASIWidget>)w
-                                 withInt:(jint)index
+                                 withInt:(int32_t)index
                               withADView:(ADView *)view;
 
 - (void)addViewWithADView:(ADView *)view
-                  withInt:(jint)index
+                  withInt:(int32_t)index
 withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams;
 
 - (id)isOpenStart;
@@ -99,16 +108,16 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams;
 - (void)closeDrawerWithId:(id)objValue;
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
-                            withInt:(jint)x
-                            withInt:(jint)y;
+                            withInt:(int32_t)x
+                            withInt:(int32_t)y;
 
-- (jboolean)isLeftDrawerWithADView:(ADView *)view;
+- (bool)isLeftDrawerWithADView:(ADView *)view;
 
-- (jboolean)isRightDrawerWithADView:(ADView *)view;
+- (bool)isRightDrawerWithADView:(ADView *)view;
 
-- (jboolean)isContentViewWithASIWidget:(id<ASIWidget>)widget;
+- (bool)isContentViewWithASIWidget:(id<ASIWidget>)widget;
 
-- (void)handlePanStartWithInt:(jint)eventX;
+- (void)handlePanStartWithInt:(int32_t)eventX;
 
 - (void)handlePanEndOfDrawerWithASIWidget:(id<ASIWidget>)widget;
 
@@ -118,27 +127,27 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams;
 - (void)handleLeftDrawerPanEndWithASIWidget:(id<ASIWidget>)widget
                                  withADView:(ADView *)view;
 
-- (void)handlePanDragOfDrawerWithInt:(jint)eventX
+- (void)handlePanDragOfDrawerWithInt:(int32_t)eventX
                        withASIWidget:(id<ASIWidget>)widget;
 
-- (void)handlePanDragWithInt:(jint)eventX;
+- (void)handlePanDragWithInt:(int32_t)eventX;
 
 - (void)handlePanEnd;
 
-- (jboolean)isLeftDrawerDraggedWithInt:(jint)x;
+- (bool)isLeftDrawerDraggedWithInt:(int32_t)x;
 
-- (jboolean)isRightDrawerDraggedWithInt:(jint)x;
+- (bool)isRightDrawerDraggedWithInt:(int32_t)x;
 
-- (jint)getContentViewWidth;
+- (int32_t)getContentViewWidth;
 
 - (void)resetPanVars;
 
-- (jint)getGravityWithADView:(ADView *)view;
+- (int32_t)getGravityWithADView:(ADView *)view;
 
 - (void)hideDrawerViewWithADView:(ADView *)drawerView;
 
 - (void)updateDrawerViewStateWithASIWidget:(id<ASIWidget>)widget
-                                   withInt:(jint)currentX;
+                                   withInt:(int32_t)currentX;
 
 - (void)setEdgeSizeWithId:(id)objValue;
 
@@ -154,19 +163,19 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams;
 
 - (void)addUIPanGestureRecognizerWithId:(id)objview;
 
-- (void)updateStateWithInt:(jint)currentX;
+- (void)updateStateWithInt:(int32_t)currentX;
 
 - (void)updateXWithId:(id)objview
-              withInt:(jint)x;
+              withInt:(int32_t)x;
 
-- (void)handleDragOfDrawerWithInt:(jint)eventX
+- (void)handleDragOfDrawerWithInt:(int32_t)eventX
                            withId:(id)uiview;
 
 - (void)handleDragEndOfDrawerWithId:(id)uiview;
 
 - (void)setScrimColorWithId:(id)objValue;
 
-- (jboolean)requiresCurrentXCorrection;
+- (bool)requiresCurrentXCorrection;
 
 @end
 
@@ -185,9 +194,9 @@ __attribute__((unused)) static ADXDrawerLayout_LayoutParams *ASDrawerLayoutImpl_
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_setDrawerGravityWithId_(ASDrawerLayoutImpl *self, id objValue);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_handleChildAdditionWithASIWidget_withInt_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> w, jint index, ADView *view);
+__attribute__((unused)) static void ASDrawerLayoutImpl_handleChildAdditionWithASIWidget_withInt_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> w, int32_t index, ADView *view);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_addViewWithADView_withInt_withADViewGroup_LayoutParams_(ASDrawerLayoutImpl *self, ADView *view, jint index, ADViewGroup_LayoutParams *layoutParams);
+__attribute__((unused)) static void ASDrawerLayoutImpl_addViewWithADView_withInt_withADViewGroup_LayoutParams_(ASDrawerLayoutImpl *self, ADView *view, int32_t index, ADViewGroup_LayoutParams *layoutParams);
 
 __attribute__((unused)) static id ASDrawerLayoutImpl_isOpenStart(ASDrawerLayoutImpl *self);
 
@@ -199,15 +208,15 @@ __attribute__((unused)) static void ASDrawerLayoutImpl_openDrawerWithId_(ASDrawe
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_closeDrawerWithId_(ASDrawerLayoutImpl *self, id objValue);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(ASDrawerLayoutImpl *self, ADView *drawerView, jint x, jint y);
+__attribute__((unused)) static void ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(ASDrawerLayoutImpl *self, ADView *drawerView, int32_t x, int32_t y);
 
-__attribute__((unused)) static jboolean ASDrawerLayoutImpl_isLeftDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view);
+__attribute__((unused)) static bool ASDrawerLayoutImpl_isLeftDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view);
 
-__attribute__((unused)) static jboolean ASDrawerLayoutImpl_isRightDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view);
+__attribute__((unused)) static bool ASDrawerLayoutImpl_isRightDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view);
 
-__attribute__((unused)) static jboolean ASDrawerLayoutImpl_isContentViewWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget);
+__attribute__((unused)) static bool ASDrawerLayoutImpl_isContentViewWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_handlePanStartWithInt_(ASDrawerLayoutImpl *self, jint eventX);
+__attribute__((unused)) static void ASDrawerLayoutImpl_handlePanStartWithInt_(ASDrawerLayoutImpl *self, int32_t eventX);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_handlePanEndOfDrawerWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget);
 
@@ -215,25 +224,25 @@ __attribute__((unused)) static void ASDrawerLayoutImpl_handleRightDrawerPanEndWi
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_handleLeftDrawerPanEndWithASIWidget_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, ADView *view);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayoutImpl *self, jint eventX, id<ASIWidget> widget);
+__attribute__((unused)) static void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayoutImpl *self, int32_t eventX, id<ASIWidget> widget);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, jint eventX);
+__attribute__((unused)) static void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, int32_t eventX);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_handlePanEnd(ASDrawerLayoutImpl *self);
 
-__attribute__((unused)) static jboolean ASDrawerLayoutImpl_isLeftDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, jint x);
+__attribute__((unused)) static bool ASDrawerLayoutImpl_isLeftDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, int32_t x);
 
-__attribute__((unused)) static jboolean ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, jint x);
+__attribute__((unused)) static bool ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, int32_t x);
 
-__attribute__((unused)) static jint ASDrawerLayoutImpl_getContentViewWidth(ASDrawerLayoutImpl *self);
+__attribute__((unused)) static int32_t ASDrawerLayoutImpl_getContentViewWidth(ASDrawerLayoutImpl *self);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_resetPanVars(ASDrawerLayoutImpl *self);
 
-__attribute__((unused)) static jint ASDrawerLayoutImpl_getGravityWithADView_(ASDrawerLayoutImpl *self, ADView *view);
+__attribute__((unused)) static int32_t ASDrawerLayoutImpl_getGravityWithADView_(ASDrawerLayoutImpl *self, ADView *view);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_hideDrawerViewWithADView_(ASDrawerLayoutImpl *self, ADView *drawerView);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, jint currentX);
+__attribute__((unused)) static void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, int32_t currentX);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_setEdgeSizeWithId_(ASDrawerLayoutImpl *self, id objValue);
 
@@ -249,17 +258,17 @@ __attribute__((unused)) static void ASDrawerLayoutImpl_addUIPanGestureRecognizer
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_addUIPanGestureRecognizerWithId_(ASDrawerLayoutImpl *self, id objview);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_updateStateWithInt_(ASDrawerLayoutImpl *self, jint currentX);
+__attribute__((unused)) static void ASDrawerLayoutImpl_updateStateWithInt_(ASDrawerLayoutImpl *self, int32_t currentX);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_updateXWithId_withInt_(ASDrawerLayoutImpl *self, id objview, jint x);
+__attribute__((unused)) static void ASDrawerLayoutImpl_updateXWithId_withInt_(ASDrawerLayoutImpl *self, id objview, int32_t x);
 
-__attribute__((unused)) static void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *self, jint eventX, id uiview);
+__attribute__((unused)) static void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *self, int32_t eventX, id uiview);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_handleDragEndOfDrawerWithId_(ASDrawerLayoutImpl *self, id uiview);
 
 __attribute__((unused)) static void ASDrawerLayoutImpl_setScrimColorWithId_(ASDrawerLayoutImpl *self, id objValue);
 
-__attribute__((unused)) static jboolean ASDrawerLayoutImpl_requiresCurrentXCorrection(ASDrawerLayoutImpl *self);
+__attribute__((unused)) static bool ASDrawerLayoutImpl_requiresCurrentXCorrection(ASDrawerLayoutImpl *self);
 
 @interface ASDrawerLayoutImpl_DrawerLockMode () {
  @public
@@ -272,12 +281,12 @@ J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLockMode, mapping_, id<JavaUtilMap>
 
 @interface ASDrawerLayoutImpl_DrawerLayoutExt () {
  @public
-  __unsafe_unretained ASDrawerLayoutImpl *this$0_;
+  WEAK_ ASDrawerLayoutImpl *this$0_;
   ASMeasureEvent *measureFinished_;
   ASOnLayoutEvent *onLayoutEvent_;
   id<JavaUtilList> overlays_;
-  jint mMaxWidth_;
-  jint mMaxHeight_;
+  int32_t mMaxWidth_;
+  int32_t mMaxHeight_;
   id<JavaUtilMap> templates_;
 }
 
@@ -306,10 +315,10 @@ J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLayoutExt, templates_, id<JavaUtilM
                      withNSString:(NSString *)action;
 
 - (void)onDrawerSlideWithADView:(ADView *)drawerView
-                      withFloat:(jfloat)slideOffset;
+                      withFloat:(float)slideOffset;
 
 - (id<JavaUtilMap>)getOnDrawerSlideEventObjWithADView:(ADView *)drawerView
-                                            withFloat:(jfloat)slideOffset;
+                                            withFloat:(float)slideOffset;
 
 - (void)onDrawerOpenedWithADView:(ADView *)drawerView;
 
@@ -319,9 +328,9 @@ J2OBJC_FIELD_SETTER(ASDrawerLayoutImpl_DrawerLayoutExt, templates_, id<JavaUtilM
 
 - (id<JavaUtilMap>)getOnDrawerClosedEventObjWithADView:(ADView *)drawerView;
 
-- (void)onDrawerStateChangedWithInt:(jint)newState;
+- (void)onDrawerStateChangedWithInt:(int32_t)newState;
 
-- (id<JavaUtilMap>)getOnDrawerStateChangedEventObjWithInt:(jint)newState;
+- (id<JavaUtilMap>)getOnDrawerStateChangedEventObjWithInt:(int32_t)newState;
 
 @end
 
@@ -346,9 +355,10 @@ __attribute__((unused)) static ASDrawerLayoutImpl_DrawerListener *create_ASDrawe
 
 J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerListener)
 
+
 @interface ASDrawerLayoutImpl_BlurredPanelClickListener : NSObject < ADView_OnClickListener > {
  @public
-  __unsafe_unretained ASDrawerLayoutImpl *this$0_;
+  WEAK_ ASDrawerLayoutImpl *this$0_;
   id objValue_;
 }
 
@@ -371,6 +381,7 @@ __attribute__((unused)) static ASDrawerLayoutImpl_BlurredPanelClickListener *cre
 
 J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_BlurredPanelClickListener)
 
+
 @interface ASDrawerLayoutImpl_$Lambda$1 : NSObject < JavaLangRunnable > {
  @public
   id<ASIWidget> val$widget_;
@@ -388,14 +399,15 @@ __attribute__((unused)) static ASDrawerLayoutImpl_$Lambda$1 *new_ASDrawerLayoutI
 
 __attribute__((unused)) static ASDrawerLayoutImpl_$Lambda$1 *create_ASDrawerLayoutImpl_$Lambda$1_initWithASIWidget_(id<ASIWidget> capture$0);
 
+
 @interface ASDrawerLayoutImpl_$Lambda$2 : NSObject < ASViewImpl_AnimationCallBack > {
  @public
   ASDrawerLayoutImpl *this$0_;
   id<ASIWidget> val$child_;
 }
 
-- (void)animatingWithInt:(jint)currentX
-                 withInt:(jint)currentY;
+- (void)animatingWithInt:(int32_t)currentX
+                 withInt:(int32_t)currentY;
 
 @end
 
@@ -406,6 +418,7 @@ __attribute__((unused)) static void ASDrawerLayoutImpl_$Lambda$2_initWithASDrawe
 __attribute__((unused)) static ASDrawerLayoutImpl_$Lambda$2 *new_ASDrawerLayoutImpl_$Lambda$2_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0) NS_RETURNS_RETAINED;
 
 __attribute__((unused)) static ASDrawerLayoutImpl_$Lambda$2 *create_ASDrawerLayoutImpl_$Lambda$2_initWithASDrawerLayoutImpl_withASIWidget_(ASDrawerLayoutImpl *outer$, id<ASIWidget> capture$0);
+
 
 NSString *ASDrawerLayoutImpl_LOCAL_NAME = @"androidx.drawerlayout.widget.DrawerLayout";
 NSString *ASDrawerLayoutImpl_GROUP_NAME = @"androidx.drawerlayout.widget.DrawerLayout";
@@ -471,16 +484,16 @@ J2OBJC_IGNORE_DESIGNATED_END
   return drawerLayout_;
 }
 
-- (jboolean)removeWithASIWidget:(id<ASIWidget>)w {
-  jboolean remove = [super removeWithASIWidget:w];
+- (bool)removeWithASIWidget:(id<ASIWidget>)w {
+  bool remove = [super removeWithASIWidget:w];
   [((ADXDrawerLayout *) nil_chk(drawerLayout_)) removeViewWithADView:(ADView *) cast_chk([((id<ASIWidget>) nil_chk(w)) asWidget], [ADView class])];
   ASDrawerLayoutImpl_nativeRemoveViewWithASIWidget_(self, w);
   return remove;
 }
 
-- (jboolean)removeWithInt:(jint)index {
+- (bool)removeWithInt:(int32_t)index {
   id<ASIWidget> widget = [((id<JavaUtilList>) nil_chk(widgets_)) getWithInt:index];
-  jboolean remove = [super removeWithInt:index];
+  bool remove = [super removeWithInt:index];
   if (index + 1 <= [((ADXDrawerLayout *) nil_chk(drawerLayout_)) getChildCount]) {
     [((ADXDrawerLayout *) nil_chk(drawerLayout_)) removeViewAtWithInt:index];
     ASDrawerLayoutImpl_nativeRemoveViewWithASIWidget_(self, widget);
@@ -493,7 +506,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)addWithASIWidget:(id<ASIWidget>)w
-                 withInt:(jint)index {
+                 withInt:(int32_t)index {
   if (index != -2) {
     ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(w)) asWidget], [ADView class]);
     ASDrawerLayoutImpl_createLayoutParamsWithADView_(self, view);
@@ -663,7 +676,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   return uiView_;
 }
 
-- (jboolean)checkIosVersionWithNSString:(NSString *)v {
+- (bool)checkIosVersionWithNSString:(NSString *)v {
   return ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending);
 }
 
@@ -690,13 +703,13 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)handleChildAdditionWithASIWidget:(id<ASIWidget>)w
-                                 withInt:(jint)index
+                                 withInt:(int32_t)index
                               withADView:(ADView *)view {
   ASDrawerLayoutImpl_handleChildAdditionWithASIWidget_withInt_withADView_(self, w, index, view);
 }
 
 - (void)addViewWithADView:(ADView *)view
-                  withInt:(jint)index
+                  withInt:(int32_t)index
 withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   ASDrawerLayoutImpl_addViewWithADView_withInt_withADViewGroup_LayoutParams_(self, view, index, layoutParams);
 }
@@ -722,24 +735,24 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
 }
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
-                            withInt:(jint)x
-                            withInt:(jint)y {
+                            withInt:(int32_t)x
+                            withInt:(int32_t)y {
   ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(self, drawerView, x, y);
 }
 
-- (jboolean)isLeftDrawerWithADView:(ADView *)view {
+- (bool)isLeftDrawerWithADView:(ADView *)view {
   return ASDrawerLayoutImpl_isLeftDrawerWithADView_(self, view);
 }
 
-- (jboolean)isRightDrawerWithADView:(ADView *)view {
+- (bool)isRightDrawerWithADView:(ADView *)view {
   return ASDrawerLayoutImpl_isRightDrawerWithADView_(self, view);
 }
 
-- (jboolean)isContentViewWithASIWidget:(id<ASIWidget>)widget {
+- (bool)isContentViewWithASIWidget:(id<ASIWidget>)widget {
   return ASDrawerLayoutImpl_isContentViewWithASIWidget_(self, widget);
 }
 
-- (void)handlePanStartWithInt:(jint)eventX {
+- (void)handlePanStartWithInt:(int32_t)eventX {
   ASDrawerLayoutImpl_handlePanStartWithInt_(self, eventX);
 }
 
@@ -757,12 +770,12 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   ASDrawerLayoutImpl_handleLeftDrawerPanEndWithASIWidget_withADView_(self, widget, view);
 }
 
-- (void)handlePanDragOfDrawerWithInt:(jint)eventX
+- (void)handlePanDragOfDrawerWithInt:(int32_t)eventX
                        withASIWidget:(id<ASIWidget>)widget {
   ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(self, eventX, widget);
 }
 
-- (void)handlePanDragWithInt:(jint)eventX {
+- (void)handlePanDragWithInt:(int32_t)eventX {
   ASDrawerLayoutImpl_handlePanDragWithInt_(self, eventX);
 }
 
@@ -770,15 +783,15 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   ASDrawerLayoutImpl_handlePanEnd(self);
 }
 
-- (jboolean)isLeftDrawerDraggedWithInt:(jint)x {
+- (bool)isLeftDrawerDraggedWithInt:(int32_t)x {
   return ASDrawerLayoutImpl_isLeftDrawerDraggedWithInt_(self, x);
 }
 
-- (jboolean)isRightDrawerDraggedWithInt:(jint)x {
+- (bool)isRightDrawerDraggedWithInt:(int32_t)x {
   return ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(self, x);
 }
 
-- (jint)getContentViewWidth {
+- (int32_t)getContentViewWidth {
   return ASDrawerLayoutImpl_getContentViewWidth(self);
 }
 
@@ -786,7 +799,7 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   ASDrawerLayoutImpl_resetPanVars(self);
 }
 
-- (jint)getGravityWithADView:(ADView *)view {
+- (int32_t)getGravityWithADView:(ADView *)view {
   return ASDrawerLayoutImpl_getGravityWithADView_(self, view);
 }
 
@@ -795,7 +808,7 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
 }
 
 - (void)updateDrawerViewStateWithASIWidget:(id<ASIWidget>)widget
-                                   withInt:(jint)currentX {
+                                   withInt:(int32_t)currentX {
   ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(self, widget, currentX);
 }
 
@@ -814,7 +827,7 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   }
 }
 
-- (void)setVisibleWithBoolean:(jboolean)b {
+- (void)setVisibleWithBoolean:(bool)b {
   [((ADView *) nil_chk(((ADView *) cast_chk([self asWidget], [ADView class])))) setVisibilityWithInt:b ? ADView_VISIBLE : ADView_GONE];
 }
 
@@ -873,16 +886,16 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   }
 }
 
-- (void)updateStateWithInt:(jint)currentX {
+- (void)updateStateWithInt:(int32_t)currentX {
   ASDrawerLayoutImpl_updateStateWithInt_(self, currentX);
 }
 
 - (void)updateXWithId:(id)objview
-              withInt:(jint)x {
+              withInt:(int32_t)x {
   ASDrawerLayoutImpl_updateXWithId_withInt_(self, objview, x);
 }
 
-- (void)handleDragOfDrawerWithInt:(jint)eventX
+- (void)handleDragOfDrawerWithInt:(int32_t)eventX
                            withId:(id)uiview {
   ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(self, eventX, uiview);
 }
@@ -895,14 +908,14 @@ withADViewGroup_LayoutParams:(ADViewGroup_LayoutParams *)layoutParams {
   ASDrawerLayoutImpl_setScrimColorWithId_(self, objValue);
 }
 
-- (jboolean)requiresCurrentXCorrection {
+- (bool)requiresCurrentXCorrection {
   return ASDrawerLayoutImpl_requiresCurrentXCorrection(self);
 }
 
-- (void)nativeMakeFrameForChildWidgetWithInt:(jint)l
-                                     withInt:(jint)t
-                                     withInt:(jint)r
-                                     withInt:(jint)b {
+- (void)nativeMakeFrameForChildWidgetWithInt:(int32_t)l
+                                     withInt:(int32_t)t
+                                     withInt:(int32_t)r
+                                     withInt:(int32_t)b {
   id<ASIWidget> blurredWidget = [self findWidgetByIdWithNSString:@"@+id/blurredView"];
   if (blurredWidget != nil) {
     id nativeWidget = [blurredWidget asNativeWidget];
@@ -1157,7 +1170,7 @@ void ASDrawerLayoutImpl_setDrawerGravityWithId_(ASDrawerLayoutImpl *self, id obj
   self->drawerGravity_ = [((JavaLangInteger *) nil_chk((JavaLangInteger *) cast_chk(objValue, [JavaLangInteger class]))) intValue];
 }
 
-void ASDrawerLayoutImpl_handleChildAdditionWithASIWidget_withInt_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> w, jint index, ADView *view) {
+void ASDrawerLayoutImpl_handleChildAdditionWithASIWidget_withInt_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> w, int32_t index, ADView *view) {
   ADViewGroup_LayoutParams *layoutParams = [((ADView *) nil_chk(view)) getLayoutParams];
   NSString *id_ = [((id<ASIWidget>) nil_chk(w)) getId];
   if ([@"@+id/drawerlayout" isEqual:id_]) {
@@ -1180,7 +1193,7 @@ void ASDrawerLayoutImpl_handleChildAdditionWithASIWidget_withInt_withADView_(ASD
   }
 }
 
-void ASDrawerLayoutImpl_addViewWithADView_withInt_withADViewGroup_LayoutParams_(ASDrawerLayoutImpl *self, ADView *view, jint index, ADViewGroup_LayoutParams *layoutParams) {
+void ASDrawerLayoutImpl_addViewWithADView_withInt_withADViewGroup_LayoutParams_(ASDrawerLayoutImpl *self, ADView *view, int32_t index, ADViewGroup_LayoutParams *layoutParams) {
   if (index == -1) {
     [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) addViewWithADView:view withInt:index withADViewGroup_LayoutParams:layoutParams];
   }
@@ -1217,11 +1230,11 @@ void ASDrawerLayoutImpl_closeDrawerWithId_(ASDrawerLayoutImpl *self, id objValue
   [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) closeDrawerWithInt:[((JavaLangInteger *) nil_chk((JavaLangInteger *) cast_chk(objValue, [JavaLangInteger class]))) intValue]];
 }
 
-void ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(ASDrawerLayoutImpl *self, ADView *drawerView, jint x, jint y) {
+void ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(ASDrawerLayoutImpl *self, ADView *drawerView, int32_t x, int32_t y) {
   for (id<JavaUtilIterator> iterator = [((id<JavaUtilList>) nil_chk(self->widgets_)) iterator]; [((id<JavaUtilIterator>) nil_chk(iterator)) hasNext]; ) {
     id<ASIWidget> child = [iterator next];
     id childView = [((id<ASIWidget>) nil_chk(child)) asWidget];
-    if (childView == drawerView) {
+    if (JreObjectEqualsEquals(childView, drawerView)) {
       ASViewImpl_translateWithAnimationWithId_withInt_withInt_withInt_withASViewImpl_AnimationCallBack_([child asNativeWidget], x, y, self->animationDurationInMs_, new_ASDrawerLayoutImpl_$Lambda$2_initWithASDrawerLayoutImpl_withASIWidget_(self, child));
       break;
     }
@@ -1229,22 +1242,22 @@ void ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(ASDrawerLay
   ASDrawerLayoutImpl_resetPanVars(self);
 }
 
-jboolean ASDrawerLayoutImpl_isLeftDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view) {
-  jint gravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(ASDrawerLayoutImpl_getGravityWithADView_(self, view), [((ADView *) nil_chk(view)) getLayoutDirection]);
+bool ASDrawerLayoutImpl_isLeftDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view) {
+  int32_t gravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(ASDrawerLayoutImpl_getGravityWithADView_(self, view), [((ADView *) nil_chk(view)) getLayoutDirection]);
   return gravity == ADGravity_LEFT;
 }
 
-jboolean ASDrawerLayoutImpl_isRightDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view) {
-  jint gravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(ASDrawerLayoutImpl_getGravityWithADView_(self, view), [((ADView *) nil_chk(view)) getLayoutDirection]);
+bool ASDrawerLayoutImpl_isRightDrawerWithADView_(ASDrawerLayoutImpl *self, ADView *view) {
+  int32_t gravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(ASDrawerLayoutImpl_getGravityWithADView_(self, view), [((ADView *) nil_chk(view)) getLayoutDirection]);
   return gravity == ADGravity_RIGHT;
 }
 
-jboolean ASDrawerLayoutImpl_isContentViewWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget) {
+bool ASDrawerLayoutImpl_isContentViewWithASIWidget_(ASDrawerLayoutImpl *self, id<ASIWidget> widget) {
   ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
   return [((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) isViewContentViewWithADView:view] && ![@"@+id/blurredView" isEqual:[widget getId]];
 }
 
-void ASDrawerLayoutImpl_handlePanStartWithInt_(ASDrawerLayoutImpl *self, jint eventX) {
+void ASDrawerLayoutImpl_handlePanStartWithInt_(ASDrawerLayoutImpl *self, int32_t eventX) {
   self->mouseMoved_ = false;
   self->startX_ = eventX;
 }
@@ -1264,8 +1277,8 @@ void ASDrawerLayoutImpl_handlePanEndOfDrawerWithASIWidget_(ASDrawerLayoutImpl *s
 
 void ASDrawerLayoutImpl_handleRightDrawerPanEndWithASIWidget_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, ADView *view) {
   id nativeWidget = [((id<ASIWidget>) nil_chk(widget)) asNativeWidget];
-  jint gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
-  jint contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
+  int32_t gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
+  int32_t contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
   if (JavaLangMath_absWithInt_(contentViewWidth - ASViewImpl_getXWithId_(nativeWidget)) >= JreIntDiv([((ADView *) nil_chk(view)) getMeasuredWidth], 2)) {
     ASDrawerLayoutImpl_openDrawerWithId_(self, JavaLangInteger_valueOfWithInt_(gravity));
   }
@@ -1276,7 +1289,7 @@ void ASDrawerLayoutImpl_handleRightDrawerPanEndWithASIWidget_withADView_(ASDrawe
 
 void ASDrawerLayoutImpl_handleLeftDrawerPanEndWithASIWidget_withADView_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, ADView *view) {
   id nativeWidget = [((id<ASIWidget>) nil_chk(widget)) asNativeWidget];
-  jint gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
+  int32_t gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
   if (JavaLangMath_absWithInt_(ASViewImpl_getXWithId_(nativeWidget)) <= JreIntDiv([((ADView *) nil_chk(view)) getMeasuredWidth], 2)) {
     ASDrawerLayoutImpl_openDrawerWithId_(self, JavaLangInteger_valueOfWithInt_(gravity));
   }
@@ -1285,16 +1298,16 @@ void ASDrawerLayoutImpl_handleLeftDrawerPanEndWithASIWidget_withADView_(ASDrawer
   }
 }
 
-void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayoutImpl *self, jint eventX, id<ASIWidget> widget) {
+void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayoutImpl *self, int32_t eventX, id<ASIWidget> widget) {
   if (self->startX_ != -1) {
     ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
     if (ASDrawerLayoutImpl_isLeftDrawerWithADView_(self, view)) {
       if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) getDrawerLockModeWithADView:view] != ADXDrawerLayout_LOCK_MODE_LOCKED_CLOSED) {
-        jint correction = 0;
+        int32_t correction = 0;
         if (ASDrawerLayoutImpl_requiresCurrentXCorrection(self)) {
           correction = ASViewImpl_getXWithId_([widget asNativeWidget]);
         }
-        jint x = correction + (eventX - self->startX_);
+        int32_t x = correction + (eventX - self->startX_);
         if (x <= 0) {
           self->mouseMoved_ = true;
           ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
@@ -1304,9 +1317,9 @@ void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayo
     }
     if (ASDrawerLayoutImpl_isRightDrawerWithADView_(self, view)) {
       if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) getDrawerLockModeWithADView:view] != ADXDrawerLayout_LOCK_MODE_LOCKED_CLOSED) {
-        jint initX = [((ADView *) nil_chk(((ADView *) cast_chk([((ADView *) nil_chk(view)) getParent], [ADView class])))) getMeasuredWidth] - [view getMeasuredWidth];
-        jint correction = ASDrawerLayoutImpl_requiresCurrentXCorrection(self) ? ASViewImpl_getXWithId_([widget asNativeWidget]) : initX;
-        jint x = correction + (eventX - self->startX_);
+        int32_t initX = [((ADView *) nil_chk(((ADView *) cast_chk([((ADView *) nil_chk(view)) getParent], [ADView class])))) getMeasuredWidth] - [view getMeasuredWidth];
+        int32_t correction = ASDrawerLayoutImpl_requiresCurrentXCorrection(self) ? ASViewImpl_getXWithId_([widget asNativeWidget]) : initX;
+        int32_t x = correction + (eventX - self->startX_);
         if (x >= initX) {
           self->mouseMoved_ = true;
           ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
@@ -1317,17 +1330,17 @@ void ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(ASDrawerLayo
   }
 }
 
-void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, jint eventX) {
+void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, int32_t eventX) {
   if (self->startX_ != -1) {
     if (ASDrawerLayoutImpl_isLeftDrawerDraggedWithInt_(self, self->startX_)) {
       for (id<ASIWidget> __strong widget in nil_chk(self->widgets_)) {
         ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
         if (ASDrawerLayoutImpl_isLeftDrawerWithADView_(self, view)) {
           if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) getDrawerLockModeWithADView:view] != ADXDrawerLayout_LOCK_MODE_LOCKED_CLOSED) {
-            jint gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
+            int32_t gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
             ASDrawerLayoutImpl_createBlurredPanelWithId_(self, JavaLangInteger_valueOfWithInt_(gravity));
             [((ADView *) nil_chk(view)) setVisibilityWithInt:ADView_VISIBLE];
-            jint x = eventX - [view getMeasuredWidth] - self->startX_;
+            int32_t x = eventX - [view getMeasuredWidth] - self->startX_;
             if (x <= 0) {
               self->mouseMoved_ = true;
               ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
@@ -1339,15 +1352,15 @@ void ASDrawerLayoutImpl_handlePanDragWithInt_(ASDrawerLayoutImpl *self, jint eve
       }
     }
     if (ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(self, self->startX_)) {
-      jint contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
+      int32_t contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
       for (id<ASIWidget> __strong widget in nil_chk(self->widgets_)) {
         ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
         if (ASDrawerLayoutImpl_isRightDrawerWithADView_(self, view)) {
           if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) getDrawerLockModeWithADView:view] != ADXDrawerLayout_LOCK_MODE_LOCKED_CLOSED) {
-            jint gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
+            int32_t gravity = ASDrawerLayoutImpl_getGravityWithADView_(self, view);
             ASDrawerLayoutImpl_createBlurredPanelWithId_(self, JavaLangInteger_valueOfWithInt_(gravity));
             [((ADView *) nil_chk(view)) setVisibilityWithInt:ADView_VISIBLE];
-            jint x = contentViewWidth - (self->startX_ - eventX);
+            int32_t x = contentViewWidth - (self->startX_ - eventX);
             if (x >= (contentViewWidth - [view getMeasuredWidth])) {
               self->mouseMoved_ = true;
               ASDrawerLayoutImpl_updateXWithId_withInt_(self, [widget asNativeWidget], x);
@@ -1385,12 +1398,12 @@ void ASDrawerLayoutImpl_handlePanEnd(ASDrawerLayoutImpl *self) {
   ASDrawerLayoutImpl_resetPanVars(self);
 }
 
-jboolean ASDrawerLayoutImpl_isLeftDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, jint x) {
+bool ASDrawerLayoutImpl_isLeftDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, int32_t x) {
   return x <= self->edgeSize_;
 }
 
-jboolean ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, jint x) {
-  jboolean dragged = false;
+bool ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(ASDrawerLayoutImpl *self, int32_t x) {
+  bool dragged = false;
   for (id<ASIWidget> __strong widget in nil_chk(self->widgets_)) {
     ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
     if (ASDrawerLayoutImpl_isContentViewWithASIWidget_(self, widget)) {
@@ -1401,8 +1414,8 @@ jboolean ASDrawerLayoutImpl_isRightDrawerDraggedWithInt_(ASDrawerLayoutImpl *sel
   return dragged;
 }
 
-jint ASDrawerLayoutImpl_getContentViewWidth(ASDrawerLayoutImpl *self) {
-  jint contentViewWidth = 0;
+int32_t ASDrawerLayoutImpl_getContentViewWidth(ASDrawerLayoutImpl *self) {
+  int32_t contentViewWidth = 0;
   for (id<ASIWidget> __strong widget in nil_chk(self->widgets_)) {
     ADView *view = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
     if (ASDrawerLayoutImpl_isContentViewWithASIWidget_(self, widget)) {
@@ -1418,7 +1431,7 @@ void ASDrawerLayoutImpl_resetPanVars(ASDrawerLayoutImpl *self) {
   self->startX_ = -1;
 }
 
-jint ASDrawerLayoutImpl_getGravityWithADView_(ASDrawerLayoutImpl *self, ADView *view) {
+int32_t ASDrawerLayoutImpl_getGravityWithADView_(ASDrawerLayoutImpl *self, ADView *view) {
   return ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(view)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
 }
 
@@ -1427,9 +1440,9 @@ void ASDrawerLayoutImpl_hideDrawerViewWithADView_(ASDrawerLayoutImpl *self, ADVi
   ASDrawerLayoutImpl_hideBlurredPanel(self);
 }
 
-void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, jint currentX) {
+void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayoutImpl *self, id<ASIWidget> widget, int32_t currentX) {
   ADView *drawerView = (ADView *) cast_chk([((id<ASIWidget>) nil_chk(widget)) asWidget], [ADView class]);
-  jint state = ADXDrawerLayout_STATE_IDLE;
+  int32_t state = ADXDrawerLayout_STATE_IDLE;
   if (ASDrawerLayoutImpl_isLeftDrawerWithADView_(self, drawerView)) {
     if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) isOpeningWithADView:drawerView]) {
       if (currentX != 0) {
@@ -1447,8 +1460,8 @@ void ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(ASDrawerLayo
     }
   }
   else {
-    jint contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
-    jint leftMargin = contentViewWidth - [((ADView *) nil_chk(drawerView)) getMeasuredWidth];
+    int32_t contentViewWidth = ASDrawerLayoutImpl_getContentViewWidth(self);
+    int32_t leftMargin = contentViewWidth - [((ADView *) nil_chk(drawerView)) getMeasuredWidth];
     if ([((ADXDrawerLayout *) nil_chk(self->drawerLayout_)) isOpeningWithADView:drawerView]) {
       if (currentX != leftMargin) {
         [drawerView setVisibilityWithInt:ADView_VISIBLE];
@@ -1517,21 +1530,21 @@ void ASDrawerLayoutImpl_addUIPanGestureRecognizerWithId_(ASDrawerLayoutImpl *sel
   [uiview addGestureRecognizer:panRecognizer];
 }
 
-void ASDrawerLayoutImpl_updateStateWithInt_(ASDrawerLayoutImpl *self, jint currentX) {
+void ASDrawerLayoutImpl_updateStateWithInt_(ASDrawerLayoutImpl *self, int32_t currentX) {
   ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(self, self->animatingWidget_, currentX);
 }
 
-void ASDrawerLayoutImpl_updateXWithId_withInt_(ASDrawerLayoutImpl *self, id objview, jint x) {
+void ASDrawerLayoutImpl_updateXWithId_withInt_(ASDrawerLayoutImpl *self, id objview, int32_t x) {
   UIView* uiview = ((UIView*) objview);
   CGRect frame = uiview.frame;
   frame.origin.x = x;
   uiview.frame = frame;
 }
 
-void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *self, jint eventX, id uiview) {
+void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *self, int32_t eventX, id uiview) {
   for (id<ASIWidget> __strong widget in nil_chk(self->widgets_)) {
     id nativeWidget = [((id<ASIWidget>) nil_chk(widget)) asNativeWidget];
-    if (uiview == nativeWidget) {
+    if (JreObjectEqualsEquals(uiview, nativeWidget)) {
       ADView *view = (ADView *) cast_chk([widget asWidget], [ADView class]);
       if (ASDrawerLayoutImpl_isLeftDrawerWithADView_(self, view) || ASDrawerLayoutImpl_isRightDrawerWithADView_(self, view)) {
         ASDrawerLayoutImpl_handlePanDragOfDrawerWithInt_withASIWidget_(self, eventX, widget);
@@ -1544,7 +1557,7 @@ void ASDrawerLayoutImpl_handleDragOfDrawerWithInt_withId_(ASDrawerLayoutImpl *se
 void ASDrawerLayoutImpl_handleDragEndOfDrawerWithId_(ASDrawerLayoutImpl *self, id uiview) {
   for (id<ASIWidget> __strong widget in nil_chk(self->widgets_)) {
     id nativeWidget = [((id<ASIWidget>) nil_chk(widget)) asNativeWidget];
-    if (uiview == nativeWidget) {
+    if (JreObjectEqualsEquals(uiview, nativeWidget)) {
       ADView *view = (ADView *) cast_chk([widget asWidget], [ADView class]);
       if (ASDrawerLayoutImpl_isLeftDrawerWithADView_(self, view) || ASDrawerLayoutImpl_isRightDrawerWithADView_(self, view)) {
         ASDrawerLayoutImpl_handlePanEndOfDrawerWithASIWidget_(self, widget);
@@ -1562,11 +1575,13 @@ void ASDrawerLayoutImpl_setScrimColorWithId_(ASDrawerLayoutImpl *self, id objVal
   }
 }
 
-jboolean ASDrawerLayoutImpl_requiresCurrentXCorrection(ASDrawerLayoutImpl *self) {
+bool ASDrawerLayoutImpl_requiresCurrentXCorrection(ASDrawerLayoutImpl *self) {
   return false;
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl)
+
+J2OBJC_NAME_MAPPING(ASDrawerLayoutImpl, "com.ashera.drawerlayout", "AS")
 
 @implementation ASDrawerLayoutImpl_DrawerLockMode
 
@@ -1612,10 +1627,10 @@ void ASDrawerLayoutImpl_DrawerLockMode_init(ASDrawerLayoutImpl_DrawerLockMode *s
   ASAbstractEnumToIntConverter_init(self);
   self->mapping_ = new_JavaUtilHashMap_init();
   {
-    (void) [self->mapping_ putWithId:@"LOCK_MODE_UNLOCKED" withId:JavaLangInteger_valueOfWithInt_((jint) 0x0)];
-    (void) [((id<JavaUtilMap>) nil_chk(self->mapping_)) putWithId:@"LOCK_MODE_LOCKED_CLOSED" withId:JavaLangInteger_valueOfWithInt_((jint) 0x1)];
-    (void) [((id<JavaUtilMap>) nil_chk(self->mapping_)) putWithId:@"LOCK_MODE_LOCKED_OPEN" withId:JavaLangInteger_valueOfWithInt_((jint) 0x2)];
-    (void) [((id<JavaUtilMap>) nil_chk(self->mapping_)) putWithId:@"LOCK_MODE_UNDEFINED" withId:JavaLangInteger_valueOfWithInt_((jint) 0x3)];
+    (void) [self->mapping_ putWithId:@"LOCK_MODE_UNLOCKED" withId:JavaLangInteger_valueOfWithInt_((int32_t) 0x0)];
+    (void) [((id<JavaUtilMap>) nil_chk(self->mapping_)) putWithId:@"LOCK_MODE_LOCKED_CLOSED" withId:JavaLangInteger_valueOfWithInt_((int32_t) 0x1)];
+    (void) [((id<JavaUtilMap>) nil_chk(self->mapping_)) putWithId:@"LOCK_MODE_LOCKED_OPEN" withId:JavaLangInteger_valueOfWithInt_((int32_t) 0x2)];
+    (void) [((id<JavaUtilMap>) nil_chk(self->mapping_)) putWithId:@"LOCK_MODE_UNDEFINED" withId:JavaLangInteger_valueOfWithInt_((int32_t) 0x3)];
   }
 }
 
@@ -1635,19 +1650,19 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   return this$0_;
 }
 
-- (void)setMaxWidthWithInt:(jint)width {
+- (void)setMaxWidthWithInt:(int32_t)width {
   mMaxWidth_ = width;
 }
 
-- (void)setMaxHeightWithInt:(jint)height {
+- (void)setMaxHeightWithInt:(int32_t)height {
   mMaxHeight_ = height;
 }
 
-- (jint)getMaxWidth {
+- (int32_t)getMaxWidth {
   return mMaxWidth_;
 }
 
-- (jint)getMaxHeight {
+- (int32_t)getMaxHeight {
   return mMaxHeight_;
 }
 
@@ -1656,8 +1671,8 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   return self;
 }
 
-- (void)onMeasureWithInt:(jint)widthMeasureSpec
-                 withInt:(jint)heightMeasureSpec {
+- (void)onMeasureWithInt:(int32_t)widthMeasureSpec
+                 withInt:(int32_t)heightMeasureSpec {
   if (mMaxWidth_ > 0) {
     widthMeasureSpec = ADView_MeasureSpec_makeMeasureSpecWithInt_withInt_(mMaxWidth_, ADView_MeasureSpec_AT_MOST);
   }
@@ -1673,11 +1688,11 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   }
 }
 
-- (void)onLayoutWithBoolean:(jboolean)changed
-                    withInt:(jint)l
-                    withInt:(jint)t
-                    withInt:(jint)r
-                    withInt:(jint)b {
+- (void)onLayoutWithBoolean:(bool)changed
+                    withInt:(int32_t)l
+                    withInt:(int32_t)t
+                    withInt:(int32_t)r
+                    withInt:(int32_t)b {
   [super onLayoutWithBoolean:changed withInt:l withInt:t withInt:r withInt:b];
   ASViewImpl_setDrawableBoundsWithASIWidget_withInt_withInt_withInt_withInt_(this$0_, l, t, r, b);
   if (![self isOverlay]) {
@@ -1705,8 +1720,8 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
           withNSObjectArray:(IOSObjectArray *)canvas {
 }
 
-- (void)updateMeasuredDimensionWithInt:(jint)width
-                               withInt:(jint)height {
+- (void)updateMeasuredDimensionWithInt:(int32_t)width
+                               withInt:(int32_t)height {
   [self setMeasuredDimensionWithInt:width withInt:height];
 }
 
@@ -1774,12 +1789,12 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   displayFrame->bottom_ = displayFrame->top_ + [self getHeight];
 }
 
-- (void)offsetTopAndBottomWithInt:(jint)offset {
+- (void)offsetTopAndBottomWithInt:(int32_t)offset {
   [super offsetTopAndBottomWithInt:offset];
   ASViewImpl_nativeMakeFrameWithId_withInt_withInt_withInt_withInt_([this$0_ asNativeWidget], [self getLeft], [self getTop], [self getRight], [self getBottom]);
 }
 
-- (void)offsetLeftAndRightWithInt:(jint)offset {
+- (void)offsetLeftAndRightWithInt:(int32_t)offset {
   [super offsetLeftAndRightWithInt:offset];
   ASViewImpl_nativeMakeFrameWithId_withInt_withInt_withInt_withInt_([this$0_ asNativeWidget], [self getLeft], [self getTop], [self getRight], [self getBottom]);
 }
@@ -1809,14 +1824,14 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLockMode)
   [this$0_ setAttributeWithNSString:name withId:value withBoolean:!([value isKindOfClass:[NSString class]])];
 }
 
-- (void)setVisibilityWithInt:(jint)visibility {
+- (void)setVisibilityWithInt:(int32_t)visibility {
   [super setVisibilityWithInt:visibility];
   ASViewImpl_nativeSetVisibilityWithId_withBoolean_([this$0_ asNativeWidget], visibility != ADView_VISIBLE);
 }
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
-                            withInt:(jint)x
-                            withInt:(jint)y {
+                            withInt:(int32_t)x
+                            withInt:(int32_t)y {
   ASDrawerLayoutImpl_smoothSlideViewToWithADView_withInt_withInt_(this$0_, drawerView, x, y);
 }
 
@@ -2018,7 +2033,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
 }
 
 - (void)onDrawerSlideWithADView:(ADView *)drawerView
-                      withFloat:(jfloat)slideOffset {
+                      withFloat:(float)slideOffset {
   if (action_ == nil || [action_ isEqual:@"onDrawerSlide"]) {
     [((id<ASIWidget>) nil_chk(w_)) syncModelFromUiToPojoWithNSString:@"onDrawerSlide"];
     id<JavaUtilMap> obj = [self getOnDrawerSlideEventObjWithADView:drawerView withFloat:slideOffset];
@@ -2040,7 +2055,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
+    if (strValue_ != nil && ![strValue_ isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       if (activity != nil) {
         [activity sendEventMessageWithJavaUtilMap:obj];
@@ -2051,7 +2066,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
 }
 
 - (id<JavaUtilMap>)getOnDrawerSlideEventObjWithADView:(ADView *)drawerView
-                                            withFloat:(jfloat)slideOffset {
+                                            withFloat:(float)slideOffset {
   id<JavaUtilMap> obj = ASPluginInvoker_getJSONCompatMap();
   (void) [((id<JavaUtilMap>) nil_chk(obj)) putWithId:@"action" withId:@"action"];
   (void) [obj putWithId:@"eventType" withId:@"drawerslide"];
@@ -2090,7 +2105,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
+    if (strValue_ != nil && ![strValue_ isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       if (activity != nil) {
         [activity sendEventMessageWithJavaUtilMap:obj];
@@ -2138,7 +2153,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
+    if (strValue_ != nil && ![strValue_ isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       if (activity != nil) {
         [activity sendEventMessageWithJavaUtilMap:obj];
@@ -2164,7 +2179,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
   return obj;
 }
 
-- (void)onDrawerStateChangedWithInt:(jint)newState {
+- (void)onDrawerStateChangedWithInt:(int32_t)newState {
   if (action_ == nil || [action_ isEqual:@"onDrawerStateChanged"]) {
     [((id<ASIWidget>) nil_chk(w_)) syncModelFromUiToPojoWithNSString:@"onDrawerStateChanged"];
     id<JavaUtilMap> obj = [self getOnDrawerStateChangedEventObjWithInt:newState];
@@ -2186,7 +2201,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
     if ([((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds] != nil) {
       ASViewImpl_refreshUiFromModelWithASIWidget_withId_withBoolean_(w_, [((id<ASIWidget>) nil_chk(w_)) getModelUiToPojoEventIds], true);
     }
-    if (strValue_ != nil && ![strValue_ java_isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
+    if (strValue_ != nil && ![strValue_ isEmpty] && ![((NSString *) nil_chk([((NSString *) nil_chk(strValue_)) java_trim])) java_hasPrefix:@"+"]) {
       id<ASIActivity> activity = [((id<ASIFragment>) nil_chk([((id<ASIWidget>) nil_chk(w_)) getFragment])) getRootActivity];
       if (activity != nil) {
         [activity sendEventMessageWithJavaUtilMap:obj];
@@ -2196,7 +2211,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASDrawerLayoutImpl_DrawerLayoutExt)
   return;
 }
 
-- (id<JavaUtilMap>)getOnDrawerStateChangedEventObjWithInt:(jint)newState {
+- (id<JavaUtilMap>)getOnDrawerStateChangedEventObjWithInt:(int32_t)newState {
   id<JavaUtilMap> obj = ASPluginInvoker_getJSONCompatMap();
   (void) [((id<JavaUtilMap>) nil_chk(obj)) putWithId:@"action" withId:@"action"];
   (void) [obj putWithId:@"eventType" withId:@"drawerstatechanged"];
@@ -2364,8 +2379,8 @@ ASDrawerLayoutImpl_$Lambda$1 *create_ASDrawerLayoutImpl_$Lambda$1_initWithASIWid
 
 @implementation ASDrawerLayoutImpl_$Lambda$2
 
-- (void)animatingWithInt:(jint)currentX
-                 withInt:(jint)currentY {
+- (void)animatingWithInt:(int32_t)currentX
+                 withInt:(int32_t)currentY {
   ASDrawerLayoutImpl_updateDrawerViewStateWithASIWidget_withInt_(this$0_, val$child_, currentX);
 }
 

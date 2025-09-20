@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSNavigationDrawerPlugin\src\main\java\com\ashera\drawerlayout\NavigationDrawerPlugin.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_NavigationDrawerPlugin")
@@ -39,6 +40,7 @@ FOUNDATION_EXPORT void ASNavigationDrawerPlugin_initPlugin(void);
 J2OBJC_TYPE_LITERAL_HEADER(ASNavigationDrawerPlugin)
 
 @compatibility_alias ComAsheraDrawerlayoutNavigationDrawerPlugin ASNavigationDrawerPlugin;
+
 
 #endif
 

@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-javafx-widget\SWTAndroidXDrawerLayout\src\main\java\androidx\drawerlayout\widget\DrawerLayout.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "AccessibilityEvent.h"
 #include "Context.h"
 #include "DisplayMetrics.h"
@@ -15,43 +20,50 @@
 #include "View.h"
 #include "ViewCompat.h"
 #include "ViewGroup.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Float.h"
 #include "java/lang/IllegalArgumentException.h"
 #include "java/lang/IllegalStateException.h"
 #include "java/lang/Integer.h"
 #include "java/util/ArrayList.h"
 #include "java/util/List.h"
 
-@protocol JavaUtilList;
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface ADXDrawerLayout () {
  @public
-  jfloat mDrawerElevation_;
-  jint mMinDrawerMargin_;
-  jint mScrimColor_;
-  jfloat mScrimOpacity_;
+  float mDrawerElevation_;
+  int32_t mMinDrawerMargin_;
+  int32_t mScrimColor_;
+  float mScrimOpacity_;
   ADXDrawerLayout_ViewDragHelper *mLeftDragger_;
   ADXDrawerLayout_ViewDragHelper *mRightDragger_;
-  jint mDrawerState_;
-  jboolean mInLayout_;
-  jboolean mFirstLayout_;
-  jint mLockModeLeft_;
-  jint mLockModeRight_;
-  jint mLockModeStart_;
-  jint mLockModeEnd_;
-  jboolean mChildrenCanceledTouch_;
+  int32_t mDrawerState_;
+  bool mInLayout_;
+  bool mFirstLayout_;
+  int32_t mLockModeLeft_;
+  int32_t mLockModeRight_;
+  int32_t mLockModeStart_;
+  int32_t mLockModeEnd_;
+  bool mChildrenCanceledTouch_;
   id<ADXDrawerLayout_DrawerListener> mListener_;
   id<JavaUtilList> mListeners_;
-  jfloat mInitialMotionX_;
-  jfloat mInitialMotionY_;
+  float mInitialMotionX_;
+  float mInitialMotionY_;
   ADXDrawerLayout_WindowInsetsCompat *mLastInsets_;
-  jboolean mDrawStatusBarBackground_;
+  bool mDrawStatusBarBackground_;
 }
 
 - (void)updateChildAccessibilityActionWithADView:(ADView *)drawerView;
 
 - (void)updateChildrenImportantForAccessibilityWithADView:(ADView *)drawerView
-                                              withBoolean:(jboolean)b;
+                                              withBoolean:(bool)b;
 
 @end
 
@@ -65,75 +77,75 @@ inline NSString *ADXDrawerLayout_get_TAG(void);
 static NSString *ADXDrawerLayout_TAG = @"DrawerLayout";
 J2OBJC_STATIC_FIELD_OBJ_FINAL(ADXDrawerLayout, TAG, NSString *)
 
-inline jint ADXDrawerLayout_get_MIN_DRAWER_MARGIN(void);
+inline int32_t ADXDrawerLayout_get_MIN_DRAWER_MARGIN(void);
 #define ADXDrawerLayout_MIN_DRAWER_MARGIN 64
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, MIN_DRAWER_MARGIN, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, MIN_DRAWER_MARGIN, int32_t)
 
-inline jint ADXDrawerLayout_get_DEFAULT_SCRIM_COLOR(void);
+inline int32_t ADXDrawerLayout_get_DEFAULT_SCRIM_COLOR(void);
 #define ADXDrawerLayout_DEFAULT_SCRIM_COLOR -1728053248
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, DEFAULT_SCRIM_COLOR, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, DEFAULT_SCRIM_COLOR, int32_t)
 
-inline jint ADXDrawerLayout_get_PEEK_DELAY(void);
+inline int32_t ADXDrawerLayout_get_PEEK_DELAY(void);
 #define ADXDrawerLayout_PEEK_DELAY 160
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, PEEK_DELAY, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, PEEK_DELAY, int32_t)
 
-inline jint ADXDrawerLayout_get_MIN_FLING_VELOCITY(void);
+inline int32_t ADXDrawerLayout_get_MIN_FLING_VELOCITY(void);
 #define ADXDrawerLayout_MIN_FLING_VELOCITY 400
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, MIN_FLING_VELOCITY, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, MIN_FLING_VELOCITY, int32_t)
 
-inline jboolean ADXDrawerLayout_get_ALLOW_EDGE_LOCK(void);
+inline bool ADXDrawerLayout_get_ALLOW_EDGE_LOCK(void);
 #define ADXDrawerLayout_ALLOW_EDGE_LOCK false
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, ALLOW_EDGE_LOCK, jboolean)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, ALLOW_EDGE_LOCK, bool)
 
-inline jboolean ADXDrawerLayout_get_CHILDREN_DISALLOW_INTERCEPT(void);
+inline bool ADXDrawerLayout_get_CHILDREN_DISALLOW_INTERCEPT(void);
 #define ADXDrawerLayout_CHILDREN_DISALLOW_INTERCEPT true
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, CHILDREN_DISALLOW_INTERCEPT, jboolean)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, CHILDREN_DISALLOW_INTERCEPT, bool)
 
-inline jfloat ADXDrawerLayout_get_TOUCH_SLOP_SENSITIVITY(void);
+inline float ADXDrawerLayout_get_TOUCH_SLOP_SENSITIVITY(void);
 #define ADXDrawerLayout_TOUCH_SLOP_SENSITIVITY 1.0f
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, TOUCH_SLOP_SENSITIVITY, jfloat)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, TOUCH_SLOP_SENSITIVITY, float)
 
-inline jboolean ADXDrawerLayout_get_SET_DRAWER_SHADOW_FROM_ELEVATION(void);
+inline bool ADXDrawerLayout_get_SET_DRAWER_SHADOW_FROM_ELEVATION(void);
 #define ADXDrawerLayout_SET_DRAWER_SHADOW_FROM_ELEVATION true
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, SET_DRAWER_SHADOW_FROM_ELEVATION, jboolean)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, SET_DRAWER_SHADOW_FROM_ELEVATION, bool)
 
-inline jboolean ADXDrawerLayout_get_sEdgeSizeUsingSystemGestureInsets(void);
+inline bool ADXDrawerLayout_get_sEdgeSizeUsingSystemGestureInsets(void);
 #define ADXDrawerLayout_sEdgeSizeUsingSystemGestureInsets false
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, sEdgeSizeUsingSystemGestureInsets, jboolean)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout, sEdgeSizeUsingSystemGestureInsets, bool)
 
 __attribute__((unused)) static void ADXDrawerLayout_updateChildAccessibilityActionWithADView_(ADXDrawerLayout *self, ADView *drawerView);
 
-__attribute__((unused)) static void ADXDrawerLayout_updateChildrenImportantForAccessibilityWithADView_withBoolean_(ADXDrawerLayout *self, ADView *drawerView, jboolean b);
+__attribute__((unused)) static void ADXDrawerLayout_updateChildrenImportantForAccessibilityWithADView_withBoolean_(ADXDrawerLayout *self, ADView *drawerView, bool b);
 
 @interface ADXDrawerLayout_DrawerListener : NSObject
 
 @end
 
-inline jint ADXDrawerLayout_LayoutParams_get_FLAG_IS_OPENED(void);
+inline int32_t ADXDrawerLayout_LayoutParams_get_FLAG_IS_OPENED(void);
 #define ADXDrawerLayout_LayoutParams_FLAG_IS_OPENED 1
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_LayoutParams, FLAG_IS_OPENED, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_LayoutParams, FLAG_IS_OPENED, int32_t)
 
-inline jint ADXDrawerLayout_LayoutParams_get_FLAG_IS_OPENING(void);
+inline int32_t ADXDrawerLayout_LayoutParams_get_FLAG_IS_OPENING(void);
 #define ADXDrawerLayout_LayoutParams_FLAG_IS_OPENING 2
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_LayoutParams, FLAG_IS_OPENING, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_LayoutParams, FLAG_IS_OPENING, int32_t)
 
-inline jint ADXDrawerLayout_LayoutParams_get_FLAG_IS_CLOSING(void);
+inline int32_t ADXDrawerLayout_LayoutParams_get_FLAG_IS_CLOSING(void);
 #define ADXDrawerLayout_LayoutParams_FLAG_IS_CLOSING 4
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_LayoutParams, FLAG_IS_CLOSING, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_LayoutParams, FLAG_IS_CLOSING, int32_t)
 
 @interface ADXDrawerLayout_ViewDragHelper () {
  @public
   ADXDrawerLayout *this$0_;
-  jint mDragState_;
-  jint mEdgeSize_;
-  jint mDefaultEdgeSize_;
+  int32_t mDragState_;
+  int32_t mEdgeSize_;
+  int32_t mDefaultEdgeSize_;
 }
 
 @end
 
-inline jint ADXDrawerLayout_ViewDragHelper_get_EDGE_SIZE(void);
+inline int32_t ADXDrawerLayout_ViewDragHelper_get_EDGE_SIZE(void);
 #define ADXDrawerLayout_ViewDragHelper_EDGE_SIZE 20
-J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, int32_t)
 
 @implementation ADXDrawerLayout
 
@@ -161,14 +173,14 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   [mListeners_ removeWithId:listener];
 }
 
-- (void)setDrawerLockModeWithInt:(jint)lockMode {
+- (void)setDrawerLockModeWithInt:(int32_t)lockMode {
   [self setDrawerLockModeWithInt:lockMode withInt:ADGravity_LEFT];
   [self setDrawerLockModeWithInt:lockMode withInt:ADGravity_RIGHT];
 }
 
-- (void)setDrawerLockModeWithInt:(jint)lockMode
-                         withInt:(jint)edgeGravity {
-  jint absGravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(edgeGravity, ADXViewCompat_getLayoutDirectionWithADView_(self));
+- (void)setDrawerLockModeWithInt:(int32_t)lockMode
+                         withInt:(int32_t)edgeGravity {
+  int32_t absGravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(edgeGravity, ADXViewCompat_getLayoutDirectionWithADView_(self));
   switch (edgeGravity) {
     case ADGravity_LEFT:
     mLockModeLeft_ = lockMode;
@@ -207,22 +219,22 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   }
 }
 
-- (void)setDrawerLockModeWithInt:(jint)lockMode
+- (void)setDrawerLockModeWithInt:(int32_t)lockMode
                       withADView:(ADView *)drawerView {
   if (![self isDrawerViewWithADView:drawerView]) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$@$", @"View ", drawerView, @" is not a drawer with appropriate layout_gravity"));
   }
-  jint gravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
+  int32_t gravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
   [self setDrawerLockModeWithInt:lockMode withInt:gravity];
 }
 
-- (jint)getDrawerLockModeWithInt:(jint)edgeGravity {
-  jint layoutDirection = ADXViewCompat_getLayoutDirectionWithADView_(self);
+- (int32_t)getDrawerLockModeWithInt:(int32_t)edgeGravity {
+  int32_t layoutDirection = ADXViewCompat_getLayoutDirectionWithADView_(self);
   {
-    jint leftLockMode;
-    jint rightLockMode;
-    jint startLockMode;
-    jint endLockMode;
+    int32_t leftLockMode;
+    int32_t rightLockMode;
+    int32_t startLockMode;
+    int32_t endLockMode;
     switch (edgeGravity) {
       case ADGravity_LEFT:
       if (mLockModeLeft_ != ADXDrawerLayout_LOCK_MODE_UNDEFINED) {
@@ -265,19 +277,19 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   return ADXDrawerLayout_LOCK_MODE_UNLOCKED;
 }
 
-- (jint)getDrawerLockModeWithADView:(ADView *)drawerView {
+- (int32_t)getDrawerLockModeWithADView:(ADView *)drawerView {
   if (![self isDrawerViewWithADView:drawerView]) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$@$", @"View ", drawerView, @" is not a drawer"));
   }
-  jint drawerGravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
+  int32_t drawerGravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
   return [self getDrawerLockModeWithInt:drawerGravity];
 }
 
-- (void)updateDrawerStateWithInt:(jint)activeState
+- (void)updateDrawerStateWithInt:(int32_t)activeState
                       withADView:(ADView *)activeDrawer {
-  jint leftState = [((ADXDrawerLayout_ViewDragHelper *) nil_chk(mLeftDragger_)) getViewDragState];
-  jint rightState = [((ADXDrawerLayout_ViewDragHelper *) nil_chk(mRightDragger_)) getViewDragState];
-  jint state;
+  int32_t leftState = [((ADXDrawerLayout_ViewDragHelper *) nil_chk(mLeftDragger_)) getViewDragState];
+  int32_t rightState = [((ADXDrawerLayout_ViewDragHelper *) nil_chk(mRightDragger_)) getViewDragState];
+  int32_t state;
   if (leftState == ADXDrawerLayout_STATE_DRAGGING || rightState == ADXDrawerLayout_STATE_DRAGGING) {
     state = ADXDrawerLayout_STATE_DRAGGING;
   }
@@ -300,8 +312,8 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   if (state != mDrawerState_) {
     mDrawerState_ = state;
     if (mListeners_ != nil) {
-      jint listenerCount = [mListeners_ size];
-      for (jint i = listenerCount - 1; i >= 0; i--) {
+      int32_t listenerCount = [mListeners_ size];
+      for (int32_t i = listenerCount - 1; i >= 0; i--) {
         [((id<ADXDrawerLayout_DrawerListener>) nil_chk([((id<JavaUtilList>) nil_chk(mListeners_)) getWithInt:i])) onDrawerStateChangedWithInt:state];
       }
     }
@@ -313,8 +325,8 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   if ((((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->openState_ & ADXDrawerLayout_LayoutParams_FLAG_IS_OPENED) == 1) {
     lp->openState_ = 0;
     if (mListeners_ != nil) {
-      jint listenerCount = [mListeners_ size];
-      for (jint i = listenerCount - 1; i >= 0; i--) {
+      int32_t listenerCount = [mListeners_ size];
+      for (int32_t i = listenerCount - 1; i >= 0; i--) {
         [((id<ADXDrawerLayout_DrawerListener>) nil_chk([((id<JavaUtilList>) nil_chk(mListeners_)) getWithInt:i])) onDrawerClosedWithADView:drawerView];
       }
     }
@@ -334,8 +346,8 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   if ((((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->openState_ & ADXDrawerLayout_LayoutParams_FLAG_IS_OPENED) == 0) {
     lp->openState_ = ADXDrawerLayout_LayoutParams_FLAG_IS_OPENED;
     if (mListeners_ != nil) {
-      jint listenerCount = [mListeners_ size];
-      for (jint i = listenerCount - 1; i >= 0; i--) {
+      int32_t listenerCount = [mListeners_ size];
+      for (int32_t i = listenerCount - 1; i >= 0; i--) {
         [((id<ADXDrawerLayout_DrawerListener>) nil_chk([((id<JavaUtilList>) nil_chk(mListeners_)) getWithInt:i])) onDrawerOpenedWithADView:drawerView];
       }
     }
@@ -348,17 +360,17 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
 }
 
 - (void)dispatchOnDrawerSlideWithADView:(ADView *)drawerView
-                              withFloat:(jfloat)slideOffset {
+                              withFloat:(float)slideOffset {
   if (mListeners_ != nil) {
-    jint listenerCount = [mListeners_ size];
-    for (jint i = listenerCount - 1; i >= 0; i--) {
+    int32_t listenerCount = [mListeners_ size];
+    for (int32_t i = listenerCount - 1; i >= 0; i--) {
       [((id<ADXDrawerLayout_DrawerListener>) nil_chk([((id<JavaUtilList>) nil_chk(mListeners_)) getWithInt:i])) onDrawerSlideWithADView:drawerView withFloat:slideOffset];
     }
   }
 }
 
 - (void)setDrawerViewOffsetWithADView:(ADView *)drawerView
-                            withFloat:(jfloat)slideOffset {
+                            withFloat:(float)slideOffset {
   ADXDrawerLayout_LayoutParams *lp = (ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]);
   if (slideOffset == ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->onScreen_) {
     return;
@@ -367,38 +379,38 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   [self dispatchOnDrawerSlideWithADView:drawerView withFloat:slideOffset];
 }
 
-- (jfloat)getDrawerViewOffsetWithADView:(ADView *)drawerView {
+- (float)getDrawerViewOffsetWithADView:(ADView *)drawerView {
   return ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->onScreen_;
 }
 
-- (jint)getDrawerViewAbsoluteGravityWithADView:(ADView *)drawerView {
-  jint gravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
+- (int32_t)getDrawerViewAbsoluteGravityWithADView:(ADView *)drawerView {
+  int32_t gravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
   return ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(gravity, ADXViewCompat_getLayoutDirectionWithADView_(self));
 }
 
-- (jboolean)checkDrawerViewAbsoluteGravityWithADView:(ADView *)drawerView
-                                             withInt:(jint)checkFor {
-  jint absGravity = [self getDrawerViewAbsoluteGravityWithADView:drawerView];
+- (bool)checkDrawerViewAbsoluteGravityWithADView:(ADView *)drawerView
+                                         withInt:(int32_t)checkFor {
+  int32_t absGravity = [self getDrawerViewAbsoluteGravityWithADView:drawerView];
   return (absGravity & checkFor) == checkFor;
 }
 
 - (void)moveDrawerToOffsetWithADView:(ADView *)drawerView
-                           withFloat:(jfloat)slideOffset {
-  jfloat oldOffset = [self getDrawerViewOffsetWithADView:drawerView];
-  jint width = [((ADView *) nil_chk(drawerView)) getWidth];
-  jint oldPos = JreFpToInt((width * oldOffset));
-  jint newPos = JreFpToInt((width * slideOffset));
-  jint dx = newPos - oldPos;
+                           withFloat:(float)slideOffset {
+  float oldOffset = [self getDrawerViewOffsetWithADView:drawerView];
+  int32_t width = [((ADView *) nil_chk(drawerView)) getWidth];
+  int32_t oldPos = JreFpToInt((width * oldOffset));
+  int32_t newPos = JreFpToInt((width * slideOffset));
+  int32_t dx = newPos - oldPos;
   [drawerView offsetLeftAndRightWithInt:[self checkDrawerViewAbsoluteGravityWithADView:drawerView withInt:ADGravity_LEFT] ? dx : -dx];
   [self setDrawerViewOffsetWithADView:drawerView withFloat:slideOffset];
 }
 
-- (ADView *)findDrawerWithGravityWithInt:(jint)gravity {
-  jint absHorizGravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(gravity, ADXViewCompat_getLayoutDirectionWithADView_(self)) & ADGravity_HORIZONTAL_GRAVITY_MASK;
-  jint childCount = [self getChildCount];
-  for (jint i = 0; i < childCount; i++) {
+- (ADView *)findDrawerWithGravityWithInt:(int32_t)gravity {
+  int32_t absHorizGravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(gravity, ADXViewCompat_getLayoutDirectionWithADView_(self)) & ADGravity_HORIZONTAL_GRAVITY_MASK;
+  int32_t childCount = [self getChildCount];
+  for (int32_t i = 0; i < childCount; i++) {
     ADView *child = [self getChildAtWithInt:i];
-    jint childAbsGravity = [self getDrawerViewAbsoluteGravityWithADView:child];
+    int32_t childAbsGravity = [self getDrawerViewAbsoluteGravityWithADView:child];
     if ((childAbsGravity & ADGravity_HORIZONTAL_GRAVITY_MASK) == absHorizGravity) {
       return child;
     }
@@ -406,16 +418,16 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   return nil;
 }
 
-+ (NSString *)gravityToStringWithInt:(jint)gravity {
++ (NSString *)gravityToStringWithInt:(int32_t)gravity {
   return ADXDrawerLayout_gravityToStringWithInt_(gravity);
 }
 
-- (void)onMeasureWithInt:(jint)widthMeasureSpec
-                 withInt:(jint)heightMeasureSpec {
-  jint widthMode = ADView_MeasureSpec_getModeWithInt_(widthMeasureSpec);
-  jint heightMode = ADView_MeasureSpec_getModeWithInt_(heightMeasureSpec);
-  jint widthSize = ADView_MeasureSpec_getSizeWithInt_(widthMeasureSpec);
-  jint heightSize = ADView_MeasureSpec_getSizeWithInt_(heightMeasureSpec);
+- (void)onMeasureWithInt:(int32_t)widthMeasureSpec
+                 withInt:(int32_t)heightMeasureSpec {
+  int32_t widthMode = ADView_MeasureSpec_getModeWithInt_(widthMeasureSpec);
+  int32_t heightMode = ADView_MeasureSpec_getModeWithInt_(heightMeasureSpec);
+  int32_t widthSize = ADView_MeasureSpec_getSizeWithInt_(widthMeasureSpec);
+  int32_t heightSize = ADView_MeasureSpec_getSizeWithInt_(heightMeasureSpec);
   if (widthMode != ADView_MeasureSpec_EXACTLY || heightMode != ADView_MeasureSpec_EXACTLY) {
     if ([self isInEditMode]) {
       if (widthMode == ADView_MeasureSpec_UNSPECIFIED) {
@@ -430,19 +442,19 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
     }
   }
   [self setMeasuredDimensionWithInt:widthSize withInt:heightSize];
-  jboolean applyInsets = mLastInsets_ != nil && ADXViewCompat_getFitsSystemWindowsWithADView_(self);
-  jint layoutDirection = ADXViewCompat_getLayoutDirectionWithADView_(self);
-  jboolean hasDrawerOnLeftEdge = false;
-  jboolean hasDrawerOnRightEdge = false;
-  jint childCount = [self getChildCount];
-  for (jint i = 0; i < childCount; i++) {
+  bool applyInsets = mLastInsets_ != nil && ADXViewCompat_getFitsSystemWindowsWithADView_(self);
+  int32_t layoutDirection = ADXViewCompat_getLayoutDirectionWithADView_(self);
+  bool hasDrawerOnLeftEdge = false;
+  bool hasDrawerOnRightEdge = false;
+  int32_t childCount = [self getChildCount];
+  for (int32_t i = 0; i < childCount; i++) {
     ADView *child = [self getChildAtWithInt:i];
     if ([((ADView *) nil_chk(child)) getVisibility] == ADView_GONE) {
       continue;
     }
     ADXDrawerLayout_LayoutParams *lp = (ADXDrawerLayout_LayoutParams *) cast_chk([child getLayoutParams], [ADXDrawerLayout_LayoutParams class]);
     if (applyInsets) {
-      jint cgrav = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->gravity_, layoutDirection);
+      int32_t cgrav = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->gravity_, layoutDirection);
       if (ADXViewCompat_getFitsSystemWindowsWithADView_(child)) {
         {
           ADXDrawerLayout_WindowInsetsCompat *wi = JreRetainedLocalValue(mLastInsets_);
@@ -472,8 +484,8 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
       }
     }
     if ([self isContentViewWithADView:child]) {
-      jint contentWidthSpec = ADView_MeasureSpec_makeMeasureSpecWithInt_withInt_(widthSize - ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->leftMargin_ - lp->rightMargin_, ADView_MeasureSpec_EXACTLY);
-      jint contentHeightSpec = ADView_MeasureSpec_makeMeasureSpecWithInt_withInt_(heightSize - lp->topMargin_ - lp->bottomMargin_, ADView_MeasureSpec_EXACTLY);
+      int32_t contentWidthSpec = ADView_MeasureSpec_makeMeasureSpecWithInt_withInt_(widthSize - ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->leftMargin_ - lp->rightMargin_, ADView_MeasureSpec_EXACTLY);
+      int32_t contentHeightSpec = ADView_MeasureSpec_makeMeasureSpecWithInt_withInt_(heightSize - lp->topMargin_ - lp->bottomMargin_, ADView_MeasureSpec_EXACTLY);
       [child measureWithInt:contentWidthSpec withInt:contentHeightSpec];
     }
     else if ([self isDrawerViewWithADView:child]) {
@@ -482,8 +494,8 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
           ADXViewCompat_setElevationWithADView_withFloat_(child, mDrawerElevation_);
         }
       }
-      jint childGravity = [self getDrawerViewAbsoluteGravityWithADView:child] & ADGravity_HORIZONTAL_GRAVITY_MASK;
-      jboolean isLeftEdgeDrawer = childGravity == ADGravity_LEFT;
+      int32_t childGravity = [self getDrawerViewAbsoluteGravityWithADView:child] & ADGravity_HORIZONTAL_GRAVITY_MASK;
+      bool isLeftEdgeDrawer = childGravity == ADGravity_LEFT;
       if ((isLeftEdgeDrawer && hasDrawerOnLeftEdge) || (!isLeftEdgeDrawer && hasDrawerOnRightEdge)) {
         @throw create_JavaLangIllegalStateException_initWithNSString_(JreStrcat("$$$$$", @"Child drawer has absolute gravity ", ADXDrawerLayout_gravityToStringWithInt_(childGravity), @" but this ", ADXDrawerLayout_TAG, @" already has a drawer view along that edge"));
       }
@@ -493,8 +505,8 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
       else {
         hasDrawerOnRightEdge = true;
       }
-      jint drawerWidthSpec = ADViewGroup_getChildMeasureSpecWithInt_withInt_withInt_(widthMeasureSpec, mMinDrawerMargin_ + ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->leftMargin_ + lp->rightMargin_, lp->width_);
-      jint drawerHeightSpec = ADViewGroup_getChildMeasureSpecWithInt_withInt_withInt_(heightMeasureSpec, lp->topMargin_ + lp->bottomMargin_, lp->height_);
+      int32_t drawerWidthSpec = ADViewGroup_getChildMeasureSpecWithInt_withInt_withInt_(widthMeasureSpec, mMinDrawerMargin_ + ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->leftMargin_ + lp->rightMargin_, lp->width_);
+      int32_t drawerHeightSpec = ADViewGroup_getChildMeasureSpecWithInt_withInt_withInt_(heightMeasureSpec, lp->topMargin_ + lp->bottomMargin_, lp->height_);
       [child measureWithInt:drawerWidthSpec withInt:drawerHeightSpec];
     }
     else {
@@ -503,15 +515,15 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   }
 }
 
-- (void)onLayoutWithBoolean:(jboolean)changed
-                    withInt:(jint)l
-                    withInt:(jint)t
-                    withInt:(jint)r
-                    withInt:(jint)b {
+- (void)onLayoutWithBoolean:(bool)changed
+                    withInt:(int32_t)l
+                    withInt:(int32_t)t
+                    withInt:(int32_t)r
+                    withInt:(int32_t)b {
   mInLayout_ = true;
-  jint width = r - l;
-  jint childCount = [self getChildCount];
-  for (jint i = 0; i < childCount; i++) {
+  int32_t width = r - l;
+  int32_t childCount = [self getChildCount];
+  for (int32_t i = 0; i < childCount; i++) {
     ADView *child = [self getChildAtWithInt:i];
     if ([((ADView *) nil_chk(child)) getVisibility] == ADView_GONE) {
       continue;
@@ -521,20 +533,20 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
       [child layoutWithInt:((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->leftMargin_ withInt:lp->topMargin_ withInt:lp->leftMargin_ + [child getMeasuredWidth] withInt:lp->topMargin_ + [child getMeasuredHeight]];
     }
     else {
-      jint childWidth = [child getMeasuredWidth];
-      jint childHeight = [child getMeasuredHeight];
-      jint childLeft;
-      jfloat newOffset;
+      int32_t childWidth = [child getMeasuredWidth];
+      int32_t childHeight = [child getMeasuredHeight];
+      int32_t childLeft;
+      float newOffset;
       if ([self checkDrawerViewAbsoluteGravityWithADView:child withInt:ADGravity_LEFT]) {
         childLeft = -childWidth + JreFpToInt((childWidth * ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->onScreen_));
-        newOffset = (jfloat) (childWidth + childLeft) / childWidth;
+        newOffset = (float) (childWidth + childLeft) / childWidth;
       }
       else {
         childLeft = width - JreFpToInt((childWidth * ((ADXDrawerLayout_LayoutParams *) nil_chk(lp))->onScreen_));
-        newOffset = (jfloat) (width - childLeft) / childWidth;
+        newOffset = (float) (width - childLeft) / childWidth;
       }
-      jboolean changeOffset = newOffset != lp->onScreen_;
-      jint vgrav = lp->gravity_ & ADGravity_VERTICAL_GRAVITY_MASK;
+      bool changeOffset = newOffset != lp->onScreen_;
+      int32_t vgrav = lp->gravity_ & ADGravity_VERTICAL_GRAVITY_MASK;
       switch (vgrav) {
         default:
         case ADGravity_TOP:
@@ -544,14 +556,14 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
         }
         case ADGravity_BOTTOM:
         {
-          jint height = b - t;
+          int32_t height = b - t;
           [child layoutWithInt:childLeft withInt:height - lp->bottomMargin_ - [child getMeasuredHeight] withInt:childLeft + childWidth withInt:height - lp->bottomMargin_];
           break;
         }
         case ADGravity_CENTER_VERTICAL:
         {
-          jint height = b - t;
-          jint childTop = JreIntDiv((height - childHeight), 2);
+          int32_t height = b - t;
+          int32_t childTop = JreIntDiv((height - childHeight), 2);
           if (childTop < lp->topMargin_) {
             childTop = lp->topMargin_;
           }
@@ -565,7 +577,7 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
       if (changeOffset) {
         [self setDrawerViewOffsetWithADView:child withFloat:newOffset];
       }
-      jint newVisibility = lp->onScreen_ > 0 ? ADView_VISIBLE : ADView_INVISIBLE;
+      int32_t newVisibility = lp->onScreen_ > 0 ? ADView_VISIBLE : ADView_INVISIBLE;
       if ([child getVisibility] != newVisibility) {
         [child setVisibilityWithInt:newVisibility];
       }
@@ -575,13 +587,13 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   mFirstLayout_ = false;
 }
 
-- (jboolean)isContentViewWithADView:(ADView *)child {
+- (bool)isContentViewWithADView:(ADView *)child {
   return ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(child)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_ == ADGravity_NO_GRAVITY;
 }
 
-- (jboolean)isDrawerViewWithADView:(ADView *)child {
-  jint gravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(child)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
-  jint absGravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(gravity, ADXViewCompat_getLayoutDirectionWithADView_(child));
+- (bool)isDrawerViewWithADView:(ADView *)child {
+  int32_t gravity = ((ADXDrawerLayout_LayoutParams *) nil_chk(((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(child)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]))))->gravity_;
+  int32_t absGravity = ADXGravityCompat_getAbsoluteGravityWithInt_withInt_(gravity, ADXViewCompat_getLayoutDirectionWithADView_(child));
   if ((absGravity & ADGravity_LEFT) != 0) {
     return true;
   }
@@ -593,7 +605,7 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
 }
 
 - (void)openDrawerWithADView:(ADView *)drawerView
-                 withBoolean:(jboolean)animate {
+                 withBoolean:(bool)animate {
   if (![self isDrawerViewWithADView:drawerView]) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$@$", @"View ", drawerView, @" is not a sliding drawer"));
   }
@@ -621,12 +633,12 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   [self invalidate];
 }
 
-- (void)openDrawerWithInt:(jint)gravity {
+- (void)openDrawerWithInt:(int32_t)gravity {
   [self openDrawerWithInt:gravity withBoolean:true];
 }
 
-- (void)openDrawerWithInt:(jint)gravity
-              withBoolean:(jboolean)animate {
+- (void)openDrawerWithInt:(int32_t)gravity
+              withBoolean:(bool)animate {
   ADView *drawerView = [self findDrawerWithGravityWithInt:gravity];
   if (drawerView == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$$", @"No drawer view found with gravity ", ADXDrawerLayout_gravityToStringWithInt_(gravity)));
@@ -639,7 +651,7 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
 }
 
 - (void)closeDrawerWithADView:(ADView *)drawerView
-                  withBoolean:(jboolean)animate {
+                  withBoolean:(bool)animate {
   if (![self isDrawerViewWithADView:drawerView]) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$@$", @"View ", drawerView, @" is not a sliding drawer"));
   }
@@ -665,12 +677,12 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   [self invalidate];
 }
 
-- (void)closeDrawerWithInt:(jint)gravity {
+- (void)closeDrawerWithInt:(int32_t)gravity {
   [self closeDrawerWithInt:gravity withBoolean:true];
 }
 
-- (void)closeDrawerWithInt:(jint)gravity
-               withBoolean:(jboolean)animate {
+- (void)closeDrawerWithInt:(int32_t)gravity
+               withBoolean:(bool)animate {
   ADView *drawerView = [self findDrawerWithGravityWithInt:gravity];
   if (drawerView == nil) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$$", @"No drawer view found with gravity ", ADXDrawerLayout_gravityToStringWithInt_(gravity)));
@@ -678,7 +690,7 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   [self closeDrawerWithADView:drawerView withBoolean:animate];
 }
 
-- (jboolean)isDrawerOpenWithADView:(ADView *)drawer {
+- (bool)isDrawerOpenWithADView:(ADView *)drawer {
   if (![self isDrawerViewWithADView:drawer]) {
     @throw create_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$@$", @"View ", drawer, @" is not a drawer"));
   }
@@ -686,7 +698,7 @@ J2OBJC_STATIC_FIELD_CONSTANT(ADXDrawerLayout_ViewDragHelper, EDGE_SIZE, jint)
   return (((ADXDrawerLayout_LayoutParams *) nil_chk(drawerLp))->openState_ & ADXDrawerLayout_LayoutParams_FLAG_IS_OPENED) == 1;
 }
 
-- (jboolean)isDrawerOpenWithInt:(jint)drawerGravity {
+- (bool)isDrawerOpenWithInt:(int32_t)drawerGravity {
   ADView *drawerView = [self findDrawerWithGravityWithInt:drawerGravity];
   if (drawerView != nil) {
     return [self isDrawerOpenWithADView:drawerView];
@@ -706,52 +718,52 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (void)updateChildrenImportantForAccessibilityWithADView:(ADView *)drawerView
-                                              withBoolean:(jboolean)b {
+                                              withBoolean:(bool)b {
   ADXDrawerLayout_updateChildrenImportantForAccessibilityWithADView_withBoolean_(self, drawerView, b);
 }
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
-                            withInt:(jint)x
-                            withInt:(jint)y {
+                            withInt:(int32_t)x
+                            withInt:(int32_t)y {
 }
 
-- (void)updateDrawerViewStateWithInt:(jint)activeState
+- (void)updateDrawerViewStateWithInt:(int32_t)activeState
                           withADView:(ADView *)activeDrawer {
   [self updateDrawerStateWithInt:activeState withADView:activeDrawer];
 }
 
 - (void)moveDrawerViewToOffsetWithADView:(ADView *)drawerView
-                               withFloat:(jfloat)slideOffset {
+                               withFloat:(float)slideOffset {
   [self moveDrawerToOffsetWithADView:drawerView withFloat:slideOffset];
 }
 
-- (jboolean)isViewContentViewWithADView:(ADView *)view {
+- (bool)isViewContentViewWithADView:(ADView *)view {
   return [self isContentViewWithADView:view];
 }
 
-- (jboolean)requiresToBeOnScreenWithADView:(ADView *)view {
+- (bool)requiresToBeOnScreenWithADView:(ADView *)view {
   return ((ADXDrawerLayout_LayoutParams *) nil_chk((((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(view)) getLayoutParams], [ADXDrawerLayout_LayoutParams class])))))->onScreen_ == 1;
 }
 
-- (jboolean)isOpeningWithADView:(ADView *)drawerView {
+- (bool)isOpeningWithADView:(ADView *)drawerView {
   ADXDrawerLayout_LayoutParams *layoutParams = ((ADXDrawerLayout_LayoutParams *) cast_chk([((ADView *) nil_chk(drawerView)) getLayoutParams], [ADXDrawerLayout_LayoutParams class]));
-  jint openState = ((ADXDrawerLayout_LayoutParams *) nil_chk(layoutParams))->openState_;
+  int32_t openState = ((ADXDrawerLayout_LayoutParams *) nil_chk(layoutParams))->openState_;
   return (openState & ADXDrawerLayout_LayoutParams_FLAG_IS_OPENING) != 0;
 }
 
 - (void)onViewPositionChangedWithADView:(ADView *)changedView
-                                withInt:(jint)left
-                                withInt:(jint)top
-                                withInt:(jint)dx
-                                withInt:(jint)dy {
-  jfloat offset;
-  jint childWidth = [((ADView *) nil_chk(changedView)) getWidth];
+                                withInt:(int32_t)left
+                                withInt:(int32_t)top
+                                withInt:(int32_t)dx
+                                withInt:(int32_t)dy {
+  float offset;
+  int32_t childWidth = [((ADView *) nil_chk(changedView)) getWidth];
   if ([self checkDrawerViewAbsoluteGravityWithADView:changedView withInt:ADGravity_LEFT]) {
-    offset = (jfloat) (childWidth + left) / childWidth;
+    offset = (float) (childWidth + left) / childWidth;
   }
   else {
-    jint width = [self getWidth];
-    offset = (jfloat) (width - left) / childWidth;
+    int32_t width = [self getWidth];
+    offset = (float) (width - left) / childWidth;
   }
   [self setDrawerViewOffsetWithADView:changedView withFloat:offset];
 }
@@ -912,7 +924,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 @end
 
-NSString *ADXDrawerLayout_gravityToStringWithInt_(jint gravity) {
+NSString *ADXDrawerLayout_gravityToStringWithInt_(int32_t gravity) {
   ADXDrawerLayout_initialize();
   if ((gravity & ADGravity_LEFT) == ADGravity_LEFT) {
     return @"LEFT";
@@ -931,7 +943,7 @@ void ADXDrawerLayout_init(ADXDrawerLayout *self) {
   self->mLockModeRight_ = ADXDrawerLayout_LOCK_MODE_UNDEFINED;
   self->mLockModeStart_ = ADXDrawerLayout_LOCK_MODE_UNDEFINED;
   self->mLockModeEnd_ = ADXDrawerLayout_LOCK_MODE_UNDEFINED;
-  jfloat density = ((ADDisplayMetrics *) nil_chk([((ADResources *) nil_chk([self getResources])) getDisplayMetrics]))->density_;
+  float density = ((ADDisplayMetrics *) nil_chk([((ADResources *) nil_chk([self getResources])) getDisplayMetrics]))->density_;
   self->mMinDrawerMargin_ = JreFpToInt((ADXDrawerLayout_MIN_DRAWER_MARGIN * density + 0.5f));
   JreStrongAssignAndConsume(&self->mLeftDragger_, new_ADXDrawerLayout_ViewDragHelper_initWithADXDrawerLayout_withADContext_(self, [self getContext]));
   JreStrongAssignAndConsume(&self->mRightDragger_, new_ADXDrawerLayout_ViewDragHelper_initWithADXDrawerLayout_withADContext_(self, [self getContext]));
@@ -948,10 +960,12 @@ ADXDrawerLayout *create_ADXDrawerLayout_init() {
 void ADXDrawerLayout_updateChildAccessibilityActionWithADView_(ADXDrawerLayout *self, ADView *drawerView) {
 }
 
-void ADXDrawerLayout_updateChildrenImportantForAccessibilityWithADView_withBoolean_(ADXDrawerLayout *self, ADView *drawerView, jboolean b) {
+void ADXDrawerLayout_updateChildrenImportantForAccessibilityWithADView_withBoolean_(ADXDrawerLayout *self, ADView *drawerView, bool b) {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ADXDrawerLayout)
+
+J2OBJC_NAME_MAPPING(ADXDrawerLayout, "androidx.drawerlayout.widget", "ADX")
 
 @implementation ADXDrawerLayout_DrawerListener
 
@@ -981,15 +995,15 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(ADXDrawerLayout_DrawerListener)
 
 @implementation ADXDrawerLayout_LayoutParams
 
-- (instancetype)initWithInt:(jint)width
-                    withInt:(jint)height {
+- (instancetype)initWithInt:(int32_t)width
+                    withInt:(int32_t)height {
   ADXDrawerLayout_LayoutParams_initWithInt_withInt_(self, width, height);
   return self;
 }
 
-- (instancetype)initWithInt:(jint)width
-                    withInt:(jint)height
-                    withInt:(jint)gravity {
+- (instancetype)initWithInt:(int32_t)width
+                    withInt:(int32_t)height
+                    withInt:(int32_t)gravity {
   ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(self, width, height, gravity);
   return self;
 }
@@ -1035,29 +1049,29 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(ADXDrawerLayout_DrawerListener)
 
 @end
 
-void ADXDrawerLayout_LayoutParams_initWithInt_withInt_(ADXDrawerLayout_LayoutParams *self, jint width, jint height) {
+void ADXDrawerLayout_LayoutParams_initWithInt_withInt_(ADXDrawerLayout_LayoutParams *self, int32_t width, int32_t height) {
   ADViewGroup_MarginLayoutParams_initWithInt_withInt_(self, width, height);
   self->gravity_ = ADGravity_NO_GRAVITY;
 }
 
-ADXDrawerLayout_LayoutParams *new_ADXDrawerLayout_LayoutParams_initWithInt_withInt_(jint width, jint height) {
+ADXDrawerLayout_LayoutParams *new_ADXDrawerLayout_LayoutParams_initWithInt_withInt_(int32_t width, int32_t height) {
   J2OBJC_NEW_IMPL(ADXDrawerLayout_LayoutParams, initWithInt_withInt_, width, height)
 }
 
-ADXDrawerLayout_LayoutParams *create_ADXDrawerLayout_LayoutParams_initWithInt_withInt_(jint width, jint height) {
+ADXDrawerLayout_LayoutParams *create_ADXDrawerLayout_LayoutParams_initWithInt_withInt_(int32_t width, int32_t height) {
   J2OBJC_CREATE_IMPL(ADXDrawerLayout_LayoutParams, initWithInt_withInt_, width, height)
 }
 
-void ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(ADXDrawerLayout_LayoutParams *self, jint width, jint height, jint gravity) {
+void ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(ADXDrawerLayout_LayoutParams *self, int32_t width, int32_t height, int32_t gravity) {
   ADXDrawerLayout_LayoutParams_initWithInt_withInt_(self, width, height);
   self->gravity_ = gravity;
 }
 
-ADXDrawerLayout_LayoutParams *new_ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(jint width, jint height, jint gravity) {
+ADXDrawerLayout_LayoutParams *new_ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(int32_t width, int32_t height, int32_t gravity) {
   J2OBJC_NEW_IMPL(ADXDrawerLayout_LayoutParams, initWithInt_withInt_withInt_, width, height, gravity)
 }
 
-ADXDrawerLayout_LayoutParams *create_ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(jint width, jint height, jint gravity) {
+ADXDrawerLayout_LayoutParams *create_ADXDrawerLayout_LayoutParams_initWithInt_withInt_withInt_(int32_t width, int32_t height, int32_t gravity) {
   J2OBJC_CREATE_IMPL(ADXDrawerLayout_LayoutParams, initWithInt_withInt_withInt_, width, height, gravity)
 }
 
@@ -1092,7 +1106,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ADXDrawerLayout_LayoutParams)
 
 @implementation ADXDrawerLayout_ViewDragHelper
 
-- (jint)getViewDragState {
+- (int32_t)getViewDragState {
   return mDragState_;
 }
 
@@ -1105,17 +1119,17 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ADXDrawerLayout_LayoutParams)
   return self;
 }
 
-- (jint)getDefaultEdgeSize {
+- (int32_t)getDefaultEdgeSize {
   return mDefaultEdgeSize_;
 }
 
-- (void)setEdgeSizeWithInt:(jint)size {
+- (void)setEdgeSizeWithInt:(int32_t)size {
   mEdgeSize_ = size;
 }
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
-                            withInt:(jint)x
-                            withInt:(jint)y {
+                            withInt:(int32_t)x
+                            withInt:(int32_t)y {
   [this$0_ smoothSlideViewToWithADView:drawerView withInt:x withInt:y];
 }
 
@@ -1163,7 +1177,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ADXDrawerLayout_LayoutParams)
 void ADXDrawerLayout_ViewDragHelper_initWithADXDrawerLayout_withADContext_(ADXDrawerLayout_ViewDragHelper *self, ADXDrawerLayout *outer$, ADContext *context) {
   JreStrongAssign(&self->this$0_, outer$);
   NSObject_init(self);
-  jfloat density = ((ADDisplayMetrics *) nil_chk([((ADResources *) nil_chk([((ADContext *) nil_chk(context)) getResources])) getDisplayMetrics]))->density_;
+  float density = ((ADDisplayMetrics *) nil_chk([((ADResources *) nil_chk([((ADContext *) nil_chk(context)) getResources])) getDisplayMetrics]))->density_;
   self->mDefaultEdgeSize_ = JreFpToInt((ADXDrawerLayout_ViewDragHelper_EDGE_SIZE * density + 0.5f));
 }
 
@@ -1184,26 +1198,26 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ADXDrawerLayout_ViewDragHelper)
   return self;
 }
 
-- (jint)getSystemWindowInsetLeft {
+- (int32_t)getSystemWindowInsetLeft {
   return 0;
 }
 
-- (ADXDrawerLayout_WindowInsetsCompat *)replaceSystemWindowInsetsWithInt:(jint)systemWindowInsetLeft
-                                                                 withInt:(jint)systemWindowInsetTop
-                                                                 withInt:(jint)systemWindowInsetRight
-                                                                 withInt:(jint)systemWindowInsetBottom {
+- (ADXDrawerLayout_WindowInsetsCompat *)replaceSystemWindowInsetsWithInt:(int32_t)systemWindowInsetLeft
+                                                                 withInt:(int32_t)systemWindowInsetTop
+                                                                 withInt:(int32_t)systemWindowInsetRight
+                                                                 withInt:(int32_t)systemWindowInsetBottom {
   return nil;
 }
 
-- (jint)getSystemWindowInsetBottom {
+- (int32_t)getSystemWindowInsetBottom {
   return 0;
 }
 
-- (jint)getSystemWindowInsetRight {
+- (int32_t)getSystemWindowInsetRight {
   return 0;
 }
 
-- (jint)getSystemWindowInsetTop {
+- (int32_t)getSystemWindowInsetTop {
   return 0;
 }
 

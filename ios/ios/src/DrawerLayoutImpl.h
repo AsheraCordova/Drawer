@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSNavigationDrawerPlugin\src\main\java\com\ashera\drawerlayout\DrawerLayoutImpl.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_DrawerLayoutImpl")
@@ -22,6 +23,9 @@
 
 @class ASWidgetAttribute;
 @class IOSClass;
+@class JavaLangBoolean;
+@class JavaLangInteger;
+@class NSString;
 @protocol ASIFragment;
 @protocol ASILifeCycleDecorator;
 @protocol ASIWidget;
@@ -40,13 +44,13 @@
                     withNSString:(NSString *)localname;
 
 - (void)addWithASIWidget:(id<ASIWidget>)w
-                 withInt:(jint)index;
+                 withInt:(int32_t)index;
 
 - (id)asNativeWidget;
 
 - (id)asWidget;
 
-- (jboolean)checkIosVersionWithNSString:(NSString *)v;
+- (bool)checkIosVersionWithNSString:(NSString *)v;
 
 - (void)createWithASIFragment:(id<ASIFragment>)fragment
               withJavaUtilMap:(id<JavaUtilMap>)params;
@@ -67,16 +71,16 @@
 
 - (void)nativeCreateWithJavaUtilMap:(id<JavaUtilMap>)params;
 
-- (void)nativeMakeFrameForChildWidgetWithInt:(jint)l
-                                     withInt:(jint)t
-                                     withInt:(jint)r
-                                     withInt:(jint)b;
+- (void)nativeMakeFrameForChildWidgetWithInt:(int32_t)l
+                                     withInt:(int32_t)t
+                                     withInt:(int32_t)r
+                                     withInt:(int32_t)b;
 
 - (id<ASIWidget>)newInstance OBJC_METHOD_FAMILY_NONE;
 
-- (jboolean)removeWithInt:(jint)index;
+- (bool)removeWithInt:(int32_t)index;
 
-- (jboolean)removeWithASIWidget:(id<ASIWidget>)w;
+- (bool)removeWithASIWidget:(id<ASIWidget>)w;
 
 - (void)requestLayout;
 
@@ -92,7 +96,7 @@
 
 - (void)setIdWithNSString:(NSString *)id_;
 
-- (void)setVisibleWithBoolean:(jboolean)b;
+- (void)setVisibleWithBoolean:(bool)b;
 
 #pragma mark Package-Private
 
@@ -132,6 +136,7 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl)
 
 @compatibility_alias ComAsheraDrawerlayoutDrawerLayoutImpl ASDrawerLayoutImpl;
 
+
 #endif
 
 #if !defined (ASDrawerLayoutImpl_DrawerLockMode_) && (INCLUDE_ALL_DrawerLayoutImpl || defined(INCLUDE_ASDrawerLayoutImpl_DrawerLockMode))
@@ -168,6 +173,7 @@ FOUNDATION_EXPORT ASDrawerLayoutImpl_DrawerLockMode *create_ASDrawerLayoutImpl_D
 
 J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 
+
 #endif
 
 #if !defined (ASDrawerLayoutImpl_DrawerLayoutExt_) && (INCLUDE_ALL_DrawerLayoutImpl || defined(INCLUDE_ASDrawerLayoutImpl_DrawerLayoutExt))
@@ -191,6 +197,9 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 @class ASWidgetAttribute;
 @class IOSIntArray;
 @class IOSObjectArray;
+@class JavaLangBoolean;
+@class JavaLangInteger;
+@class NSString;
 @protocol ASIWidget;
 @protocol JavaUtilList;
 
@@ -211,9 +220,9 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 
 - (void)getLocationOnScreenWithIntArray:(IOSIntArray *)appScreenLocation;
 
-- (jint)getMaxHeight;
+- (int32_t)getMaxHeight;
 
-- (jint)getMaxWidth;
+- (int32_t)getMaxWidth;
 
 - (id<JavaUtilList>)getMethods;
 
@@ -227,12 +236,12 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 
 - (id<ASILifeCycleDecorator>)newInstanceWithASIWidget:(id<ASIWidget>)widget OBJC_METHOD_FAMILY_NONE;
 
-- (void)offsetLeftAndRightWithInt:(jint)offset;
+- (void)offsetLeftAndRightWithInt:(int32_t)offset;
 
-- (void)offsetTopAndBottomWithInt:(jint)offset;
+- (void)offsetTopAndBottomWithInt:(int32_t)offset;
 
-- (void)onMeasureWithInt:(jint)widthMeasureSpec
-                 withInt:(jint)heightMeasureSpec;
+- (void)onMeasureWithInt:(int32_t)widthMeasureSpec
+                 withInt:(int32_t)heightMeasureSpec;
 
 - (void)remeasure;
 
@@ -242,9 +251,9 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
                              withNSString:(NSString *)strValue
                                    withId:(id)objValue;
 
-- (void)setMaxHeightWithInt:(jint)height;
+- (void)setMaxHeightWithInt:(int32_t)height;
 
-- (void)setMaxWidthWithInt:(jint)width;
+- (void)setMaxWidthWithInt:(int32_t)width;
 
 - (void)setMyAttributeWithNSString:(NSString *)name
                             withId:(id)value;
@@ -259,11 +268,11 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 
 - (void)setState4WithId:(id)value;
 
-- (void)setVisibilityWithInt:(jint)visibility;
+- (void)setVisibilityWithInt:(int32_t)visibility;
 
 - (void)smoothSlideViewToWithADView:(ADView *)drawerView
-                            withInt:(jint)x
-                            withInt:(jint)y;
+                            withInt:(int32_t)x
+                            withInt:(int32_t)y;
 
 - (void)state0;
 
@@ -279,16 +288,16 @@ J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLockMode)
 
 - (void)stateYes;
 
-- (void)updateMeasuredDimensionWithInt:(jint)width
-                               withInt:(jint)height;
+- (void)updateMeasuredDimensionWithInt:(int32_t)width
+                               withInt:(int32_t)height;
 
 #pragma mark Protected
 
-- (void)onLayoutWithBoolean:(jboolean)changed
-                    withInt:(jint)l
-                    withInt:(jint)t
-                    withInt:(jint)r
-                    withInt:(jint)b;
+- (void)onLayoutWithBoolean:(bool)changed
+                    withInt:(int32_t)l
+                    withInt:(int32_t)t
+                    withInt:(int32_t)r
+                    withInt:(int32_t)b;
 
 // Disallowed inherited constructors, do not use.
 
@@ -305,6 +314,7 @@ FOUNDATION_EXPORT ASDrawerLayoutImpl_DrawerLayoutExt *new_ASDrawerLayoutImpl_Dra
 FOUNDATION_EXPORT ASDrawerLayoutImpl_DrawerLayoutExt *create_ASDrawerLayoutImpl_DrawerLayoutExt_initWithASDrawerLayoutImpl_(ASDrawerLayoutImpl *outer$);
 
 J2OBJC_TYPE_LITERAL_HEADER(ASDrawerLayoutImpl_DrawerLayoutExt)
+
 
 #endif
 
