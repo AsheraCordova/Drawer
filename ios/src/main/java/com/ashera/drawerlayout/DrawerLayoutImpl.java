@@ -1,3 +1,18 @@
+//start - license
+/*
+ * Copyright (c) 2025 Ashera Cordova
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ */
+//end - license
 package com.ashera.drawerlayout;
 // start - imports
 import java.util.*;
@@ -1283,7 +1298,7 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 		}
 	}
 	
-	private native void nativeUpdateBlurredPanelBounds(Object objview) /*-[
+	private native void nativeUpdateBlurredPanelBounds(Object objview)/*-[
 		UIView* uiview = ((UIView*) objview);
     	CGRect frame = uiview.frame;
     	frame.size.width = uiview.superview.frame.size.width;
@@ -1356,7 +1371,7 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 	}
 
 //
-	private native void updateX(Object objview, int x) /*-[
+	private native void updateX(Object objview, int x)/*-[
 		UIView* uiview = ((UIView*) objview);
 	    CGRect frame = uiview.frame;
 	    frame.origin.x = x;
