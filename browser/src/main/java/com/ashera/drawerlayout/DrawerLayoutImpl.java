@@ -1294,18 +1294,11 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 	private void updateX(Object nativeWidget, int x) {
 		((HTMLElement) nativeWidget).getStyle().setProperty("left", x + "px");
 	}
-	
-	public interface HtmlMouseEvent extends org.teavm.jso.dom.events.Event {
-	    @org.teavm.jso.JSProperty
-	    int getClientX();
-	    
-	    @org.teavm.jso.JSProperty
-	    int getClientY();
-	}
-	private class MouseListener implements org.teavm.jso.dom.events.EventListener<HtmlMouseEvent> {
+
+	private class MouseListener implements org.teavm.jso.dom.events.EventListener<ViewImpl.HtmlMouseEvent> {
 		@Override
-		public void handleEvent(HtmlMouseEvent event) {
-			int eventX = event.getClientX();
+		public void handleEvent(ViewImpl.HtmlMouseEvent event) {
+			int eventX = ViewImpl.getClientX(event, DrawerLayoutImpl.this);
 			switch (event.getType()) {
 			case "mousedown":
 				handlePanStart(eventX);
@@ -1323,16 +1316,16 @@ public java.util.Map<String, Object> getOnDrawerStateChangedEventObj(int newStat
 		}
 	}
 	
-	private class DrawerDragListener implements org.teavm.jso.dom.events.EventListener<HtmlMouseEvent> {
+	private class DrawerDragListener implements org.teavm.jso.dom.events.EventListener<ViewImpl.HtmlMouseEvent> {
 		private IWidget widget;
 		public DrawerDragListener(IWidget widget) {
 			this.widget = widget;
 		}
 
 		@Override
-		public void handleEvent(HtmlMouseEvent event) {
+		public void handleEvent(ViewImpl.HtmlMouseEvent event) {
 
-			int eventX = event.getClientX();
+			int eventX = ViewImpl.getClientX(event, widget);
 			switch (event.getType()) {
 			case "mousedown":
 				handlePanStart(eventX);
